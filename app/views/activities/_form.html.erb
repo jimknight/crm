@@ -12,31 +12,42 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :client_id %><br>
+    <%= f.label :client_id %>
     <%= f.text_field :client_id %>
   </div>
+  <%= f.select :client_id, options_from_collection_for_select(Client.all, :id, :name) %>
+
+
+<label for="select-choice-1" class="select">Select, native menu</label>
+<select name="select-choice-1" id="select-choice-1">
+    <option value="standard">Standard: 7 day</option>
+    <option value="rush">Rush: 3 days</option>
+    <option value="express">Express: next day</option>
+    <option value="overnight">Overnight</option>
+</select>
+
   <div class="field">
-    <%= f.label :activity_date %><br>
-    <%= f.text_field :activity_date %>
+    <%= f.label :activity_date %>
+    <%= f.text_field :activity_date, :type => "date" %>
   </div>
   <div class="field">
-    <%= f.label :contact_id %><br>
+    <%= f.label :contact_id %>
     <%= f.text_field :contact_id %>
   </div>
   <div class="field">
-    <%= f.label :city %><br>
+    <%= f.label :city %>
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :state %><br>
+    <%= f.label :state %>
     <%= f.text_field :state %>
   </div>
   <div class="field">
-    <%= f.label :industry %><br>
+    <%= f.label :industry %>
     <%= f.text_field :industry %>
   </div>
   <div class="field">
-    <%= f.label :comments %><br>
+    <%= f.label :comments %>
     <%= f.text_area :comments %>
   </div>
   <div class="actions">

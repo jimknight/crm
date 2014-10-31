@@ -14,7 +14,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/new
   def new
-    @activity = Activity.new
+    @activity = Activity.new(:activity_date => Date.today)
   end
 
   # GET /activities/1/edit
