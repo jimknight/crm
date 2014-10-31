@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @activity.client %>
+</p>
+
+<p>
+  <strong>Activity date:</strong>
+  <%= @activity.activity_date %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @activity.contact %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @activity.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @activity.state %>
+</p>
+
+<p>
+  <strong>Industry:</strong>
+  <%= @activity.industry %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @activity.comments %>
+</p>
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'Back', activities_path %>
