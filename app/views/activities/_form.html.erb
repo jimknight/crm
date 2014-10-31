@@ -15,9 +15,20 @@
     <%= f.label :client_id %>
     <%= f.text_field :client_id %>
   </div>
+  <%= f.select :client_id, options_from_collection_for_select(Client.all, :id, :name) %>
+
+
+<label for="select-choice-1" class="select">Select, native menu</label>
+<select name="select-choice-1" id="select-choice-1">
+    <option value="standard">Standard: 7 day</option>
+    <option value="rush">Rush: 3 days</option>
+    <option value="express">Express: next day</option>
+    <option value="overnight">Overnight</option>
+</select>
+
   <div class="field">
     <%= f.label :activity_date %>
-    <%= f.text_field :activity_date %>
+    <%= f.text_field :activity_date, :type => "date" %>
   </div>
   <div class="field">
     <%= f.label :contact_id %>

@@ -12,36 +12,36 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :street1 %><br>
+    <%= f.label :street1 %>
     <%= f.text_field :street1 %>
   </div>
   <div class="field">
-    <%= f.label :street2 %><br>
+    <%= f.label :street2 %>
     <%= f.text_field :street2 %>
   </div>
   <div class="field">
-    <%= f.label :city %><br>
+    <%= f.label :city %>
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
+    <%= f.label :state %>
+    <%= select_tag :state, options_for_select(us_states,@client.state) %>
   </div>
   <div class="field">
-    <%= f.label :zip %><br>
+    <%= f.label :zip %>
     <%= f.text_field :zip %>
   </div>
   <div class="field">
-    <%= f.label :phone %><br>
+    <%= f.label :phone %>
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :industry %><br>
-    <%= f.text_field :industry %>
+    <%= f.label :industry %>
+    <%= f.select :industry, options_from_collection_for_select(Industry.all.order("name"), :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit %>
