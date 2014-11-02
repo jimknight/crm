@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to "Add contact", new_client_contact_path(@client) %>
+
 <p>
   <strong>Name:</strong>
   <%= @client.name %>
@@ -39,6 +41,3 @@
   <strong>Industry:</strong>
   <%= @client.industry %>
 </p>
-
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>

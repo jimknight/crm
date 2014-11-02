@@ -14,6 +14,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts/new
   def new
+    @client = Client.find(params[:client_id])
     @contact = Contact.new
   end
 
