@@ -10,6 +10,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+    @client = Client.find(params[:client_id])
   end
 
   # GET /contacts/new
@@ -25,12 +26,15 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
+    @client = Client.find(params[:client_id])
     @contact = Contact.new(contact_params)
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+        @client.contacts << @contact
+        format.html { redirect_to @client, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
+
       else
         format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }

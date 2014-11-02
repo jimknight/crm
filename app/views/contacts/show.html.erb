@@ -27,8 +27,5 @@
 
 <p>
   <strong>Client:</strong>
-  <%= @contact.client %>
+  <%= link_to @client.name, @client %>
 </p>
-
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>

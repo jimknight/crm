@@ -5,6 +5,8 @@ describe "show" do
     @client = Client.create!(:name => "SGA")
     visit client_path(@client)
     click_link "Add contact"
-    page.should have_content "New contact"
+    fill_in "Name", :with => "Wayne Scarano"
+    click_button "Create Contact"
+    click_link "Wayne Scarano"
   end
 end

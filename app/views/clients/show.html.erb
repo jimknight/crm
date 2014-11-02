@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to "Add contact", new_client_contact_path(@client) %>
+<%= link_to "Add contact", new_client_contact_path(@client), :class => "ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left" %>
+
 
 <p>
   <strong>Name:</strong>
@@ -41,3 +42,10 @@
   <strong>Industry:</strong>
   <%= @client.industry %>
 </p>
+
+<h2>List of contacts for this client</h2>
+<ul>
+<% @client.contacts.each do |contact| %>
+<li><%= link_to contact.name, [@client,contact] %></li>
+<% end %>
+</ul>
