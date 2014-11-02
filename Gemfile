@@ -29,6 +29,7 @@ gem 'spring',        group: :development
 gem 'jquery-mobile-rails-assets'
 
 group :development, :test do
+  gem 'pry'
   gem 'rspec-rails', '~> 3.0.0'
 end
 
