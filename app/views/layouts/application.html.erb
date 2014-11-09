@@ -2,27 +2,13 @@
 <html>
 <head>
   <title>Crm</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<div data-role="page">
-
-  <div data-role="header">
-    <h1>Page Title</h1>
-  </div><!-- /header -->
-
-  <div role="main" class="ui-content">
     <%= yield %>
-  </div><!-- /content -->
-
-  <div data-role="footer">
-    <h4>Page Footer</h4>
-  </div><!-- /footer -->
-</div><!-- /page -->
 
 </body>
 </html>
