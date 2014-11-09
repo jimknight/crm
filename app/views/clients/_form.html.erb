@@ -41,7 +41,7 @@
   </div>
   <div class="field">
     <%= f.label :industry %>
-    <%= f.select :industry, options_from_collection_for_select(Industry.all.order("name"), :id, :name) %>
+    <%= f.select :industry, options_from_collection_for_select(Industry.all.order("name"), :id, :name), :include_blank => true %>
   </div>
   <div class="actions">
     <%= f.submit %>

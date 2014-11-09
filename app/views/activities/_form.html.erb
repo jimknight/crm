@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :client_id %>
-    <%= f.select :client_id, options_from_collection_for_select(Client.all, :id, :name), :include_blank => true %>
+    <%= f.select :client_id, options_from_collection_for_select(Client.all, :id, :name, @client.id), :include_blank => true %>
   </div>
   <div class="field">
     <%= f.label :activity_date %>
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :contact_id %>
-    <%= f.text_field :contact_id %>
+    <%= f.select :contact_id, options_from_collection_for_select(@client.contacts, :id, :name), :include_blank => true %>
   </div>
   <div class="field">
     <%= f.label :city %>
