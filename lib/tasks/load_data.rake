@@ -18,4 +18,29 @@ namespace :load_data do
     end
     puts "Done"
   end
+
+  desc "Load all the clients"
+  task :clients => :environment do
+    require 'csv'
+    csv_text = File.read(Rails.root + "vendor/data/client-contacts-loader.csv")
+    csv = CSV.parse(csv_text, :headers => true)
+    csv.each do |row|
+      @client = Client.find_or_create_by(:name => row["Client"])
+      if row["City"].present?
+        @client.city = row["City"]
+        @client.save!
+      end
+      if row["State"].present?
+        @client.state = row["State"]
+        @client.save!
+      end
+      if row["Contact"].present?
+        @contact = @client.contacts.find_or_create_by(:name => row["Contact"])
+        if row["Contact Description"].present?
+          @contact.contact_description = row["Contact Description"]
+          @contact.save!
+        end
+      end
+    end
+  end
 end
