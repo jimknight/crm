@@ -34,6 +34,8 @@ end
 gem 'capybara'
 gem 'launchy'
 
+gem 'annotate', '~> 2.6.5'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
