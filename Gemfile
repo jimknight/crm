@@ -31,8 +31,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
 end
 
-gem 'capybara'
 gem 'launchy'
+gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
 
 gem 'annotate', '~> 2.6.5'
 
