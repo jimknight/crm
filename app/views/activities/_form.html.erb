@@ -29,11 +29,11 @@
   </div>
   <div class="field">
     <%= f.label :state %>
-    <%= f.text_field :state %>
+    <%= f.select :state, options_for_select(us_states,@activity.state) %>
   </div>
   <div class="field">
     <%= f.label :industry %>
-    <%= f.text_field :industry %>
+    <%= f.select :industry, options_from_collection_for_select(Industry.all.order(:name), :id, :name), :include_blank => true %>
   </div>
   <div class="field">
     <%= f.label :comments %>
