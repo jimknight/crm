@@ -16,6 +16,8 @@ class ActivitiesController < ApplicationController
   def new
     if params[:client]
       @client = Client.find(params[:client])
+    else
+      @client = Client.new
     end
     @activity = Activity.new(:activity_date => Date.today)
   end
