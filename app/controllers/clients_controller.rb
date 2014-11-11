@@ -10,6 +10,10 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @client.to_json(include: :contacts) }
+    end
   end
 
   # GET /clients/new
