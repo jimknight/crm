@@ -17,9 +17,9 @@
   <tbody>
     <% @activities.each do |activity| %>
       <tr>
-        <td><%= activity.client %></td>
+        <td><%= activity.client.name %></td>
         <td><%= activity.activity_date %></td>
-        <td><%= activity.contact %></td>
+        <td><%= activity.contact.name %></td>
         <td><%= activity.city %></td>
         <td><%= activity.state %></td>
         <td><%= activity.industry %></td>
