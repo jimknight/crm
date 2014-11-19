@@ -1,6 +1,7 @@
 <h1>Listing activities</h1>
+<p><%= link_to 'New Activity', new_activity_path, :class => "btn btn-primary" %></p>
 
-<table>
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>Client</th>
@@ -18,11 +19,15 @@
     <% @activities.each do |activity| %>
       <tr>
         <td><%= activity.client.name %></td>
-        <td><%= activity.activity_date %></td>
+        <td><%= activity.activity_date.to_date %></td>
         <td><%= activity.contact.name %></td>
         <td><%= activity.city %></td>
         <td><%= activity.state %></td>
-        <td><%= activity.industry %></td>
+        <% if activity.industry.present? %>
+          <td><%= Industry.find(activity.industry).name %></td>
+        <% else %>
+          <td>&nbsp;</td>
+        <% end %>
         <td><%= activity.comments %></td>
         <td><%= link_to 'Show', activity %></td>
         <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
@@ -31,7 +36,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Activity', new_activity_path %>

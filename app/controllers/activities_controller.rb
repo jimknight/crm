@@ -24,6 +24,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
+    @client = @activity.client
   end
 
   # POST /activities
