@@ -28,28 +28,77 @@
   <body>
     <div class="navbar">
       <div class="navbar-inner">
-        <ul class="nav pull-right">
-          <li class="hidden-phone"><a href="#" role="button">Settings</a></li>
-          <li id="fat-menu" class="dropdown">
-            <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="icon-user"></i>
-              Jack Smith
-              <i class="icon-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a tabindex="-1" href="#">My Account</a></li>
-              <li class="divider"></li>
-              <li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
-              <li class="divider visible-phone"></li>
-              <li><a tabindex="-1" href="sign-in.html">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
         <a class="brand" href="index.html">c r m</a>
       </div>
     </div>
-    <div class="container">
-      <%= yield %>
+    <div id="main-menu">
+      <ul class="nav nav-tabs">
+        <li class = "active">
+          <%= link_to activities_path do %>
+              <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+            Activities
+          <% end %>
+        </li>
+        <li>
+          <%= link_to clients_path do %>
+            <span class="glyphicon glyphicon-user"></span>
+            Clients
+          <% end %>
+        </li>
+        <li>
+          <%= link_to models_path do %>
+            <span class="glyphicon glyphicon-book"></span>
+            Models
+          <% end %>
+        </li>
+        <li><%= link_to industries_path do %>
+            <span class="glyphicon glyphicon-th-large"></span>
+            Industries
+          <% end %></li>
+      </ul>
+    </div>
+    <div id="sidebar-nav">
+      <ul id="dashboard-menu" class="nav nav-list">
+        <li class="active "><a href="index.html"><span class="glyphicon glyphicon-home"></span>
+            <span>Dashboard</span></a></li>
+        <li class=" "><a href="reports.html"><span class="glyphicon glyphicon-bar-chart"></span>
+            <span>Reports</span></a></li>
+        <li class=" "><a href="components.html"><span class="glyphicon glyphicon-briefcase"></span>
+            <span>UI Features</span></a></li>
+        <li class=" "><a href="pricing.html"><span class="glyphicon glyphicon-magic"></span>
+            <span>Pricing</span></a></li>
+        <li class=" "><a href="media.html"><span class="glyphicon glyphicon-film"></span>
+            <span>Media</span></a></li>
+        <li class=" "><a href="blog.html"><span class="glyphicon glyphicon-beaker"></span>
+            <span>Blog</span></a></li>
+        <li class=" "><a href="help.html"><span class="glyphicon glyphicon-question-sign"></span>
+            <span>Help</span></a></li>
+        <li class=" "><a href="faq.html"><span class="glyphicon glyphicon-book"></span>
+            <span>Faq</span></a></li>
+        <li class=" "><a href="calendar.html"><span class="glyphicon glyphicon-calendar"></span>
+            <span>Calendar</span></a></li>
+        <li class=" "><a href="forms.html"><span class="glyphicon glyphicon-tasks"></span>
+            <span>Forms</span></a></li>
+        <li class=" "><a href="tables.html"><span class="glyphicon glyphicon-table"></span>
+            <span>Tables</span></a></li>
+        <li class=" theme-mobile-hack"><a href="mobile.html"><span class="glyphicon glyphicon-comment-alt"></span>
+            <span>Mobile</span></a></li>
+        <li class=" "><a href="icons.html"><span class="glyphicon glyphicon-heart"></span>
+            <span>Font Awesome</span></a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="container-fluid">
+        <%= yield %>
+          <footer>
+            <hr>
+            <p class="pull-right">Design by
+              <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+            <p>© 2013
+              <a href="#">Your Company</a></p>
+          </footer>
+        </div>
+      </div>
     </div>
   </body>
 </html>
