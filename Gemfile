@@ -40,6 +40,8 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
 gem 'font-awesome-sass', '~> 4.2.0'
+gem 'devise'
+gem 'devise-bootstrap-views', '~> 0.0.3'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
