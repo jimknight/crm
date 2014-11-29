@@ -17,22 +17,28 @@
 
   <tbody>
     <% @activities.each do |activity| %>
-      <tr>
-        <td><%= activity.client.name %></td>
-        <td><%= activity.activity_date.to_date %></td>
-        <td><%= activity.contact.name %></td>
-        <td><%= activity.city %></td>
-        <td><%= activity.state %></td>
-        <% if activity.industry.present? %>
-          <td><%= Industry.find(activity.industry).name %></td>
-        <% else %>
-          <td>&nbsp;</td>
-        <% end %>
-        <td><%= activity.comments %></td>
-        <td><%= link_to 'Show', activity %></td>
-        <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
-        <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if !activity.nil? %>
+        <tr>
+          <% if activity.client.present? %>
+            <td><%= activity.client.name %></td>
+          <% end %>
+          <td><%= activity.activity_date.to_date %></td>
+          <% if activity.contact.present? %>
+            <td><%= activity.contact.name %></td>
+          <% end %>
+          <td><%= activity.city %></td>
+          <td><%= activity.state %></td>
+          <% if activity.industry.present? %>
+            <td><%= Industry.find(activity.industry).name %></td>
+          <% else %>
+            <td>&nbsp;</td>
+          <% end %>
+          <td><%= activity.comments %></td>
+          <td><%= link_to 'Show', activity %></td>
+          <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
+          <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

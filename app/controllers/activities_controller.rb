@@ -4,12 +4,16 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    @activities = current_user.activities
   end
 
   # GET /activities/1
-  # GET /activities/1.json
   def show
+    if current_user.activities.include?(params[:id])
+      @activity = current_user.activities.find(params[:id])
+    else
+      redirect_to root_path, :notice => "Not authorized"
+    end
   end
 
   # GET /activities/new
@@ -24,7 +28,12 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
-    @client = @activity.client
+    if current_user.activities.include?(params[:id])
+      @activity = current_user.activities.find(params[:id])
+      @client = @activity.client
+    else
+      redirect_to root_path, :notice => "Not authorized"
+    end
   end
 
   # POST /activities
@@ -34,6 +43,7 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
+        current_user.activities << @activity
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
       else

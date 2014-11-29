@@ -43,6 +43,8 @@ gem 'font-awesome-sass', '~> 4.2.0'
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 0.0.3'
 
+gem 'database_cleaner', :group => :test
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
