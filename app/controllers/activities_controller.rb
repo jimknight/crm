@@ -4,12 +4,16 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = current_user.activities
+    if current_user.admin?
+      @activities = Activity.all
+    else
+      @activities = current_user.activities
+    end
   end
 
   # GET /activities/1
   def show
-    if current_user.activities.include?(params[:id])
+    if current_user.activities.include?(params[:id]) || current_user.admin?
       @activity = current_user.activities.find(params[:id])
     else
       redirect_to root_path, :notice => "Not authorized"
@@ -28,7 +32,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
-    if current_user.activities.include?(params[:id])
+    if current_user.activities.include?(params[:id]) || current_user.admin?
       @activity = current_user.activities.find(params[:id])
       @client = @activity.client
     else
@@ -70,7 +74,11 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1
   # DELETE /activities/1.json
   def destroy
-    @activity.destroy
+    if current_user.activities.include?(params[:id]) || current_user.admin?
+      @activity = current_user.activities.find(params[:id])
+    else
+      redirect_to root_path, :notice => "Not authorized"
+    end
     respond_to do |format|
       format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }
