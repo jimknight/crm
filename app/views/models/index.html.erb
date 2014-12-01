@@ -1,25 +1,20 @@
-<h1>Listing models</h1>
+<h2>Models</h2>
+<p><%= link_to 'New Model', new_model_path, :class => "btn btn-primary" %></p>
 
-<table>
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th>Last updated</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @models.each do |model| %>
+    <% @models.each do |modelx| %>
       <tr>
-        <td><%= model.name %></td>
-        <td><%= link_to 'Show', model %></td>
-        <td><%= link_to 'Edit', edit_model_path(model) %></td>
-        <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to modelx.name, modelx %></td>
+        <td><%= modelx.updated_at %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Model', new_model_path %>

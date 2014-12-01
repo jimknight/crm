@@ -22,19 +22,14 @@ class ModelsController < ApplicationController
   end
 
   # POST /models
-  # POST /models.json
   def create
     @model = Model.new(model_params)
 
-    respond_to do |format|
       if @model.save
-        format.html { redirect_to @model, notice: 'Model was successfully created.' }
-        format.json { render :show, status: :created, location: @model }
+        redirect_to models_path, notice: 'Model was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @model.errors, status: :unprocessable_entity }
+       render :new
       end
-    end
   end
 
   # PATCH/PUT /models/1
@@ -42,7 +37,7 @@ class ModelsController < ApplicationController
   def update
     respond_to do |format|
       if @model.update(model_params)
-        format.html { redirect_to @model, notice: 'Model was successfully updated.' }
+        format.html { redirect_to models_path, notice: 'Model was successfully updated.' }
         format.json { render :show, status: :ok, location: @model }
       else
         format.html { render :edit }

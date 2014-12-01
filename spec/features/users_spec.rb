@@ -34,4 +34,18 @@ describe "Users" do
     page.should have_content "i am jim"
     page.should have_content "i am wayne"
   end
+  it "who are admins can Create/Edit/Read all Models" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    visit new_model_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    fill_in "Name", :with => "Model1"
+    click_button "Save"
+    click_link "Model1"
+    click_link "Edit"
+    fill_in "Name", :with => "Model1Updated"
+    click_button "Save"
+    page.should have_link "Model1Updated"
+  end
 end
