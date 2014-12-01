@@ -96,9 +96,12 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12 main-content">
+            <% if notice %>
             <p class="notice"><%= notice %></p>
+            <% end %>
+            <% if alert %>
        <p class="alert"><%= alert %></p>
-
+<% end %>
 
         <%= yield %>
       </div>
