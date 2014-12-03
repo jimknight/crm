@@ -28,7 +28,7 @@ class IndustriesController < ApplicationController
 
     respond_to do |format|
       if @industry.save
-        format.html { redirect_to @industry, notice: 'Industry was successfully created.' }
+        format.html { redirect_to industries_path, notice: 'Industry was successfully created.' }
         format.json { render :show, status: :created, location: @industry }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class IndustriesController < ApplicationController
   def update
     respond_to do |format|
       if @industry.update(industry_params)
-        format.html { redirect_to @industry, notice: 'Industry was successfully updated.' }
+        format.html { redirect_to industries_path, notice: 'Industry was successfully updated.' }
         format.json { render :show, status: :ok, location: @industry }
       else
         format.html { render :edit }
