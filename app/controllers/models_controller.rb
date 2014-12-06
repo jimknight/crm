@@ -1,5 +1,6 @@
 class ModelsController < ApplicationController
   before_action :set_model, only: [:show, :edit, :update, :destroy]
+  before_action :set_tab
 
   # GET /models
   # GET /models.json
@@ -60,6 +61,10 @@ class ModelsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_model
       @model = Model.find(params[:id])
+    end
+
+    def set_tab
+      @tab = "Models"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

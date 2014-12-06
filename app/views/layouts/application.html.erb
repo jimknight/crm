@@ -33,25 +33,42 @@
     </div>
     <div id="main-menu">
       <ul class="nav nav-tabs">
-        <li class = "active">
+        <% if @tab == "Activities" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
           <%= link_to activities_path do %>
               <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
             Activities
           <% end %>
         </li>
-        <li>
+        <% if @tab == "Client" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
           <%= link_to clients_path do %>
             <span class="glyphicon glyphicon-user"></span>
             Clients
           <% end %>
         </li>
-        <li>
+        <% if @tab == "Models" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
           <%= link_to models_path do %>
             <span class="glyphicon glyphicon-book"></span>
             Models
           <% end %>
         </li>
-        <li><%= link_to industries_path do %>
+        <% if @tab == "Industries" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+        <%= link_to industries_path do %>
             <span class="glyphicon glyphicon-th-large"></span>
             Industries
           <% end %></li>

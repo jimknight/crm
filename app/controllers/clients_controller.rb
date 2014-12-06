@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_tab
 
   # GET /clients
   # GET /clients.json
@@ -69,6 +70,10 @@ class ClientsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_client
       @client = Client.find(params[:id])
+    end
+
+    def set_tab
+      @tab = "Client"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

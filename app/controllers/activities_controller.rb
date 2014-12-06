@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_tab
 
   # GET /activities
   # GET /activities.json
@@ -89,6 +90,10 @@ class ActivitiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
       @activity = Activity.find(params[:id])
+    end
+
+    def set_tab
+      @tab = "Activities"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
