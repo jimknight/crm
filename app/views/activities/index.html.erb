@@ -1,44 +1,42 @@
 <h2>Activities</h2>
 <p><%= link_to 'New Activity', new_activity_path, :class => "btn btn-primary" %></p>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Client</th>
-      <th>Activity date</th>
-      <th>Contact</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Industry</th>
-      <th>Comments</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% if @activities.any? %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Activity date</th>
+        <th>Contact</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Industry</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <% @activities.each do |activity| %>
-      <% if !activity.nil? %>
-        <tr>
-          <% if activity.client.present? %>
-            <td><%= activity.client.name %></td>
-          <% end %>
-          <td><%= activity.activity_date.to_date %></td>
-          <% if activity.contact.present? %>
-            <td><%= activity.contact.name %></td>
-          <% end %>
-          <td><%= activity.city %></td>
-          <td><%= activity.state %></td>
-          <% if activity.industry.present? %>
-            <td><%= Industry.find(activity.industry).name %></td>
-          <% else %>
-            <td>&nbsp;</td>
-          <% end %>
-          <td><%= activity.comments %></td>
-          <td><%= link_to 'Show', activity %></td>
-          <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
-          <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+    <tbody>
+      <% @activities.each do |activity| %>
+        <% if !activity.nil? %>
+          <tr>
+            <% if activity.client.present? %>
+              <td><%= link_to activity.client.name, activity %></td>
+            <% end %>
+            <td><%= activity.activity_date.to_date %></td>
+            <% if activity.contact.present? %>
+              <td><%= activity.contact.name %></td>
+            <% end %>
+            <td><%= activity.city %></td>
+            <td><%= activity.state %></td>
+            <% if activity.industry.present? %>
+              <td><%= Industry.find(activity.industry).name %></td>
+            <% else %>
+              <td>&nbsp;</td>
+            <% end %>
+            <td><%= activity.comments %></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% end %>
