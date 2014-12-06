@@ -22,7 +22,13 @@
             <% if activity.client.present? %>
               <td><%= link_to activity.client.name, activity %></td>
             <% end %>
-            <td><%= activity.activity_date.to_date %></td>
+            <td>
+              <% if activity.activity_date.present? %>
+                <%= activity.activity_date.to_date %>
+              <% else %>
+                &nbsp;
+              <% end %>
+            </td>
             <% if activity.contact.present? %>
               <td><%= activity.contact.name %></td>
             <% end %>
