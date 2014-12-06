@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <!-- For sample logo only-->
     <!--Remove if you no longer need this font-->
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Aguafina+Script">
+    <!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Aguafina+Script"> -->
     <!--For sample logo only-->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -59,30 +59,7 @@
     </div>
     <div id="sidebar-nav">
       <ul id="dashboard-menu" class="nav nav-list">
-        <li class="active "><a href="index.html"><span class="glyphicon glyphicon-home"></span>
-            <span>Dashboard</span></a></li>
-        <li class=" "><a href="reports.html"><span class="glyphicon glyphicon-bar-chart"></span>
-            <span>Reports</span></a></li>
-        <li class=" "><a href="components.html"><span class="glyphicon glyphicon-briefcase"></span>
-            <span>UI Features</span></a></li>
-        <li class=" "><a href="pricing.html"><span class="glyphicon glyphicon-magic"></span>
-            <span>Pricing</span></a></li>
-        <li class=" "><a href="media.html"><span class="glyphicon glyphicon-film"></span>
-            <span>Media</span></a></li>
-        <li class=" "><a href="blog.html"><span class="glyphicon glyphicon-beaker"></span>
-            <span>Blog</span></a></li>
-        <li class=" "><a href="help.html"><span class="glyphicon glyphicon-question-sign"></span>
-            <span>Help</span></a></li>
-        <li class=" "><a href="faq.html"><span class="glyphicon glyphicon-book"></span>
-            <span>Faq</span></a></li>
-        <li class=" "><a href="calendar.html"><span class="glyphicon glyphicon-calendar"></span>
-            <span>Calendar</span></a></li>
-        <li class=" "><a href="forms.html"><span class="glyphicon glyphicon-tasks"></span>
-            <span>Forms</span></a></li>
-        <li class=" "><a href="tables.html"><span class="glyphicon glyphicon-table"></span>
-            <span>Tables</span></a></li>
-        <li class=" theme-mobile-hack"><a href="mobile.html"><span class="glyphicon glyphicon-comment-alt"></span>
-            <span>Mobile</span></a></li>
+
             <% if current_user %>
             <li>
               <%= link_to destroy_user_session_path, :method => :delete do %>
@@ -97,10 +74,10 @@
         <div class="row">
           <div class="col-md-12 main-content">
             <% if notice %>
-            <p class="notice"><%= notice %></p>
-            <% end %>
+            <div class="alert alert-success" role="alert"><%= notice %>
+            </div>            <% end %>
             <% if alert %>
-       <p class="alert"><%= alert %></p>
+            <div class="alert alert-danger" role="alert"><%= alert %></div>
 <% end %>
 
         <%= yield %>
