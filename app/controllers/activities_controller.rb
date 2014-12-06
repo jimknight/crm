@@ -13,10 +13,10 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1
   def show
-    if current_user.activities.include?(params[:id]) || current_user.admin?
+    if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin?
       @activity = current_user.activities.find(params[:id])
     else
-      redirect_to root_path, :notice => "Not authorized"
+      redirect_to root_path, :alert => "Not authorized"
     end
   end
 
@@ -32,11 +32,11 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
-    if current_user.activities.include?(params[:id]) || current_user.admin?
+     if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin?
       @activity = current_user.activities.find(params[:id])
       @client = @activity.client
     else
-      redirect_to root_path, :notice => "Not authorized"
+      redirect_to root_path, :alert => "Not authorized"
     end
   end
 
@@ -48,7 +48,7 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       if @activity.save
         current_user.activities << @activity
-        format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
+        format.html { redirect_to activities_path, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
       else
         format.html { render :new }
@@ -62,7 +62,7 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
+        format.html { redirect_to activities_path, notice: 'Activity was successfully updated.' }
         format.json { render :show, status: :ok, location: @activity }
       else
         format.html { render :edit }
