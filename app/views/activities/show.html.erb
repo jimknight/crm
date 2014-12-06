@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<h2>Activity</h2>
 
 <p>
   <strong>Client:</strong>
@@ -35,5 +35,6 @@
   <%= @activity.comments %>
 </p>
 
-<%= link_to 'Edit', edit_activity_path(@activity) %> |
-<%= link_to 'Back', activities_path %>
+<%  if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin? %>
+  <p><%= link_to 'Edit activity', edit_activity_path(@activity), :class => "btn btn-primary" %></p>
+<% end %>
