@@ -1864,3 +1864,7 @@ ul.nav.nav-tabs.fancy  > li.active  > a:hover {
 .ie .theme-mobile-hack {
   display: none;
 }
+
+.navbar-toggle .icon-bar {
+  background: #646475;
+}

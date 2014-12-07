@@ -27,12 +27,42 @@
   </head>
   <body>
     <div class="navbar">
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-menu">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <div class="navbar-inner">
         <a class="brand" href="index.html">c r m</a>
       </div>
     </div>
-    <div id="main-menu">
-      <ul class="nav nav-tabs">
+
+    <div id="main-menu" role="navigation">
+      <div id="phone-navigation" class="visible-xs">
+                <ul id="dashboard-menu" class="nav nav-list">
+                    <li>
+                      <%= link_to activities_path do %>
+              <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+            Activities
+          <% end %>
+                    </li>
+                    <li><%= link_to clients_path do %>
+            <span class="glyphicon glyphicon-user"></span>
+            Clients
+          <% end %></li>
+                    <li> <%= link_to models_path do %>
+            <span class="glyphicon glyphicon-book"></span>
+            Models
+          <% end %></li>
+                    <li><%= link_to industries_path do %>
+            <span class="glyphicon glyphicon-th-large"></span>
+            Industries
+          <% end %>
+          </li>
+                </ul>
+            </div>
+      <ul class="nav nav-tabs hidden-xs">
         <% if @tab == "Activities" %>
           <li class="active">
         <% else %>
@@ -74,9 +104,8 @@
           <% end %></li>
       </ul>
     </div>
-    <div id="sidebar-nav">
+    <div id="sidebar-nav" class="hidden-xs">
       <ul id="dashboard-menu" class="nav nav-list">
-
             <% if current_user %>
             <li>
               <%= link_to destroy_user_session_path, :method => :delete do %>
