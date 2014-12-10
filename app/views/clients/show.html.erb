@@ -1,41 +1,35 @@
 <h2><%= @client.name %></h2>
 
-<p>
-  <strong>Street1:</strong>
-  <%= @client.street1 %>
-</p>
+<table class="table">
+  <tr>
+    <td>Phone</td>
+<td><%= @client.phone %></td>
+  </tr>
+<tr><td>Street 1</td><td><%= @client.street1 %></td></tr>
+<tr><td>Street 2</td><td><%= @client.street2 %></td></tr>
+<tr>
+  <td>City</td>
+<td><%= @client.city %></td>
+</tr>
+<tr>
+  <td>State</td>
+<td><%= @client.state %></td>
+</tr>
+<tr>
+  <td>Zip</td>
+<td><%= @client.zip %></td>
+</tr>
+<tr>
+  <td>Industry</td>
+<td><%= @client.industry %></td>
+</tr>
+</table>
+
 
 <p>
-  <strong>Street2:</strong>
-  <%= @client.street2 %>
-</p>
+  <%= link_to "Edit Client", edit_client_path(@client), :class => "btn btn-primary" %>
+  <%= link_to "Add contact", new_client_contact_path(@client), :class => "btn btn-primary" %></p>
 
-<p>
-  <strong>City:</strong>
-  <%= @client.city %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @client.state %>
-</p>
-
-<p>
-  <strong>Zip:</strong>
-  <%= @client.zip %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @client.phone %>
-</p>
-
-<p>
-  <strong>Industry:</strong>
-  <%= @client.industry %>
-</p>
-
-<p><%= link_to "Add contact", new_client_contact_path(@client), :class => "btn btn-primary" %></p>
 <% if @client.contacts.present? %>
   <h2>List of contacts for this client</h2>
   <ul>
