@@ -1,38 +1,38 @@
 <h2>Activity</h2>
 
-<p>
-  <strong>Client:</strong>
-  <%= @activity.client.name %>
-</p>
+  <table class="table">
 
-<p>
-  <strong>Activity date:</strong>
-  <%= @activity.activity_date %>
-</p>
+    <tbody>
+      <tr>
+<td>Date</td>
+<td> <%= @activity.activity_date.strftime("%m/%d/%Y") %></td>
+      </tr>
+      <tr>
+<td>Client</td>
+<td> <%= link_to @activity.client.name, @activity.client %></td>
+</tr>
+<tr>
+<td>Contact</td>
+<td><%= @activity.contact.name %></td>
+</tr>
+<tr>
+<td>Industry
+</td>
+<td>
+<% if @activity.industry.present? %>
+    <%= Industry.find(@activity.industry).name %>
+    <% end %>
+</td>
+</tr>
+<tr>
+<td>Comments</td>
+<td><%= @activity.comments %></td>
+</tr>
+    </tbody>
 
-<p>
-  <strong>Contact:</strong>
-  <%= @activity.contact.name %>
-</p>
+</table>
 
-<p>
-  <strong>City:</strong>
-  <%= @activity.city %>
-</p>
 
-<p>
-  <strong>State:</strong>
-  <%= @activity.state %>
-</p>
-
-<p>
-  <strong>Industry:</strong>
-  <%= @activity.industry %>
-</p>
-
-<p>
-  <strong>Comments:</strong>
-  <%= @activity.comments %>
 </p>
 
 <%  if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin? %>

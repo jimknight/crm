@@ -5,13 +5,9 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Client</th>
         <th>Activity date</th>
+        <th>Client</th>
         <th>Contact</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Industry</th>
-        <th>Comments</th>
       </tr>
     </thead>
 
@@ -19,27 +15,19 @@
       <% @activities.each do |activity| %>
         <% if !activity.nil? %>
           <tr>
-            <% if activity.client.present? %>
-              <td><%= link_to activity.client.name, activity %></td>
-            <% end %>
-            <td>
+             <td>
               <% if activity.activity_date.present? %>
-                <%= activity.activity_date.to_date %>
+                <%= link_to activity.activity_date.to_date, activity %>
               <% else %>
                 &nbsp;
               <% end %>
             </td>
+            <% if activity.client.present? %>
+              <td><%= activity.client.name %></td>
+            <% end %>
             <% if activity.contact.present? %>
               <td><%= activity.contact.name %></td>
             <% end %>
-            <td><%= activity.city %></td>
-            <td><%= activity.state %></td>
-            <% if activity.industry.present? %>
-              <td><%= Industry.find(activity.industry).name %></td>
-            <% else %>
-              <td>&nbsp;</td>
-            <% end %>
-            <td><%= activity.comments %></td>
           </tr>
         <% end %>
       <% end %>
