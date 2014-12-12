@@ -48,7 +48,6 @@ describe "user" do
     visit activities_path
     page.should have_content "i am jim"
     page.should_not have_content "i am wayne"
-    # visit activity_path Activity.first
   end
   it "can only open his activity" do
       @owner = User.create!(:email => "wscarano@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")

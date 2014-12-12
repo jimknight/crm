@@ -1,36 +1,16 @@
 <h2>Activities</h2>
 <p><%= link_to 'New Activity', new_activity_path, :class => "btn btn-primary" %></p>
 
-<% if @activities.any? %>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Activity date</th>
-        <th>Client</th>
-        <th>Contact</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @activities.each do |activity| %>
-        <% if !activity.nil? %>
-          <tr>
-             <td>
-              <% if activity.activity_date.present? %>
-                <%= link_to activity.activity_date.to_date, activity %>
-              <% else %>
-                &nbsp;
-              <% end %>
-            </td>
-            <% if activity.client.present? %>
-              <td><%= activity.client.name %></td>
-            <% end %>
-            <% if activity.contact.present? %>
-              <td><%= activity.contact.name %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+<% @activities.each do |activity| %>
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><%= link_to activity.activity_date.to_date, activity %></div>
+    <div class="panel-body">
+      <p>
+        <%= activity.client.name %>:
+        <%= activity.contact.name %><br>
+        <%= activity.comments %>
+      </p>
+    </div>
+  </div>
 <% end %>
