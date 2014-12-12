@@ -13,7 +13,7 @@
     <% @industries.each do |industry| %>
       <tr>
         <td><%= link_to industry.name, industry %></td>
-        <td><%= industry.updated_at %></td>
+        <td><%= industry.updated_at.strftime("%m/%d/%Y %I:%M %P")  %></td>
       </tr>
     <% end %>
   </tbody>

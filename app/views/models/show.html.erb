@@ -3,4 +3,11 @@
   <strong>Name:</strong>
   <%= @model.name %>
 </p>
-<p><%= link_to 'Edit', edit_model_path(@model), :class => "btn btn-primary" %></p>
+<p>
+  <%= link_to edit_model_path(@model), :class => "btn btn-primary" do %>
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+  <% end %>
+  <%= link_to models_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back
+  <% end %>
+</p>

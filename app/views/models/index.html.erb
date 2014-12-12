@@ -13,7 +13,7 @@
     <% @models.each do |modelx| %>
       <tr>
         <td><%= link_to modelx.name, modelx %></td>
-        <td><%= modelx.updated_at %></td>
+        <td><%= modelx.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td>
       </tr>
     <% end %>
   </tbody>
