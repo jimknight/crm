@@ -3,6 +3,7 @@ require 'rails_helper'
 describe "Users" do
   it "who are admins can Create/Edit/Read all Activities", :js => true do
     User.destroy_all
+    Activity.destroy_all
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact

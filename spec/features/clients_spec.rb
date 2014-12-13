@@ -12,7 +12,7 @@ describe "show" do
     click_link "New Client"
     fill_in "Name", :with => "Wayne Scarano"
     click_button "Save"
-    click_link "Add contact"
+    click_link "Add Contact"
     fill_in "Name", :with => "Wayne Scarano"
     click_button "Save"
     click_link "Wayne Scarano"
