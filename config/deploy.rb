@@ -38,19 +38,32 @@ set :deploy_to, "/home/sgadeploy/crm"
 
 namespace :deploy do
 
-  task :upload_settings do
-    top.upload("config/application.yml", "#{release_path}/config/application.yml", :via => :scp)
-  end
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
+
     end
   end
 
 end
 
-after 'deploy',  'deploy:upload_settings'
+namespace :figaro do
+  desc "SCP transfer figaro configuration to the shared folder"
+  task :setup do
+    on roles(:app) do
+      upload! "config/application.yml", "#{shared_path}/application.yml", via: :scp
+    end
+  end
+
+  desc "Symlink application.yml to the release path"
+  task :symlink do
+    on roles(:app) do
+      execute "ln -sf #{shared_path}/application.yml #{current_path}/config/application.yml"
+    end
+  end
+end
+after "deploy:started", "figaro:setup"
+after "deploy:symlink:release", "figaro:symlink"
