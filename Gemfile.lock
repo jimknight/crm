@@ -89,6 +89,9 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.2.2)
+    figaro (0.6.3)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     font-awesome-sass (4.2.2)
       sass (~> 3.2)
     hike (1.2.3)
@@ -212,6 +215,7 @@ DEPENDENCIES
   database_cleaner
   devise
   devise-bootstrap-views (~> 0.0.3)
+  figaro
   font-awesome-sass (~> 4.2.0)
   jbuilder (~> 2.0)
   jquery-rails

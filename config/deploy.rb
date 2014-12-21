@@ -2,13 +2,15 @@
 lock '3.3.5'
 
 set :application, 'crm'
-set :repo_url, 'git@github.com:jimknight/crm.git'
+set :repo_url, 'https://github.com/jimknight/crm.git'
+set :rbenv_ruby, '1.9.3-p286'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/deployer/apps/crm"
+#set :deploy_to, "/home/deployer/apps/crm"
+set :deploy_to, "/home/sgadeploy/crm"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -20,7 +22,7 @@ set :deploy_to, "/home/deployer/apps/crm"
 # set :log_level, :debug
 
 # Default value for :pty is false
-set :pty, true
+# set :pty, true
 
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml')
@@ -36,6 +38,10 @@ set :pty, true
 
 namespace :deploy do
 
+  task :upload_settings do
+    top.upload("config/application.yml", "#{release_path}/config/application.yml", :via => :scp)
+  end
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -46,3 +52,5 @@ namespace :deploy do
   end
 
 end
+
+after 'deploy',  'deploy:upload_settings'
