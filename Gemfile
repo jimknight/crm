@@ -29,10 +29,9 @@ gem 'spring',        group: :development
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'launchy'
+  gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
 end
-
-gem 'launchy'
-gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
 
 gem 'annotate', '~> 2.6.5'
 
@@ -49,10 +48,13 @@ gem 'database_cleaner', :group => :test
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
 
 # Use Capistrano for deployment
-gem 'capistrano', '~> 3.3.0'
+group :development do
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv', '~> 2.0', require: false
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
