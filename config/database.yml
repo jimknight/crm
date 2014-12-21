@@ -78,8 +78,16 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+# production:
+#   <<: *default
+#   database: crm_production
+#   username: crm
+#   password: <%= ENV['CRM_DATABASE_PASSWORD'] %>
+
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: crm_production
-  username: crm
-  password: <%= ENV['CRM_DATABASE_PASSWORD'] %>
+  pool: 5
+  username: postgres
+  password:
