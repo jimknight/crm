@@ -52,8 +52,12 @@ gem 'database_cleaner', :group => :test
 
 # Use Capistrano for deployment
 group :development do
+  gem 'capistrano',  '~> 3.1'
+  gem 'capistrano3-nginx', '~> 2.0'
   gem 'capistrano-rails'
+  gem 'capistrano-bundler'
   gem 'capistrano-rbenv', '~> 2.0', require: false
+  gem 'unicorn'
 end
 
 # Use debugger
