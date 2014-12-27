@@ -84,10 +84,20 @@ test:
 #   username: crm
 #   password: <%= ENV['CRM_DATABASE_PASSWORD'] %>
 
+# production:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: crm_production
+#   pool: 5
+#   username: postgres
+#   password
+
+#digital ocean
 production:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
   database: crm_production
   pool: 5
-  username: postgres
-  password:
+  host: localhost
+  port: 3306
