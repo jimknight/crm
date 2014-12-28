@@ -83,6 +83,7 @@ namespace :deploy do
       # invoke 'nginx:site:add'
       file = File.open('config/database.example.yml')
       upload! file, "#{shared_path}/config/database.yml"
+      execute "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       upload! "config/nginx.conf", "/etc/nginx/sites-enabled/#{fetch(:application)}", via: :scp
       upload! "config/unicorn.rb", "#{current_path}/config/unicorn.rb"
       full_app_name = fetch(:full_app_name)
