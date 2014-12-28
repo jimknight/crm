@@ -86,7 +86,6 @@ namespace :deploy do
       execute "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       upload! "config/nginx.conf", "/etc/nginx/sites-enabled/#{fetch(:application)}", via: :scp
       upload! "config/unicorn.rb", "#{current_path}/config/unicorn.rb"
-      execute "ln -s  #{shared_path}/log #{release_path}/log"
       full_app_name = fetch(:full_app_name)
 
       # config files to be uploaded to shared/config, see the
@@ -169,5 +168,12 @@ namespace :deploy do
       puts "if you've got the target branch checked out"
       exit
     end
+  end
+end
+
+namespace :deploy do
+  on roles(:app) do
+    # Setup logs
+    execute "ln -s  #{shared_path}/log #{release_path}"
   end
 end
