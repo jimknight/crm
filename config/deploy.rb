@@ -86,6 +86,7 @@ namespace :deploy do
       execute "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       upload! "config/nginx.conf", "/etc/nginx/sites-enabled/#{fetch(:application)}", via: :scp
       upload! "config/unicorn.rb", "#{current_path}/config/unicorn.rb"
+      execute "ln -s  #{shared_path}/log #{release_path}/log"
       full_app_name = fetch(:full_app_name)
 
       # config files to be uploaded to shared/config, see the
@@ -116,9 +117,8 @@ namespace :deploy do
   end
 
   # make sure we're deploying what we think we're deploying
-  # before :deploy, "deploy:check_revision"
-
-  # after :finishing, 'deploy:cleanup'
+  before :deploy, "deploy:check_revision"
+  after :finishing, 'deploy:cleanup'
 
   # reload nginx to it will pick up any modified vhosts from
   # setup_config
@@ -126,7 +126,7 @@ namespace :deploy do
 
   # As of Capistrano 3.1, the `deploy:restart` task is not called
   # automatically.
-  # after 'deploy:publishing', 'deploy:restart'
+  after 'deploy:publishing', 'deploy:restart'
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
