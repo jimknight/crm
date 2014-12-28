@@ -22,12 +22,12 @@ set :deploy_to, "/home/sgadeploy/crm"
 # which config files should be copied by deploy:setup_config
 # see documentation in lib/capistrano/tasks/setup_config.cap
 # for details of operations
-# set(:config_files, %w(
-#   nginx.conf
-#   database.example.yml
-#   unicorn.rb
-#   unicorn_init.sh
-# ))
+set(:config_files, %w(
+  nginx.conf
+  database.example.yml
+  unicorn.rb
+  unicorn_init.sh
+))
 
 # Default value for :scm is :git
 set :scm, :git
@@ -77,13 +77,15 @@ namespace :deploy do
 
   task :setup_config do
     on roles(:app) do
+
       # make the config dir
-      # execute :mkdir, "-p #{shared_path}/config"
+      execute :mkdir, "-p #{shared_path}/config"
       # invoke 'nginx:site:add'
-      # file = File.open('config/database.example.yml')
-      # upload! file, "#{shared_path}/config/database.yml"
+      file = File.open('config/database.example.yml')
+      upload! file, "#{shared_path}/config/database.yml"
       upload! "config/nginx.conf", "/etc/nginx/sites-enabled/#{fetch(:application)}", via: :scp
-      # full_app_name = fetch(:full_app_name)
+      upload! "config/unicorn.rb", "#{current_path}/config/unicorn.rb"
+      full_app_name = fetch(:full_app_name)
 
       # config files to be uploaded to shared/config, see the
       # definition of smart_template for details of operation.
@@ -104,11 +106,11 @@ namespace :deploy do
 
       # symlink stuff which should be... symlinked
       symlinks = fetch(:symlinks)
-
       symlinks.each do |symlink|
         # requires passwordless sudo on server
         sudo "ln -nfs #{current_path}/config/#{symlink[:source]} #{symlink[:link]}"
       end
+
     end
   end
 
