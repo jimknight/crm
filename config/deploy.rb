@@ -85,7 +85,16 @@ namespace :deploy do
       upload! file, "#{shared_path}/config/database.yml"
       execute "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       upload! "config/nginx.conf", "/etc/nginx/sites-enabled/#{fetch(:application)}", via: :scp
+      execute :mkdir, "-p #{current_path}/tmp/pids"
+
+    # template "unicorn.rb.erb", unicorn_config
+    # template "unicorn_init.erb", "/tmp/unicorn_init"
+    # run "chmod +x /tmp/unicorn_init"
+    # run "#{sudo} mv /tmp/unicorn_init /etc/init.d/unicorn_#{application}"
+
+
       upload! "config/unicorn.rb", "#{current_path}/config/unicorn.rb"
+      # execute "update-rc.d -f unicorn_#{:application} defaults"
       full_app_name = fetch(:full_app_name)
 
       # config files to be uploaded to shared/config, see the
@@ -117,6 +126,7 @@ namespace :deploy do
 
   # make sure we're deploying what we think we're deploying
   before :deploy, "deploy:check_revision"
+  after :deploy, "deploy:setup_config"
   after :finishing, 'deploy:cleanup'
 
   # reload nginx to it will pick up any modified vhosts from
