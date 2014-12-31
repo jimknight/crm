@@ -90,4 +90,4 @@ production:
   database: crm_production
   pool: 5
   username: postgres
-  password
+  password:
