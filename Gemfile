@@ -48,7 +48,7 @@ gem 'database_cleaner', :group => :test
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 group :development do
@@ -57,7 +57,6 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-rbenv', '~> 2.0', require: false
-  gem 'unicorn'
 end
 
 # Use debugger
