@@ -8,7 +8,7 @@ class ActivitiesController < ApplicationController
     if current_user.admin?
       @activities = Activity.all
     else
-      @activities = current_user.activities
+      @activities = current_user.activities.order("activity_date DESC")
     end
   end
 
