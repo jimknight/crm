@@ -6,6 +6,7 @@ window.getClientJson = (client_id) ->
     $("input#activity_city").val(data["city"])
     $("select#activity_state").val(data["state"])
     $("select#activity_contact_id").empty().append('<option value=""></option>')
+    $("select#activity_industry").val(data["industry"])
     $.each data["contacts"], (idx, obj) ->
       $option = $("<option></option>").attr("value", obj["id"]).text(obj["name"])
       $("select#activity_contact_id").append $option
