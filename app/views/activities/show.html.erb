@@ -25,6 +25,15 @@
 </td>
 </tr>
 <tr>
+<td>Model
+</td>
+<td>
+<% if @activity.models.any? %>
+    <%= Model.find(@activity.models.first).name %>
+    <% end %>
+</td>
+</tr>
+<tr>
 <td>Comments</td>
 <td><%= @activity.comments %></td>
 </tr>

@@ -49,6 +49,10 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       if @activity.save
         current_user.activities << @activity
+        if params[:activity][:models]
+          @model = Model.find(params[:activity][:models])
+          @activity.models << @model
+        end
         format.html { redirect_to activities_path, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
       else
@@ -63,6 +67,10 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
+        if params[:activity][:models]
+          @model = Model.find(params[:activity][:models])
+          @activity.models << @model
+        end
         format.html { redirect_to activities_path, notice: 'Activity was successfully updated.' }
         format.json { render :show, status: :ok, location: @activity }
       else

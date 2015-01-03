@@ -44,6 +44,10 @@
     <%= f.select :industry, options_from_collection_for_select(Industry.all.order(:name), :id, :name, @activity.industry), {:include_blank => true}, {:class => "form-control"} %>
   </div>
   <div class="form-group">
+    <%= f.label :models %>
+    <%= f.select :models, options_from_collection_for_select(Model.all.order(:name), :id, :name, @activity.models), {:include_blank => true}, {:class => "form-control"} %>
+  </div>
+  <div class="form-group">
     <%= f.label :comments %>
     <%= f.text_area :comments, :class => "form-control", :rows => "3" %>
   </div>
