@@ -6,7 +6,7 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   def index
     if current_user.admin?
-      @activities = Activity.all
+      @activities = Activity.all.order("activity_date DESC")
     else
       @activities = current_user.activities.order("activity_date DESC")
     end
