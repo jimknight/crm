@@ -33,7 +33,8 @@ h2 {
 h3 {
   color: #41414c;
   font-size: 1em;
-  font-weight: bold;
+  font-weight: normal;
+  margin:0 0 10px 0;
 }
 h2 span.info {
   margin-top: -1em;
@@ -1868,3 +1869,6 @@ ul.nav.nav-tabs.fancy  > li.active  > a:hover {
 .navbar-toggle .icon-bar {
   background: #646475;
 }
+
+/* CUSTOM */
+div.panel-body p {margin:0;}
