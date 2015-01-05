@@ -49,7 +49,7 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       if @activity.save
         current_user.activities << @activity
-        if params[:activity][:models]
+        if params[:activity][:models].present?
           @model = Model.find(params[:activity][:models])
           @activity.models << @model
         end
@@ -67,7 +67,7 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        if params[:activity][:models]
+        if params[:activity][:models].present?
           @model = Model.find(params[:activity][:models])
           @activity.models << @model
         end
