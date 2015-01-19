@@ -21,7 +21,7 @@
 </tr>
 <tr>
   <td>Industry</td>
-<td><%= @client.industry == "" ? "" : Industry.find(@client.industry).name %></td>
+<td><%= @client.industry.nil? ? "" : Industry.find(@client.industry).name %></td>
 </tr>
 </table>
 
@@ -33,16 +33,36 @@
   <%= link_to new_client_contact_path(@client), :class => "btn btn-primary" do %>
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Contact
   <% end %>
-  <%= link_to clients_path, :class => "btn btn-default" do %>
+  <%= link_to :back, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back
   <% end %>
 </p>
 
 <% if @client.contacts.present? %>
-  <h2>List of contacts for this client</h2>
+  <h2>Contacts for this client</h2>
   <ul>
   <% @client.contacts.each do |contact| %>
   <li><%= link_to contact.name, [@client,contact] %></li>
   <% end %>
   </ul>
+<% end %>
+
+<% if @client.activities.any? %>
+  <h2>Activities for this Client</h2>
+  <% @client.activities.order("activity_date DESC").each do |activity| %>
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading"><%= link_to activity.activity_date.to_date, activity %></div>
+      <div class="panel-body">
+        <p>
+          <%= activity.client.name %>:
+          <%= activity.contact.name %><br>
+          <%= activity.comments %><br>
+          <% if current_user.admin? %>
+            Submitted by <%= activity.user.email %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P") %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  <% end %>
 <% end %>
