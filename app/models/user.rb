@@ -23,4 +23,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :activities
+  has_one  :profile
+  after_create :create_child_profile
+
+  def create_child_profile
+    profile = Profile.create!(:first_name => "", :last_name => "")
+    self.profile = profile
+  end
 end

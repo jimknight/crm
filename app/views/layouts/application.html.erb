@@ -83,6 +83,15 @@
             <span class="glyphicon glyphicon-th-large"></span>
             Industries
           <% end %></li>
+          <% if @tab == "Reps" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+        <%= link_to profiles_path do %>
+            <span class="glyphicon glyphicon-road"></span>
+            Reps
+          <% end %></li>
           <li>
             <%= link_to destroy_user_session_path, :method => :delete do %>
             <span class="glyphicon glyphicon-log-out"></span> Logout

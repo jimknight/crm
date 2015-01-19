@@ -1,0 +1,29 @@
+<%= form_for @profile, :html => {:class => "form", :role => "form"}  do |f| %>
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
+      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
+    <% end %>
+    <%= link_to :back, :class => "btn btn-default" do %>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+    <% end %>
+  </div>
+<% end %>
