@@ -21,7 +21,7 @@
 </tr>
 <tr>
   <td>Industry</td>
-<td><%= @client.industry.nil? ? "" : Industry.find(@client.industry).name %></td>
+<td><%= @client.industry.nil? || @client.industry == "" ? "" : Industry.find(@client.industry).name %></td>
 </tr>
 </table>
 
