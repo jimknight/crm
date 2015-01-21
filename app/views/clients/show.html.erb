@@ -47,9 +47,9 @@
   </ul>
 <% end %>
 
-<% if @client.activities.any? %>
-  <h2>Activities for this Client</h2>
-  <% @client.activities.order("activity_date DESC").each do |activity| %>
+<% if @rep_activities.any? %>
+  <h2>Activities for this Client <%= params[:user_id] ? "by #{User.find(params[:user_id]).user_name}" : "" %></h2>
+  <% @rep_activities.order("activity_date DESC").each do |activity| %>
     <div class="panel panel-default">
       <!-- Default panel contents -->
       <div class="panel-heading"><%= link_to activity.activity_date.to_date, activity %></div>
@@ -58,8 +58,8 @@
           <%= activity.client.name %>:
           <%= activity.contact.name %><br>
           <%= activity.comments %><br>
-          <% if current_user.admin? %>
-            Submitted by <%= activity.user.email %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P") %>
+          <% if current_user.admin? && params[:user_id].nil? %>
+            Submitted by <%= activity.user_name %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P") %>
           <% end %>
         </p>
       </div>

@@ -30,4 +30,13 @@ class User < ActiveRecord::Base
     profile = Profile.create!(:first_name => "", :last_name => "")
     self.profile = profile
   end
+
+  def user_name
+    if self.profile && self.profile.first_name.present?
+      return "#{self.profile.first_name} #{self.profile.last_name}"
+    else
+      return self.email
+    end
+  end
+
 end

@@ -8,12 +8,13 @@ class ClientsController < ApplicationController
     @clients = Client.all.order(:name)
   end
 
-  # GET /clients/1
-  # GET /clients/1.json
   def show
-    respond_to do |format|
-      format.html
-      format.json { render json: @client.to_json(include: :contacts) }
+    #  /clients/:client_id/reps/:user_id(.:format)
+    # if a user id, get the activities for that user
+    if params[:user_id]
+      @rep_activities = @client.activities.where(:user_id => params[:user_id])
+    else
+      @rep_activities = @client.activities
     end
   end
 

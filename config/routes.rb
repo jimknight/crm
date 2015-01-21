@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'reps/show'
+
   resources :profiles
 
   devise_for :users
@@ -11,6 +13,8 @@ Rails.application.routes.draw do
   resources :clients do
     resources :contacts
   end
+
+  get 'clients/:id/reps/:user_id' => 'clients#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

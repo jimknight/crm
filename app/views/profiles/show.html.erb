@@ -10,4 +10,9 @@
 </p>
 
 <h2>Clients</h2>
-<p>coming soon...</p>
+<!-- @files= @user.files.order("id DESC").all -->
+<ul>
+  <% @profile.user.activities.map(&:client).uniq.sort_by{|e| e[:name]}.each do |client| %>
+    <li><%= link_to client.name, "/clients/#{client.id}/reps/#{@profile.user.id}" %></li>
+  <% end %>
+</ul>
