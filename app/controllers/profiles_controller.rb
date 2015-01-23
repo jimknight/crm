@@ -13,6 +13,10 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    # if not admin and not user, cancel
+    if @profile.user != current_user && !current_user.admin?
+      redirect_to profiles_path, :notice => "You are not authorized to edit a profile other than your own."
+    end
   end
 
   def create
