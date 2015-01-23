@@ -12,7 +12,10 @@ class ProfilesController < ApplicationController
     respond_with(@profile)
   end
 
-  # no new because it's created when user created
+  def new
+    @profile = Profile.new
+    respond_with(@profile)
+  end
 
   def edit
   end
