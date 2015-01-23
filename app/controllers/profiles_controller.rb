@@ -12,11 +12,6 @@ class ProfilesController < ApplicationController
     respond_with(@profile)
   end
 
-  def new
-    @profile = Profile.new
-    respond_with(@profile)
-  end
-
   def edit
   end
 
