@@ -26,7 +26,16 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    @profile.update(profile_params)
+    if current_user.admin?
+      if profile_params["admin"] == "1"
+        @profile.user.update_attribute("admin",true)
+      else
+        @profile.user.update_attribute("admin",false)
+      end
+      @profile.update(profile_params.tap{|x| x.delete(:admin)})
+    else
+      @profile.update(profile_params)
+    end
     redirect_to profiles_path
   end
 
@@ -45,6 +54,6 @@ class ProfilesController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :user_id)
+      params.require(:profile).permit(:first_name, :last_name, :user_id, :admin)
     end
 end
