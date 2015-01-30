@@ -11,6 +11,10 @@
   <% end %>
 </p>
 
+<% if current_user == @profile.user %>
+  <p>If necessary...<%= link_to "change your password", edit_user_registration_path %></p>
+<% end %>
+
 <h2>Clients</h2>
 <!-- @files= @user.files.order("id DESC").all -->
 <ul>
