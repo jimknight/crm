@@ -8,6 +8,14 @@ class ProfilesController < ApplicationController
     respond_with(@profiles)
   end
 
+  def new
+    if current_user.admin?
+      @profile = Profile.new
+    else
+      redirect_to profiles_path, :alert => "Only administrators can create new reps."
+    end
+  end
+
   def show
     respond_with(@profile)
   end
@@ -15,14 +23,30 @@ class ProfilesController < ApplicationController
   def edit
     # if not admin and not user, cancel
     if @profile.user != current_user && !current_user.admin?
-      redirect_to profiles_path, :notice => "You are not authorized to edit a profile other than your own."
+      redirect_to profiles_path, :alert => "You are not authorized to edit a profile other than your own."
     end
   end
 
   def create
     @profile = Profile.new(profile_params)
-    @profile.save
-    redirect_to profiles_path
+    if current_user.admin?
+      if params["password"] != params["password_confirmation"]
+        render :new, :alert => "Your passwords don't match"
+      end
+      @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
+      if @user.save
+        if @profile.save
+          @user.profile = @profile
+          redirect_to profiles_path
+        else
+          render :new
+        end
+      else
+        render :new
+      end
+    else
+      redirect_to profiles_path, :alert => "Only administrators can create new reps."
+    end
   end
 
   def update

@@ -1,5 +1,13 @@
 <h2>Reps</h2>
 
+<% if current_user.admin? %>
+  <p>
+    <%= link_to new_profile_path, :class => "btn btn-primary" do %>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Rep
+    <% end %>
+  </p>
+<% end %>
+
 <table class="table">
   <thead>
     <tr>
