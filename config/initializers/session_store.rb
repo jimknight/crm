@@ -3,7 +3,6 @@
 Rails.application.config.session_store :cookie_store, key: '_crm_session'
 
 # http://stackoverflow.com/questions/19168178/rails-401-unauthorized-when-i-access-action-in-production-only
-# Rails.application.config.session_store :cookie_store, key: '_crm_session', domain: {
-#   production: 'crm.sga.com',
-#   development: 'localhost'
-# }.fetch(Rails.env.to_sym, :all)
+Rails.application.config.session_store :cookie_store, key: '_crm_session', domain: {
+  production: 'crm.sga.com'
+}.fetch(Rails.env.to_sym, :all)
