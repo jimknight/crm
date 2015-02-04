@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
   after_create :create_child_profile
 
   def create_child_profile
-    profile = Profile.create!(:first_name => "", :last_name => "")
-    self.profile = profile
+    self.build_profile(:first_name => "", :last_name => "")
+    self.profile.save!
   end
 
   def user_name
