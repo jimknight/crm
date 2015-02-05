@@ -20,6 +20,27 @@ require "rails_helper"
       click_button "Save"
       page.should have_content "Joe Maio"
     end
+    it "should show the correct error message if the user enters the wrong password_confirmation" do
+      User.destroy_all
+      Profile.destroy_all
+      Activity.destroy_all
+      @admin = User.create!(:email => "admin@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+      visit root_path
+      fill_in "Email", :with => "admin@sga.com"
+      fill_in "Password", :with => "ilovesga"
+      click_button "Sign in"
+      click_link "Reps"
+      click_link "Add Rep"
+      fill_in "Email", :with => "jmaio@sga.com"
+      fill_in "First name", :with => "Joe"
+      fill_in "Last name", :with => "Maio"
+      fill_in "Password", :with => "ilovesga"
+      fill_in "Password confirmation", :with => "this password doesn't match"
+      click_button "Save"
+      page.should have_content "New Rep"
+      page.should have_content "Your passwords don't match"
+      save_and_open_page
+    end
   end
 
   describe "index" do

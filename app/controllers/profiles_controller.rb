@@ -28,14 +28,19 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
-    if @user.save
-      @profile = @user.profile
-      @profile.update_attributes(profile_params)
-      redirect_to profiles_path
+    if params["password"] != params["password_confirmation"]
+      redirect_to :back, :alert => "Your passwords don't match"
     else
-      render :new
+      @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
+      if @user.save
+        @profile = @user.profile
+        @profile.update_attributes(profile_params)
+        redirect_to profiles_path
+      else
+        render :new
+      end
     end
+
     #
     # if current_user.admin?
     #   if params["password"] != params["password_confirmation"]
