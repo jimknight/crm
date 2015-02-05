@@ -3,6 +3,8 @@ require "rails_helper"
   describe "index" do
     before :each do
       User.destroy_all
+      Profile.destroy_all
+      Activity.destroy_all
       3.times {|count| User.create!(:email => "user#{count}@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga")}
       @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     end
@@ -19,6 +21,7 @@ require "rails_helper"
   describe "show" do
     before :each do
       User.destroy_all
+      Profile.destroy_all
       @user1 = User.create!(:email => "user1@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga")
       @user2 = User.create!(:email => "user2@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga")
       @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
