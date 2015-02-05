@@ -28,25 +28,33 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    @profile = Profile.new(profile_params)
-    if current_user.admin?
-      if params["password"] != params["password_confirmation"]
-        render :new, :alert => "Your passwords don't match"
-      end
-      @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
-      if @user.save
-        if @profile.save
-          @user.profile = @profile
-          redirect_to profiles_path
-        else
-          render :new
-        end
-      else
-        render :new
-      end
+    @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
+    if @user.save
+      @profile = @user.profile
+      @profile.update_attributes(profile_params)
+      redirect_to profiles_path
     else
-      redirect_to profiles_path, :alert => "Only administrators can create new reps."
+      render :new
     end
+    #
+    # if current_user.admin?
+    #   if params["password"] != params["password_confirmation"]
+    #     render :new, :alert => "Your passwords don't match"
+    #   end
+    #   @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
+    #   if @user.save
+    #     @user.build_profile(:first_name => "", :last_name => "")
+    #     if @user.profile.save
+    #       redirect_to profiles_path
+    #     else
+    #       render :new
+    #     end
+    #   else
+    #     render :new
+    #   end
+    # else
+    #   redirect_to profiles_path, :alert => "Only administrators can create new reps."
+    # end
   end
 
   def update

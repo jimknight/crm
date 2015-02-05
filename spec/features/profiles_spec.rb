@@ -1,5 +1,27 @@
 require "rails_helper"
 
+  describe "create" do
+    it "should allow the creation of a new user for admins" do
+      User.destroy_all
+      Profile.destroy_all
+      Activity.destroy_all
+      @admin = User.create!(:email => "admin@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+      visit root_path
+      fill_in "Email", :with => "admin@sga.com"
+      fill_in "Password", :with => "ilovesga"
+      click_button "Sign in"
+      click_link "Reps"
+      click_link "Add Rep"
+      fill_in "Email", :with => "jmaio@sga.com"
+      fill_in "First name", :with => "Joe"
+      fill_in "Last name", :with => "Maio"
+      fill_in "Password", :with => "ilovesga"
+      fill_in "Password confirmation", :with => "ilovesga"
+      click_button "Save"
+      page.should have_content "Joe Maio"
+    end
+  end
+
   describe "index" do
     before :each do
       User.destroy_all
