@@ -26,6 +26,9 @@
           <% else %>
             <%= link_to "#{profile.first_name} #{profile.last_name}", profile %>
           <% end %>
+          <% if profile.admin %>
+            *Admin
+          <% end %>
         </td>
         <td><%= profile.user.email %></td>
         <td>
