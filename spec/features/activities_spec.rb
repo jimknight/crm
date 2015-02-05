@@ -22,6 +22,33 @@ require "rails_helper"
 #   end
 # end
 
+describe "index" do
+  it "should allow the admins to view the activities of other people", :js => true do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
+    @contact = Contact.create!(:name => "Wayne Scarano")
+    @client.contacts << @contact
+    visit activities_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Activity"
+    page.should have_content "New activity"
+    select "SGA", :from => "Client"
+    select "Wayne Scarano", :from => "Contact"
+    click_button "Save"
+    click_link "2015-02-04" # has to be today
+    click_link "Logout"
+    visit activities_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "2015-02-04" # has to be today
+    page.should have_content "Wayne Scarano"
+  end
+end
+
 describe "user" do
   it "can only see his created activities in the index", :js => true do
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")

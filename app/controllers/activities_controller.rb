@@ -14,8 +14,10 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1
   def show
-    if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin?
+    if current_user.activity_ids.include?(params[:id].to_i)
       @activity = current_user.activities.find(params[:id])
+    elsif current_user.admin?
+      @activity = Activity.find(params[:id])
     else
       redirect_to root_path, :alert => "Not authorized"
     end
