@@ -39,7 +39,36 @@ require "rails_helper"
       click_button "Save"
       page.should have_content "New Rep"
       page.should have_content "Your passwords don't match"
-      save_and_open_page
+    end
+    it "should show the correct error message if the user leaves off a required field" do
+      User.destroy_all
+      Profile.destroy_all
+      Activity.destroy_all
+      @admin = User.create!(:email => "admin@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+      visit root_path
+      fill_in "Email", :with => "admin@sga.com"
+      fill_in "Password", :with => "ilovesga"
+      click_button "Sign in"
+      click_link "Reps"
+      click_link "Add Rep"
+      fill_in "Email", :with => "jmaio@sga.com"
+      fill_in "First name", :with => "Joe"
+      fill_in "Password", :with => "ilovesga"
+      fill_in "Password confirmation", :with => "ilovesga"
+      click_button "Save"
+      page.should have_content "New Rep"
+      page.should have_content "All fields are required."
+    end
+    it "should not allow a non-admin to create a user" do
+      User.destroy_all
+      Profile.destroy_all
+      Activity.destroy_all
+      @user = User.create!(:email => "user@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga")
+      visit new_profile_path
+      fill_in "Email", :with => "user@sga.com"
+      fill_in "Password", :with => "ilovesga"
+      click_button "Sign in"
+      page.should have_content "Only administrators can create new reps."
     end
   end
 
