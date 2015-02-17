@@ -1,26 +1,25 @@
 require "rails_helper"
 
- # this is causing EOF error. Not sure why
-# describe "create" do
-#   it "should allow creation of an activity", :js => true do
-#     User.destroy_all
-#     Profile.destroy_all
-#     @user = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
-#     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
-#     @contact = Contact.create!(:name => "Wayne Scarano")
-#     @client.contacts << @contact
-#     visit activities_path
-#     fill_in "Email", :with => "user1@sga.com"
-#     fill_in "Password", :with => "ilovesga"
-#     click_button "Sign in"
-#     click_link "New Activity"
-#     page.should have_content "New activity"
-#     select "SGA", :from => "Client"
-#     select "Wayne Scarano", :from => "Contact"
-#     # find_field('City').value.should eq 'Hillsborough'
-#     # find(:css, 'select#activity_state').value.should == 'NJ'
-#   end
-# end
+describe "create" do
+  it "should allow creation of an activity", :js => true do
+    User.destroy_all
+    Profile.destroy_all
+    @user = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
+    @contact = Contact.create!(:name => "Wayne Scarano")
+    @client.contacts << @contact
+    visit activities_path
+    fill_in "Email", :with => "user1@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Activity"
+    page.should have_content "New activity"
+    select "SGA", :from => "Client"
+    select "Wayne Scarano", :from => "Contact"
+    find_field('City').value.should eq 'Hillsborough'
+    find(:css, 'select#activity_state').value.should == 'NJ'
+  end
+end
 
 describe "index" do
   it "should allow the admins to view the activities of other people", :js => true do
@@ -38,13 +37,13 @@ describe "index" do
     select "SGA", :from => "Client"
     select "Wayne Scarano", :from => "Contact"
     click_button "Save"
-    click_link "2015-02-04" # has to be today
+    click_link Date.today.strftime("%Y-%m-%d")
     click_link "Logout"
     visit activities_path
     fill_in "Email", :with => "admin@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
-    click_link "2015-02-04" # has to be today
+    click_link Date.today.strftime("%Y-%m-%d")
     page.should have_content "Wayne Scarano"
   end
 end
