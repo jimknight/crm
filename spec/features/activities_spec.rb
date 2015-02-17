@@ -15,14 +15,38 @@ describe "create" do
     click_link "New Activity"
     page.should have_content "New activity"
     select "SGA", :from => "Client"
-    select "Wayne Scarano", :from => "Contact"
+    select "Wayne Scarano", :from => "Choose a contact"
     find_field('City').value.should eq 'Hillsborough'
     find(:css, 'select#activity_state').value.should == 'NJ'
+  end
+  it "should allow dynamic creation of a contact for a client" do
+    User.destroy_all
+    Profile.destroy_all
+    Activity.destroy_all
+    @user = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
+    @contact = Contact.create!(:name => "Wayne Scarano")
+    @client.contacts << @contact
+    visit activities_path
+    fill_in "Email", :with => "user1@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Activity"
+    page.should have_content "New activity"
+    select "SGA", :from => "Client"
+    page.should have_content "or enter a new contact"
+    fill_in "new_contact", :with => "Jim Knight"
+    click_button "Save"
+    @new_contact = Contact.find_by_name("Jim Knight")
+    @client.contacts.should include(@new_contact)
   end
 end
 
 describe "index" do
   it "should allow the admins to view the activities of other people", :js => true do
+    Client.destroy_all
+    Contact.destroy_all
+    Activity.destroy_all
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
@@ -35,7 +59,7 @@ describe "index" do
     click_link "New Activity"
     page.should have_content "New activity"
     select "SGA", :from => "Client"
-    select "Wayne Scarano", :from => "Contact"
+    select "Wayne Scarano", :from => "Choose a contact"
     click_button "Save"
     click_link Date.today.strftime("%Y-%m-%d")
     click_link "Logout"
@@ -60,7 +84,7 @@ describe "user" do
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
     select "SGA", :from => "Client"
-    select "Wayne Scarano", :from => "Contact"
+    select "Wayne Scarano", :from => "Choose a contact"
     fill_in "Comments", :with => "i am wayne"
     click_button "Save"
     click_link "Logout"
@@ -69,7 +93,7 @@ describe "user" do
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
     select "SGA", :from => "Client"
-    select "Wayne Scarano", :from => "Contact"
+    select "Wayne Scarano", :from => "Choose a contact"
     fill_in "Comments", :with => "i am jim"
     click_button "Save"
     visit activities_path

@@ -47,13 +47,18 @@ class ActivitiesController < ApplicationController
   # POST /activities.json
   def create
     @activity = Activity.new(activity_params)
-
     respond_to do |format|
       if @activity.save
         current_user.activities << @activity
         if params[:activity][:models].present?
           @model = Model.find(params[:activity][:models])
           @activity.models << @model
+        end
+        if params[:new_contact].present?
+          @client = Client.find(params[:activity][:client_id])
+          @contact = Contact.where(:name => params[:new_contact]).first_or_create
+          @client.contacts << @contact
+          @activity.update_attribute(:contact_id, @contact.id)
         end
         format.html { redirect_to activities_path, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
@@ -72,6 +77,12 @@ class ActivitiesController < ApplicationController
         if params[:activity][:models].present?
           @model = Model.find(params[:activity][:models])
           @activity.models << @model
+        end
+        if params[:new_contact].present?
+          @client = Client.find(params[:activity][:client_id])
+          @contact = Contact.where(:name => params[:new_contact]).first_or_create
+          @client.contacts << @contact
+          @activity.update_attribute(:contact_id, @contact.id)
         end
         format.html { redirect_to activities_path, notice: 'Activity was successfully updated.' }
         format.json { render :show, status: :ok, location: @activity }

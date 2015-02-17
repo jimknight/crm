@@ -24,12 +24,14 @@
     <%= f.text_field :activity_date, :type => "date", :class => "form-control", :value => @activity.activity_date.to_date %>
   </div>
   <div class="form-group">
-    <%= f.label :contact_id %>
+    <%= f.label :contact_id, "Choose a contact" %>
     <% if @activity.contact %>
       <%= f.select :contact_id, options_from_collection_for_select(@client.contacts.order(:name), :id, :name, @activity.contact.id), {:include_blank => true}, {:class => "form-control"} %>
     <% else %>
       <%= f.select :contact_id, options_from_collection_for_select(@client.contacts.order(:name), :id, :name), {:include_blank => true}, {:class => "form-control"} %>
     <% end %>
+    <%= label_tag "new_contact", "or enter a new contact" %>
+    <%= text_field_tag "new_contact", "", {:class => "form-control"}  %>
   </div>
   <div class="form-group">
     <%= f.label :city %>
