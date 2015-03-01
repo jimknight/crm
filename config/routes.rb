@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get 'reps/:id/calendar' => 'calendar#show'
+
   get 'reps/show'
 
   resources :profiles
