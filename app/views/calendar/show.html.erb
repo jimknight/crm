@@ -1,3 +1,5 @@
+<h2>Appointments</h2>
+
 <!-- Responsive calendar - START -->
 <div class="responsive-calendar">
   <div class="controls">
@@ -19,24 +21,15 @@
   </div>
 </div>
 <!-- Responsive calendar - END -->
+
 <script>
 $( document ).ready( function() {
-  function addLeadingZero(num) {
-    if (num < 10) {
-      return "0" + num;
-    } else {
-      return "" + num;
-    }
-  }
-
-  $('.responsive-calendar').responsiveCalendar({
-    onActiveDayClick: function(events) {
-      var thisDayEvent, key;
-
-      key = $(this).data('year')+'-'+addLeadingZero( $(this).data('month') )+'-'+addLeadingZero( $(this).data('day') );
-      thisDayEvent = events[key];
-      alert(thisDayEvent.number);
-    }
+  $.get('/appointments.json', function(data) {
+    $('.responsive-calendar').responsiveCalendar({
+      onInit: function() {
+       this.options.events = data;
+     }
+    });
   });
 });
 </script>

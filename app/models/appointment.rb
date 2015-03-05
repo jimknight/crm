@@ -14,6 +14,12 @@
 #
 
 class Appointment < ActiveRecord::Base
+
   belongs_to :client
   belongs_to :user
+
+  def pretty_calendar_date
+    return start_time.strftime("%Y-%m-%d")
+  end
+
 end

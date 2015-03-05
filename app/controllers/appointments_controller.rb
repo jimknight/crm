@@ -1,11 +1,23 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
-    @appointments = Appointment.all
-    respond_with(@appointments)
+    @appointments = current_user.appointments
+      respond_with do |format|
+      format.html {
+        respond_with @appointments
+      }
+      format.json {
+        events = {}
+        @appointments.each do |appt|
+          appt_url = { "url" => "/appointments/#{appt.pretty_calendar_date}" }
+          events[appt.pretty_calendar_date] = appt_url
+        end
+        render :json => events
+      }
+    end
   end
 
   def show
