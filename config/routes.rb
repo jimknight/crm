@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :appointments
+
   get 'reps/:id/calendar' => 'calendar#show'
 
   get 'reps/show'
