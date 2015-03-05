@@ -18,7 +18,11 @@ class AppointmentsController < ApplicationController
       format.json {
         events = {}
         @appointments.each do |appt|
-          appt_url = { "url" => "/appointments/by-date/#{appt.pretty_calendar_date}" }
+          if events[appt.pretty_calendar_date].nil?
+            appt_url = { "url" => "/appointments/by-date/#{appt.pretty_calendar_date}", "number" => 1 }
+          else
+            appt_url = { "url" => "/appointments/by-date/#{appt.pretty_calendar_date}", "number" => events[appt.pretty_calendar_date]["number"] += 1 }
+          end
           events[appt.pretty_calendar_date] = appt_url
         end
         render :json => events
