@@ -3,6 +3,12 @@ class AppointmentsController < ApplicationController
 
   respond_to :html, :json
 
+  def by_date
+    # TODO: put in order
+    @search_date = Date.strptime(params["appt_date"], '%Y-%m-%d')
+    @appointments = current_user.appointments.where("start_time > ?", @search_date.beginning_of_day).where("start_time < ?", @search_date.end_of_day)
+  end
+
   def index
     @appointments = current_user.appointments
       respond_with do |format|
@@ -12,7 +18,7 @@ class AppointmentsController < ApplicationController
       format.json {
         events = {}
         @appointments.each do |appt|
-          appt_url = { "url" => "/appointments/#{appt.pretty_calendar_date}" }
+          appt_url = { "url" => "/appointments/by-date/#{appt.pretty_calendar_date}" }
           events[appt.pretty_calendar_date] = appt_url
         end
         render :json => events

@@ -1,0 +1,27 @@
+<h2>Your appointments for <%= @search_date.strftime("%B %e, %Y (%A)") %></h2>
+
+<% @appointments.each do |appt| %>
+  <h3><%= appt.client.name %> <%= appt.start_time.strftime("%I:%M %P") %> to <%= appt.end_time.strftime("%I:%M %P") %></h3>
+  <p>
+    <a href="<%= appt.client.google_maps_address %>">
+      <%= appt.client.street1 %><br>
+      <% if appt.client.street2.present? %>
+        <%= appt.client.street2 %><br>
+      <% end %>
+      <%= "#{appt.client.city}, #{appt.client.state} #{appt.client.zip}" %>
+    </a>
+  </p>
+  <p>
+    <a href="tel:<%= appt.client.phone %>"><%= appt.client.phone %></a>
+  </p>
+  <% if appt.comments.present? %>
+    <%= "Comments: #{appt.comments}" %>
+  <% end %>
+  <hr>
+<% end %>
+
+<p>
+  <%= link_to :back, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back
+  <% end %>
+</p>

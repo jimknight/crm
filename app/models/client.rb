@@ -16,6 +16,13 @@
 #
 
 class Client < ActiveRecord::Base
+
   has_many :contacts
   has_many :activities
+
+  def google_maps_address
+    address = [name,street1,street2,city,state,zip].join(" ")
+    return "http://maps.google.com/?q=#{ERB::Util.url_encode(address)}"
+  end
+
 end
