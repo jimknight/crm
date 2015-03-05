@@ -4,7 +4,9 @@
   <h3><%= appt.client.name %> <%= appt.start_time.strftime("%I:%M %P") %> to <%= appt.end_time.strftime("%I:%M %P") %></h3>
   <p>
     <a href="<%= appt.client.google_maps_address %>">
-      <%= appt.client.street1 %><br>
+      <% if appt.client.street1.present? %>
+        <%= appt.client.street1 %><br>
+      <% end %>
       <% if appt.client.street2.present? %>
         <%= appt.client.street2 %><br>
       <% end %>
