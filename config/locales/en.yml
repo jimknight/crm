@@ -26,5 +26,5 @@ en:
     pformat: 'MM/DD/YYYY'
   timepicker:
     dformat: '%R'
-    pformat: 'hh:mm'
+    pformat: 'hh:mm a'
   dayViewHeaderFormat: 'MMMM YYYY'

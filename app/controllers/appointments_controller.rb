@@ -23,6 +23,8 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
     @appointment.user = current_user
+    @appointment.start_time = Time.strptime(appointment_params["start_time"], "%m/%d/%Y %I:%M %P")
+    @appointment.end_time = Time.strptime(appointment_params["end_time"], "%m/%d/%Y %I:%M %P")
     if @appointment.save
       redirect_to appointments_path, :notice => "Appointment saved!"
     else
