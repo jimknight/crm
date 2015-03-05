@@ -1,5 +1,5 @@
 <%= simple_form_for(@appointment) do |f| %>
-  <%= f.input :client, collection: Client.all.order(:name) %>
+  <%= f.input :client_id, collection: Client.all.order(:name) %>
   <%= f.input :title %>
   <%= f.input :start_time, :as => :datetime_picker %>
   <%= f.input :end_time, :as => :datetime_picker %>

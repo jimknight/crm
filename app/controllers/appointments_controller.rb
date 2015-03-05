@@ -22,8 +22,12 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appointment_params)
-    @appointment.save
-    respond_with(@appointment)
+    @appointment.user = current_user
+    if @appointment.save
+      redirect_to appointments_path, :notice => "Appointment saved!"
+    else
+      render :new
+    end
   end
 
   def update
