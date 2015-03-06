@@ -30,7 +30,7 @@ var default_picker_options = {
   showTodayButton: false,
   showClear: false,
   widgetPositioning: {
-      horizontal: 'auto',
+      horizontal: 'left',
       vertical: 'auto'
   },
   disallowReadOnly: true,
