@@ -54,6 +54,16 @@
             Activities
           <% end %>
         </li>
+        <% if @tab == "Appointments" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+          <%= link_to calendar_path do %>
+              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            Appointments
+          <% end %>
+        </li>
         <% if @tab == "Client" %>
           <li class="active">
         <% else %>

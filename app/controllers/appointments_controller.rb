@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
+  before_action :set_tab
 
   respond_to :html, :json
 
@@ -67,6 +68,10 @@ class AppointmentsController < ApplicationController
   private
     def set_appointment
       @appointment = Appointment.find(params[:id])
+    end
+
+    def set_tab
+      @tab = "Appointments"
     end
 
     def appointment_params
