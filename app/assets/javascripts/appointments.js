@@ -22,7 +22,7 @@ var default_picker_options = {
       clear: 'glyphicon glyphicon-trash'
   },
   useStrict: false,
-  sideBySide: true,
+  sideBySide: false,
   daysOfWeekDisabled: [],
   calendarWeeks: false,
   viewMode: 'days',
