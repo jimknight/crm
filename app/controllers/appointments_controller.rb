@@ -52,7 +52,7 @@ class AppointmentsController < ApplicationController
     @appointment.start_time = Time.strptime(appointment_params["start_time"], "%m/%d/%Y %I:%M %P")
     @appointment.end_time = Time.strptime(appointment_params["end_time"], "%m/%d/%Y %I:%M %P")
     if @appointment.save
-      redirect_to appointments_path, :notice => "Appointment saved!"
+      redirect_to calendar_path, :notice => "Appointment saved!"
     else
       render :new
     end
