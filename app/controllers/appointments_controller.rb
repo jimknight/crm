@@ -47,7 +47,7 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new(:title => appointment_params[:title], :comments => appointment_params[:comments])
+    @appointment = Appointment.new(:client_id => appointment_params[:client_id], :title => appointment_params[:title], :comments => appointment_params[:comments])
     @appointment.user = current_user
     @appointment.start_time = Time.strptime(appointment_params["start_time"], "%m/%d/%Y %I:%M %P")
     @appointment.end_time = Time.strptime(appointment_params["end_time"], "%m/%d/%Y %I:%M %P")
