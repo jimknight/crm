@@ -1,13 +1,13 @@
 <%= simple_form_for(@appointment) do |f| %>
   <%= f.input :client_id, collection: Client.all.order(:name) %>
   <%= f.input :title %>
-  <%= f.input :start_time, :as => :datetime_picker %>
-  <%= f.input :end_time, :as => :datetime_picker %>
+  <%= f.input :start_time, :as => :datetime_picker, input_html: { value: "#{@selected_date.nil? ? "" : @selected_date.strftime("%m/%d/%Y")} 10:00 am" } %>
+  <%= f.input :end_time, :as => :datetime_picker, input_html: { value: "#{@selected_date.nil? ? "" : @selected_date.strftime("%m/%d/%Y")} 11:00 am" } %>
   <%= f.input :comments %>
   <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
   <% end %>
-  <%= link_to activities_path, :class => "btn btn-default" do %>
+  <%= link_to :back, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
   <% end %>
 <% end %>

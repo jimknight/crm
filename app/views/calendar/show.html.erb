@@ -1,4 +1,5 @@
 <h2>Appointments</h2>
+<p><%= link_to 'New Appointment', new_appointment_path, :class => "btn btn-primary" %></p>
 
 <!-- Responsive calendar - START -->
 <div class="responsive-calendar">
@@ -28,6 +29,16 @@ $( document ).ready( function() {
     $('.responsive-calendar').responsiveCalendar({
       onInit: function() {
        this.options.events = data;
+     },
+     onDayClick: function(events) {
+      console.log($(this).data("day"));
+      if (!$(this).parent().hasClass("active")) {
+        clickedYear = $(this).data("year");
+        clickedMonth = $(this).data("month");
+        clickedDay = $(this).data("day");
+        window.open("/appointments/new?day=" + clickedDay + "&month=" + clickedMonth + "&year=" + clickedYear);
+
+      }
      }
     });
   });

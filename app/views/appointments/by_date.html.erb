@@ -2,7 +2,7 @@
 
 <hr>
 <% @appointments.each do |appt| %>
-  <h3><%= appt.client.name %> <%= appt.start_time.strftime("%l:%M %P") %> to <%= appt.end_time.strftime("%l:%M %P") %></h3>
+  <h3><%= link_to appt.client.name, appt.client %> <%= appt.start_time.strftime("%l:%M %P") %> to <%= appt.end_time.strftime("%l:%M %P") %></h3>
   <p>
     <a href="<%= appt.client.google_maps_address %>">
       <% if appt.client.street1.present? %>
