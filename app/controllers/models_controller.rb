@@ -11,6 +11,14 @@ class ModelsController < ApplicationController
   # GET /models/1
   # GET /models/1.json
   def show
+    # TODO: Make this some simpler join thing that I don't know right now
+    @activities_clients = []
+    @model.activities.each do |activity|
+      client = Client.find(activity.client_id)
+      @activities_clients << client
+    end
+    @activities_clients.uniq! {|p| p.name}
+    @activities_clients.sort! { |a,b| a.name.downcase <=> b.name.downcase }
   end
 
   # GET /models/new
