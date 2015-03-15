@@ -38,6 +38,8 @@ class AppointmentsController < ApplicationController
   def new
     if params[:day].present?
       @selected_date = DateTime.new(params[:year].to_i,params[:month].to_i,params[:day].to_i)
+    else
+      @selected_date = 0.business_day.from_now.to_date
     end
     @appointment = Appointment.new
     respond_with(@appointment)
@@ -49,8 +51,8 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(:client_id => appointment_params[:client_id], :title => appointment_params[:title], :comments => appointment_params[:comments])
     @appointment.user = current_user
-    @appointment.start_time = Time.strptime(appointment_params["start_time"], "%m/%d/%Y %I:%M %P")
-    @appointment.end_time = Time.strptime(appointment_params["end_time"], "%m/%d/%Y %I:%M %P")
+    @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EDT").to_datetime
+    @appointment.end_time = ("#{appointment_params[:end_date]} #{appointment_params[:end_time]} EDT").to_datetime
     if @appointment.save
       redirect_to calendar_path, :notice => "Appointment saved!"
     else
@@ -78,6 +80,6 @@ class AppointmentsController < ApplicationController
     end
 
     def appointment_params
-      params.require(:appointment).permit(:title, :client_id, :user_id, :start_time, :end_time, :comments)
+      params.require(:appointment).permit(:title, :client_id, :user_id, :start_date, :start_time, :end_date, :end_time, :comments)
     end
 end
