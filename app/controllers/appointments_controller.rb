@@ -37,7 +37,7 @@ class AppointmentsController < ApplicationController
 
   def new
     if params[:day].present?
-      @selected_date = DateTime.new(params[:year].to_i,params[:month].to_i,params[:day].to_i)
+      @selected_date = Date.new(params[:year].to_i,params[:month].to_i,params[:day].to_i)
     else
       @selected_date = 0.business_day.from_now.to_date
     end
@@ -52,7 +52,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(:client_id => appointment_params[:client_id], :title => appointment_params[:title], :comments => appointment_params[:comments])
     @appointment.user = current_user
     @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EDT").to_datetime
-    @appointment.end_time = ("#{appointment_params[:end_date]} #{appointment_params[:end_time]} EDT").to_datetime
+    @appointment.end_time = ("#{appointment_params[:start_date]} #{appointment_params[:end_time]} EDT").to_datetime
     if @appointment.save
       redirect_to calendar_path, :notice => "Appointment saved!"
     else
