@@ -1872,3 +1872,11 @@ ul.nav.nav-tabs.fancy  > li.active  > a:hover {
 
 /* CUSTOM */
 div.panel-body p {margin:0;}
+div.day-headers {white-space: nowrap;}
+div.day{
+  border-bottom:1px solid #efefef;
+  border-right:1px solid #efefef;
+}
+div.days {
+  border-left:1px solid #efefef;
+}
