@@ -25,7 +25,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/new
   def new
-    if params[:client]
+    if params[:client].present?
       @client = Client.find(params[:client])
     else
       @client = Client.new
@@ -47,6 +47,12 @@ class ActivitiesController < ApplicationController
   # POST /activities.json
   def create
     @activity = Activity.new(activity_params)
+    if params[:new_contact].present? && params[:activity][:client_id].present?
+      @client = Client.find(params[:activity][:client_id])
+      @contact = Contact.where(:name => params[:new_contact]).first_or_create
+      @client.contacts << @contact
+      @activity.update_attribute(:contact_id, @contact.id)
+    end
     respond_to do |format|
       if @activity.save
         current_user.activities << @activity
@@ -54,15 +60,14 @@ class ActivitiesController < ApplicationController
           @model = Model.find(params[:activity][:models])
           @activity.models << @model
         end
-        if params[:new_contact].present?
-          @client = Client.find(params[:activity][:client_id])
-          @contact = Contact.where(:name => params[:new_contact]).first_or_create
-          @client.contacts << @contact
-          @activity.update_attribute(:contact_id, @contact.id)
-        end
         format.html { redirect_to activities_path, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
       else
+        if activity_params[:client_id].present?
+          @client = Client.find(activity_params[:client_id])
+        else
+          @client = Client.new
+        end
         format.html { render :new }
         format.json { render json: @activity.errors, status: :unprocessable_entity }
       end
