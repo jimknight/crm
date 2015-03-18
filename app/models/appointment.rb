@@ -17,7 +17,7 @@ class Appointment < ActiveRecord::Base
 
   belongs_to :client
   belongs_to :user
-
+  validates :client_id, :title, :start_time, :end_time, :presence => true
   def pretty_calendar_date
     return start_time.strftime("%Y-%m-%d")
   end
