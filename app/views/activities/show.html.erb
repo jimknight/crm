@@ -44,6 +44,9 @@
 <td>
   <%= link_to File.basename(@activity.attachment_url), @activity.attachment_url, :target => "_blank" %>
   <%= "[#{number_to_human_size(File.size(@activity.attachment.current_path))}]" %>
+  <% if attachment_is_image? %>
+    <br/><%= image_tag(@activity.attachment_url, :width => 50) %>
+  <% end %>
 </td>
 </tr>
 <% end %>

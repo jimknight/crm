@@ -56,7 +56,7 @@
   <div class="form-group">
     <%= f.label :attachment, "Attach a file (optional)" %>
     <%= f.file_field :attachment %>
-    <% if @activity.attachment? %>
+    <% if @activity.attachment? && attachment_is_image? %>
       <p style="margin-top:10px;">
         <%= image_tag(@activity.attachment_url, :width => 50) %>
       </p>
