@@ -16,6 +16,7 @@
 #
 
 class Activity < ActiveRecord::Base
+  mount_uploader :attachment, AttachmentUploader
   belongs_to :client
   belongs_to :contact
   belongs_to :user
