@@ -80,6 +80,8 @@ namespace :deploy do
 
       # make the config dir
       execute :mkdir, "-p #{shared_path}/config"
+      # make the uploads dir
+      execute :mkdir, "-p #{shared_path}/uploads"
       # invoke 'nginx:site:add'
       file = File.open('config/database.example.yml')
       upload! file, "#{shared_path}/config/database.yml"
@@ -120,6 +122,9 @@ namespace :deploy do
         # requires passwordless sudo on server
         sudo "ln -nfs #{current_path}/config/#{symlink[:source]} #{symlink[:link]}"
       end
+
+      # uploads
+      execute "ln -nfs #{shared_path}/uploads  #{release_path}/public/uploads"
 
     end
   end
