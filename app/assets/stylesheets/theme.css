@@ -1880,3 +1880,6 @@ div.day{
 div.days {
   border-left:1px solid #efefef;
 }
+.tablesorter-header-inner {
+  cursor: pointer;
+}
