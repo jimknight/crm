@@ -1,10 +1,12 @@
 <h2>Clients</h2>
 <p><%= link_to 'New Client', new_client_path, :class => "btn btn-primary" %></p>
-
+<p>Click column header to sort</p>
 <table class="table table-bordered">
   <thead>
     <tr>
       <th>Name</th>
+      <th>State</th>
+      <th>City</th>
       <th>Phone</th>
     </tr>
   </thead>
@@ -13,8 +15,16 @@
     <% @clients.each do |client| %>
       <tr>
         <td><%= link_to client.name, client %></td>
+        <td><%= client.state %></td>
+        <td><%= client.city %></td>
         <td><%= client.phone %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<script>
+  $(function(){
+    $(".table").tablesorter();
+  });
+</script>
