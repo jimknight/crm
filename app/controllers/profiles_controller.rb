@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
     if current_user.admin?
       @profile = Profile.new
     else
-      redirect_to profiles_path, :alert => "Only administrators can create new reps."
+      redirect_to profiles_path, :alert => "Only administrators can create new rsm's."
     end
   end
 
@@ -29,7 +29,7 @@ class ProfilesController < ApplicationController
 
   def create
     if !current_user.admin?
-      redirect_to profiles_path, :alert => "Only administrators can create new reps."
+      redirect_to profiles_path, :alert => "Only administrators can create new rsm's."
     elsif params["password"] != params["password_confirmation"]
       redirect_to :back, :alert => "Your passwords don't match"
     elsif params[:email].blank? || profile_params["first_name"].blank? || profile_params["last_name"].blank?
@@ -71,7 +71,7 @@ class ProfilesController < ApplicationController
     end
 
     def set_tab
-      @tab = "Reps"
+      @tab = "RSM's"
     end
 
     def profile_params
