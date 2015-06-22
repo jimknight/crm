@@ -13,6 +13,8 @@
 #  industry   :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  fax        :string(255)
+#  street3    :string(255)
 #
 
 class Client < ActiveRecord::Base

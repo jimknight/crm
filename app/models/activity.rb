@@ -13,6 +13,7 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  user_id       :integer
+#  attachment    :string(255)
 #
 
 class Activity < ActiveRecord::Base

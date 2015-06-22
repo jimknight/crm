@@ -11,6 +11,8 @@
 #  comments   :text
 #  created_at :datetime
 #  updated_at :datetime
+#  start_date :date
+#  end_date   :date
 #
 
 class Appointment < ActiveRecord::Base
