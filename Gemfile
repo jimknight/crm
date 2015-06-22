@@ -58,6 +58,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-rbenv', '~> 2.0', require: false
+  gem "letter_opener"
 end
 
 # Use debugger
