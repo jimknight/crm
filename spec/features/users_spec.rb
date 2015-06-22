@@ -4,7 +4,9 @@ describe "Users" do
   it "who are admins can Create/Edit/Read all Activities", :js => true do
     User.destroy_all
     Activity.destroy_all
-    @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
+    Client.destroy_all
+    Contact.destroy_all
+    @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
     @wayne = User.create!(:email => "wscarano@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
@@ -15,7 +17,7 @@ describe "Users" do
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
     select "SGA", :from => "Client"
-    select "Wayne Scarano", :from => "Contact"
+    select "Wayne Scarano", :from => "Choose a contact"
     fill_in "Comments", :with => "i am wayne"
     click_button "Save"
     click_link "Logout"
@@ -24,7 +26,7 @@ describe "Users" do
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
     select "SGA", :from => "Client"
-    select "Wayne Scarano", :from => "Contact"
+    select "Wayne Scarano", :from => "Choose a contact"
     fill_in "Comments", :with => "i am jim"
     click_button "Save"
     click_link "Logout"
