@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all.order(:name)
+    @clients = Client.all.order(:name, :city)
   end
 
   def show
