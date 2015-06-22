@@ -70,3 +70,5 @@ gem 'momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'business_time'
 gem 'carrierwave'
+gem 'roo', '~> 2.0.0'
+gem 'area'
