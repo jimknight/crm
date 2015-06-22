@@ -65,6 +65,17 @@ class ProfilesController < ApplicationController
     redirect_to profiles_path
   end
 
+  def reset_password
+    if current_user.admin?
+      @profile = Profile.find(params[:id])
+      @user = @profile.user
+      @user.send_reset_password_instructions
+      redirect_to profiles_path, :alert => "You have successfully reset the password for #{@profile.first_name} #{@profile.last_name}. They have been sent reset instructions via email."
+    else
+      redirect_to profiles_path, :alert => "You are not authorized to reset passwords for RSM's."
+    end
+  end
+
   private
     def set_profile
       @profile = Profile.find(params[:id])

@@ -88,6 +88,25 @@ require "rails_helper"
       click_link "RSM's"
       page.should have_content User.last.email
     end
+    it "should show admins a link to reset user passwords" do
+      User.destroy_all
+      Profile.destroy_all
+      Activity.destroy_all
+      @user = User.create!(:email => "user@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga")
+      @admin = User.create!(:email => "admin@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+      3.times {|count| User.create!(:email => "user#{count}@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga")}
+      visit profiles_path
+      fill_in "Email", :with => "admin@sga.com"
+      fill_in "Password", :with => "ilovesga"
+      click_button "Sign in"
+      page.should have_link "Reset password"
+      click_link "Logout"
+      visit profiles_path
+      fill_in "Email", :with => "user@sga.com"
+      fill_in "Password", :with => "ilovesga"
+      click_button "Sign in"
+      page.should_not have_link "Reset password"
+    end
   end
 
   describe "show" do

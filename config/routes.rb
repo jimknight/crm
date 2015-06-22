@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'reps/show'
 
+  get 'profiles/reset_password/:id' => 'profiles#reset_password', :as => 'reset_user_password'
   resources :profiles
 
   # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password
