@@ -39,7 +39,8 @@ gem 'annotate', '~> 2.6.5'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
-gem 'font-awesome-sass', '~> 4.3.0'
+# gem 'font-awesome-sass', '~> 4.3.0'
+gem "font-awesome-rails"
 gem 'devise'
 # gem 'devise-bootstrap-views'
 
