@@ -126,6 +126,9 @@ namespace :deploy do
       # uploads
       execute "ln -nfs #{shared_path}/uploads  #{release_path}/public/uploads"
 
+      # Setup logs
+      execute "ln -s  #{shared_path}/log #{release_path}"
+
     end
   end
 
@@ -186,9 +189,9 @@ namespace :deploy do
   end
 end
 
-namespace :deploy do
-  on roles(:app) do
-    # Setup logs
-    execute "ln -s  #{shared_path}/log #{release_path}"
-  end
-end
+# namespace :deploy do
+#   on roles(:app) do
+#     # Setup logs
+#     execute "ln -s  #{shared_path}/log #{release_path}"
+#   end
+# end
