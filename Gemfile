@@ -41,7 +41,7 @@ gem 'autoprefixer-rails'
 
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'devise'
-gem 'devise-bootstrap-views'
+# gem 'devise-bootstrap-views'
 
 gem 'database_cleaner', :group => :test
 
