@@ -127,6 +127,7 @@ namespace :deploy do
       execute "ln -nfs #{shared_path}/uploads  #{release_path}/public/uploads"
 
       # Setup logs
+      execute "rm -rf #{release_path}/log"
       execute "ln -s  #{shared_path}/log #{release_path}"
 
     end
