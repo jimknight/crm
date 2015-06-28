@@ -72,3 +72,5 @@ gem 'business_time'
 gem 'carrierwave'
 gem 'roo', '~> 2.0.0'
 gem 'area'
+# http://stackoverflow.com/questions/21179956/no-such-file-or-directorypublic-assets-manifest
+gem 'sprockets', '2.12.3'
