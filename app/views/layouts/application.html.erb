@@ -50,7 +50,8 @@
           <li>
         <% end %>
           <%= link_to activities_path do %>
-              <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+              <!-- <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> -->
+              <%= icon('briefcase') %>
             Activities
           <% end %>
         </li>
@@ -60,7 +61,8 @@
           <li>
         <% end %>
           <%= link_to calendar_path do %>
-              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+              <!-- <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> -->
+              <%= icon('calendar') %>
             Appointments
           <% end %>
         </li>
@@ -70,7 +72,8 @@
           <li>
         <% end %>
           <%= link_to clients_path do %>
-            <span class="glyphicon glyphicon-user"></span>
+            <!-- <span class="glyphicon glyphicon-user"></span> -->
+            <%= icon('user') %>
             Clients
           <% end %>
         </li>
@@ -80,7 +83,8 @@
           <li>
         <% end %>
           <%= link_to models_path do %>
-            <span class="glyphicon glyphicon-book"></span>
+            <!-- <span class="glyphicon glyphicon-book"></span> -->
+            <%= icon('book') %>
             Models
           <% end %>
         </li>
@@ -90,7 +94,8 @@
           <li>
         <% end %>
         <%= link_to industries_path do %>
-            <span class="glyphicon glyphicon-th-large"></span>
+            <!-- <span class="glyphicon glyphicon-th-large"></span> -->
+            <%= icon('reorder') %>
             Industries
           <% end %></li>
           <% if @tab == "RSM's" %>
@@ -99,12 +104,15 @@
           <li>
         <% end %>
         <%= link_to profiles_path do %>
-            <span class="glyphicon glyphicon-road"></span>
+            <!-- <span class="glyphicon glyphicon-road"></span> -->
+            <%= icon('road') %>
             RSM's
           <% end %></li>
           <li>
             <%= link_to destroy_user_session_path, :method => :delete do %>
-            <span class="glyphicon glyphicon-log-out"></span> Logout
+            <!-- <span class="glyphicon glyphicon-log-out"></span> -->
+            <%= icon('sign-out') %>
+            Logout
             <% end %>
           </li>
       </ul>
