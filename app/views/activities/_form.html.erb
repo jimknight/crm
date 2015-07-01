@@ -72,10 +72,10 @@
 
   <div class="form-group">
     <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
-      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
+      <%= icon('check') %> Save
     <% end %>
     <%= link_to activities_path, :class => "btn btn-default" do %>
-      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+      <%= icon('remove') %> Cancel
     <% end %>
   </div>
 <% end %>
