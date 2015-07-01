@@ -39,7 +39,8 @@
           <% end %>
           <% if current_user.admin? %>
             <%= link_to reset_user_password_path(profile), :class => "btn btn-primary" do %>
-              <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Reset password
+              <%= icon('repeat') %>
+              Reset password
             <% end %>
           <% end %>
         </td>
