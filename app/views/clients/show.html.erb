@@ -47,7 +47,16 @@
   <h2>Contacts for this client</h2>
   <ul>
   <% @client.contacts.each do |contact| %>
-  <li><%= link_to contact.name, [@client,contact] %></li>
+    <li><%= link_to contact.name, [@client,contact] %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<% if @client.users.present? %>
+  <h2>RSM's for this client</h2>
+  <ul>
+  <% @client.users.each do |user| %>
+    <li><%= link_to user.user_name, user.profile %></li>
   <% end %>
   </ul>
 <% end %>
