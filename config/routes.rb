@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   root 'activities#index'
 
   get 'clients/:id/add-rsm-to-client' => 'clients#add_rsm_to_client', :as => 'add_rsm_to_client'
+  get 'clients/:id/remove_rsm_from_client' => 'clients#remove_rsm_from_client', :as => 'remove_rsm_from_client'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

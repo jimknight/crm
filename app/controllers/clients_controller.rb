@@ -84,6 +84,22 @@ class ClientsController < ApplicationController
     end
   end
 
+  def remove_rsm_from_client
+    @client = Client.find(params[:id])
+    @user = User.find(params[:user_id])
+    if current_user.admin?
+      @client.users.delete(@user)
+      redirect_to @user.profile, notice: "Removed #{@client.name} from #{@user.user_name}'s list of clients"
+    else
+      if current_user == @user
+        @client.users.delete(current_user)
+        redirect_to @user.profile, notice: "Removed #{@client.name} from your list of clients"
+      else
+        redirect_to @user.profile, alert: "Only admin's can remove clients from users' profiles."
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
