@@ -4,8 +4,10 @@ describe "create" do
   it "should allow creation of an activity", :js => true do
     User.destroy_all
     Profile.destroy_all
+    Contact.destroy_all
     @user = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
+    @client.users << @user
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
     visit activities_path
@@ -23,8 +25,10 @@ describe "create" do
     User.destroy_all
     Profile.destroy_all
     Activity.destroy_all
+    Contact.destroy_all
     @user = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
+    @client.users << @user
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
     visit activities_path
@@ -40,6 +44,23 @@ describe "create" do
     @new_contact = Contact.find_by_name("Jim Knight")
     @client.contacts.should include(@new_contact)
   end
+  it "should allow the user to only see clients assigned to them" do
+    User.destroy_all
+    Profile.destroy_all
+    Activity.destroy_all
+    Contact.destroy_all
+    @user = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client_user_can_see = Client.create!(:name => "YouSeeMe", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
+    @client_user_cannot_see = Client.create!(:name => "YouDoNotSeeMe", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
+    @client_user_can_see.users << @user
+    visit activities_path
+    fill_in "Email", :with => "user1@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Activity"
+    find_field('activity_client_id').should have_content('YouSeeMe')
+    find_field('activity_client_id').should_not have_content('YouDoNotSeeMe')
+  end
 end
 
 describe "index" do
@@ -50,6 +71,7 @@ describe "index" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
+    @client.users << @user
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
     visit activities_path
@@ -79,6 +101,8 @@ describe "user" do
     @client.contacts << @contact
     @wayne = User.create!(:email => "wscarano@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @jim = User.create!(:email => "jknight@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client.users << @wayne
+    @client.users << @jim
     visit new_activity_path
     fill_in "Email", :with => "wscarano@sga.com"
     fill_in "Password", :with => "ilovesga"

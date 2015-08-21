@@ -12,6 +12,8 @@ describe "Users" do
     @wayne = User.create!(:email => "wscarano@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @jim = User.create!(:email => "jknight@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @client.users << @wayne
+    @client.users << @jim
     visit new_activity_path
     fill_in "Email", :with => "wscarano@sga.com"
     fill_in "Password", :with => "ilovesga"

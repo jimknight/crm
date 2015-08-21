@@ -30,6 +30,11 @@ class ActivitiesController < ApplicationController
     else
       @client = Client.new
     end
+    if current_user.admin?
+      @clients = Client.all.order(:name)
+    else
+      @clients = current_user.clients.all.order(:name)
+    end
     @activity = Activity.new(:activity_date => Date.today)
   end
 
@@ -38,6 +43,11 @@ class ActivitiesController < ApplicationController
      if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin?
       @activity = current_user.activities.find(params[:id])
       @client = @activity.client
+      if current_user.admin?
+        @clients = Client.all.order(:name)
+      else
+        @clients = current_user.clients.all.order(:name)
+      end
     else
       redirect_to root_path, :alert => "Not authorized"
     end
