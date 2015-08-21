@@ -21,3 +21,25 @@ describe "show" do
     click_link "Wayne Scarano"
   end
 end
+describe "index" do
+  it "should only show clients to specific reps (rsm's) and admins" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @user = User.create!(:email => "rep@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client_no_rep = Client.create!(:name => "NoReps")
+    @client_reps = Client.create!(:name => "YesReps")
+    @client_reps.users << @user
+    visit clients_path
+    fill_in "Email", :with => "rep@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_link "YesReps"
+    page.should_not have_link "NoReps"
+    click_link "Logout"
+    visit clients_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_link "YesReps"
+    page.should have_link "NoReps"
+  end
+end

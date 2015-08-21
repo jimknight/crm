@@ -5,7 +5,11 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all.order(:name, :city)
+    if current_user.admin?
+      @clients = Client.all.order(:name, :city)
+    else
+      @clients = current_user.clients.all.order(:name, :city)
+    end
   end
 
   def show

@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :recoverable
   has_many :activities
   has_many :appointments
+  has_and_belongs_to_many :clients
   has_one  :profile
   after_create :create_child_profile
 

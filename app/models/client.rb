@@ -19,8 +19,9 @@
 
 class Client < ActiveRecord::Base
 
-  has_many :contacts
   has_many :activities
+  has_many :contacts
+  has_and_belongs_to_many :users
   validates :name, :presence => true
   def google_maps_address
     address = [name,street1,street2,city,state,zip].join(" ")
