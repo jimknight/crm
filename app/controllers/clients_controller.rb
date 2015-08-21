@@ -73,6 +73,17 @@ class ClientsController < ApplicationController
     end
   end
 
+  def add_rsm_to_client
+    @client = Client.find(params[:id])
+    if params[:user_id].nil?
+      @profiles = Profile.all.order(:first_name,:last_name)
+    else
+      @user = User.find(params[:user_id])
+      @client.users << @user
+      redirect_to @client, notice: "#{@user.user_name} was added to this client."
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client

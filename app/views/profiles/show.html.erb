@@ -20,10 +20,20 @@
   <p>If necessary...<%= link_to "change your password", edit_user_registration_path %></p>
 <% end %>
 
-<h2>Clients</h2>
-<!-- @files= @user.files.order("id DESC").all -->
-<ul>
-  <% @profile.user.activities.map(&:client).uniq.sort_by{|e| e[:name]}.each do |client| %>
-    <li><%= link_to client.name, "/clients/#{client.id}/reps/#{@profile.user.id}" %></li>
-  <% end %>
-</ul>
+<% if @profile.user.clients.any? %>
+  <h2>Clients</h2>
+  <ul>
+    <% @profile.user.clients.each do |client| %>
+      <li><%= link_to client.name, client %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @profile.user.activities.any? %>
+  <h2>Activities for clients</h2>
+  <ul>
+    <% @profile.user.activities.map(&:client).uniq.sort_by{|e| e[:name]}.each do |client| %>
+      <li><%= link_to client.name, "/clients/#{client.id}/reps/#{@profile.user.id}" %></li>
+    <% end %>
+  </ul>
+<% end %>

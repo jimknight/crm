@@ -20,6 +20,16 @@ describe "show" do
     click_button "Save"
     click_link "Wayne Scarano"
   end
+  it "should allow someone to add an RSM to a client" do
+    @client = Client.create!(:name => "SGA")
+    @user1 = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user2 = User.create!(:email => "user2@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    visit client_path(@client)
+    fill_in "Email", :with => "user1@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_link "Add RSM"
+  end
   it "should show reps(rsm's) associated" do
     @rep_for_client = User.create!(:email => "rep_for_client@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @rep_wo_client = User.create!(:email => "rep_wo_client@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")

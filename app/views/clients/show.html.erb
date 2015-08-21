@@ -30,13 +30,15 @@
 </tr>
 </table>
 
-
 <p>
   <%= link_to edit_client_path(@client), :class => "btn btn-primary" do %>
     <%= icon('pencil') %> Edit
   <% end %>
   <%= link_to new_client_contact_path(@client), :class => "btn btn-primary" do %>
     <%= icon('plus') %> Add Contact
+  <% end %>
+  <%= link_to add_rsm_to_client_path(@client), :class => "btn btn-primary" do %>
+    <%= icon('plus') %> Add RSM
   <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back

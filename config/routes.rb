@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'activities#index'
 
+  get 'clients/:id/add-rsm-to-client' => 'clients#add_rsm_to_client', :as => 'add_rsm_to_client'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
