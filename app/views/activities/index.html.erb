@@ -7,7 +7,7 @@
     <div class="panel-heading">
       <%= link_to activity.activity_date.to_date, activity %>
       <% if activity && activity.attachment_url.present? %>
-        &nbsp;<i class="glyphicon glyphicon-paperclip"></i>
+        <%= icon('paperclip') %>
       <% end %>
     </div>
     <div class="panel-body">
