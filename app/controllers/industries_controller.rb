@@ -56,7 +56,7 @@ class IndustriesController < ApplicationController
         end
       end
     else
-      redirect_to industry_path(@industry), alert: 'You must be an admin to create an industry.'
+      redirect_to industry_path(@industry), alert: 'You must be an admin to update an industry.'
     end
   end
 
@@ -70,7 +70,7 @@ class IndustriesController < ApplicationController
        format.json { head :no_content }
       end
     else
-      redirect_to industry_path(@industry), alert: 'You must be an admin to create an industry.'
+      redirect_to industry_path(@industry), alert: 'You must be an admin to delete an industry.'
     end
   end
 
