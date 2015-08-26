@@ -1,5 +1,8 @@
 <h2>Industries</h2>
-<p><%= link_to 'New Industry', new_industry_path, :class => "btn btn-primary" %></p>
+
+<% if current_user.admin? %>
+  <p><%= link_to 'New Industry', new_industry_path, :class => "btn btn-primary" %></p>
+<% end %>
 
 <table class="table table-bordered">
   <thead>

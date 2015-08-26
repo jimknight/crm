@@ -15,8 +15,10 @@
 <% end %>
 
 <p>
-  <%= link_to edit_industry_path(@industry), :class => "btn btn-primary" do %>
-    <%= icon('pencil') %> Edit
+  <% if current_user.admin? %>
+    <%= link_to edit_industry_path(@industry), :class => "btn btn-primary" do %>
+      <%= icon('pencil') %> Edit
+    <% end %>
   <% end %>
   <%= link_to industries_path, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back
