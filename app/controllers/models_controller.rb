@@ -33,35 +33,46 @@ class ModelsController < ApplicationController
   # POST /models
   def create
     @model = Model.new(model_params)
-
+    if current_user.admin?
       if @model.save
         redirect_to models_path, notice: 'Model was successfully created.'
       else
        render :new
       end
+    else
+      redirect_to model_path(@model), alert: 'You must be an admin to create a model.'
+    end
   end
 
   # PATCH/PUT /models/1
   # PATCH/PUT /models/1.json
   def update
-    respond_to do |format|
-      if @model.update(model_params)
-        format.html { redirect_to models_path, notice: 'Model was successfully updated.' }
-        format.json { render :show, status: :ok, location: @model }
-      else
-        format.html { render :edit }
-        format.json { render json: @model.errors, status: :unprocessable_entity }
+    if current_user.admin?
+      respond_to do |format|
+        if @model.update(model_params)
+          format.html { redirect_to models_path, notice: 'Model was successfully updated.' }
+          format.json { render :show, status: :ok, location: @model }
+        else
+          format.html { render :edit }
+          format.json { render json: @model.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to model_path(@model), alert: 'You must be an admin to update a model.'
     end
   end
 
   # DELETE /models/1
   # DELETE /models/1.json
   def destroy
-    @model.destroy
-    respond_to do |format|
-      format.html { redirect_to models_url, notice: 'Model was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.admin?
+      @model.destroy
+      respond_to do |format|
+        format.html { redirect_to models_url, notice: 'Model was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to model_path(@model), alert: 'You must be an admin to delete a model.'
     end
   end
 
