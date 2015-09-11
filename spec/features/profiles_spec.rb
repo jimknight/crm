@@ -20,6 +20,23 @@ require "rails_helper"
       click_button "Save"
       page.should have_content "Joe Maio"
     end
+    it "should show the correct failure message on not enough password characters" do
+      User.destroy_all
+      Profile.destroy_all
+      Activity.destroy_all
+      @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+      visit new_profile_path
+      fill_in "Email", :with => "admin@sga.com"
+      fill_in "Password", :with => "ilovesga"
+      click_button "Sign in"
+      fill_in "Email", :with => "wscarano@gmail.com"
+      fill_in "First name", :with => "Test"
+      fill_in "Last name", :with => "Test"
+      fill_in "Password", :with => "short"
+      fill_in "Password confirmation", :with => "short"
+      click_button "Save"
+      page.should have_content "Password is too short"
+    end
     it "should show the correct error message if the user enters the wrong password_confirmation" do
       User.destroy_all
       Profile.destroy_all

@@ -28,6 +28,7 @@ class ProfilesController < ApplicationController
   end
 
   def create
+    @profile = Profile.new(profile_params)
     if !current_user.admin?
       redirect_to profiles_path, :alert => "Only administrators can create new RSM's."
     elsif params["password"] != params["password_confirmation"]
@@ -36,12 +37,15 @@ class ProfilesController < ApplicationController
       redirect_to :back, :alert => "All fields are required. Please try again."
     else
       @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
-      if @user.save!
+      if @user.save
         @profile = @user.profile
         @profile.update_attributes(profile_params)
         redirect_to profiles_path
       else
-        render :new
+        @user.errors.full_messages.each do |msg|
+          @profile.errors.add(:base,msg)
+        end
+        render :action => :new
       end
     end
   end
