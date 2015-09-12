@@ -13,14 +13,18 @@ class ClientsController < ApplicationController
   end
 
   def show
-    if params[:user_id]
-      @rep_activities = @client.activities.where(:user_id => params[:user_id])
+    if current_user.admin? || current_user.clients.include?(@client)
+      if params[:user_id]
+        @rep_activities = @client.activities.where(:user_id => params[:user_id])
+      else
+        @rep_activities = @client.activities
+      end
+      respond_to do |format|
+        format.html
+        format.json { render json: @client.to_json(include: :contacts) }
+      end
     else
-      @rep_activities = @client.activities
-    end
-    respond_to do |format|
-      format.html
-      format.json { render json: @client.to_json(include: :contacts) }
+      redirect_to clients_path, :alert => "Unauthorized. Only admins and RSM's connected to this client can see this client"
     end
   end
 

@@ -1,6 +1,36 @@
 require "rails_helper"
 
 describe "show" do
+  it "should only show clients to specific reps (rsm's) and admins" do
+    @client = Client.create!(:name => "SGA")
+    @user1 = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user2 = User.create!(:email => "user2@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user2.clients << @client
+    visit client_path(@client)
+    fill_in "Email", :with => "user1@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_content "Unauthorized. Only admins and RSM's connected to this client can see this client"
+    click_link "Logout"
+    visit client_path(@client)
+    fill_in "Email", :with => "user2@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_content "SGA"
+  end
+  # it "should allow creation of an activity from a client" do
+  #   @client = Client.create!(:name => "SGA")
+  #   @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+  #   visit client_path(@client)
+  #   fill_in "Email", :with => "user@sga.com"
+  #   fill_in "Password", :with => "ilovesga"
+  #   click_button "Sign in"
+  #   save_and_open_page
+  #   page.should have_link "Add activity"
+
+  #   # Is there a way to add a link under the clients tab to "add an activity"
+  #   #      - so if I am adding new client and contact I can just create activity from there rather than going out and then clicking the activity tab
+  # end
   it "should allow creation of a contact" do
     User.destroy_all
     @jim = User.create!(:email => "jknight@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
@@ -24,6 +54,7 @@ describe "show" do
     @client = Client.create!(:name => "SGA")
     @user1 = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @user2 = User.create!(:email => "user2@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user1.clients << @client
     visit client_path(@client)
     fill_in "Email", :with => "user1@sga.com"
     fill_in "Password", :with => "ilovesga"
@@ -36,7 +67,7 @@ describe "show" do
     @client_reps = Client.create!(:name => "YesReps")
     @client_reps.users << @rep_for_client
     visit client_path(@client_reps)
-    fill_in "Email", :with => "rep_wo_client@sga.com"
+    fill_in "Email", :with => "rep_for_client@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
     page.should have_content @rep_for_client.user_name
