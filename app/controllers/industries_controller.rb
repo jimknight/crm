@@ -11,7 +11,11 @@ class IndustriesController < ApplicationController
   # GET /industries/1
   # GET /industries/1.json
   def show
-    @industry_clients = Client.where(:industry => @industry.id.to_s).order("name")
+    if current_user.admin?
+      @industry_clients = Client.where(:industry => @industry.id.to_s).uniq.order("name")
+    else
+      @industry_clients = current_user.clients.where(:industry => @industry.id.to_s).uniq.order("name")
+    end
   end
 
   # GET /industries/new
