@@ -11,9 +11,14 @@ class ModelsController < ApplicationController
   # GET /models/1
   # GET /models/1.json
   def show
+    if current_user.admin?
+      @model_activities = @model.activities #all
+    else
+      @model_activities = @model.activities.where(:user_id => current_user.id) # user's activities
+    end
     # TODO: Make this some simpler join thing that I don't know right now
     @activities_clients = []
-    @model.activities.each do |activity|
+    @model_activities.each do |activity|
       client = Client.find(activity.client_id)
       @activities_clients << client
     end
