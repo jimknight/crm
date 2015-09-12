@@ -18,19 +18,16 @@ describe "show" do
     click_button "Sign in"
     page.should have_content "SGA"
   end
-  # it "should allow creation of an activity from a client" do
-  #   @client = Client.create!(:name => "SGA")
-  #   @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
-  #   visit client_path(@client)
-  #   fill_in "Email", :with => "user@sga.com"
-  #   fill_in "Password", :with => "ilovesga"
-  #   click_button "Sign in"
-  #   save_and_open_page
-  #   page.should have_link "Add activity"
-
-  #   # Is there a way to add a link under the clients tab to "add an activity"
-  #   #      - so if I am adding new client and contact I can just create activity from there rather than going out and then clicking the activity tab
-  # end
+  it "should allow creation of an activity from a client" do
+    @client = Client.create!(:name => "SGA")
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client.users << @user
+    visit client_path(@client)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_link "Add Activity"
+  end
   it "should allow creation of a contact" do
     User.destroy_all
     @jim = User.create!(:email => "jknight@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")

@@ -34,6 +34,9 @@
   <%= link_to edit_client_path(@client), :class => "btn btn-primary" do %>
     <%= icon('pencil') %> Edit
   <% end %>
+  <%= link_to new_activity_path(:client => @client), :class => "btn btn-primary" do %>
+    <%= icon('plus') %> Add Activity
+  <% end %>
   <%= link_to new_client_contact_path(@client), :class => "btn btn-primary" do %>
     <%= icon('plus') %> Add Contact
   <% end %>
