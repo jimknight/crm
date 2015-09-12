@@ -71,6 +71,23 @@ describe "show" do
   end
 end
 describe "index" do
+  before :each do
+    User.destroy_all
+  end
+  it "should show a search box for clients and find the matching" do
+    @client1 = Client.create!(:name => "SGA")
+    @client2 = Client.create!(:name => "LavaTech")
+    @user = User.create!(:email => "rep@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user.clients << [@client1,@client2]
+    visit clients_path
+    fill_in "Email", :with => "rep@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    fill_in "search", :with => "lava"
+    click_button "Search"
+    page.should have_link "LavaTech"
+    page.should_not have_link "SGA"
+  end
   it "should only show clients to specific reps (rsm's) and admins" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @user = User.create!(:email => "rep@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")

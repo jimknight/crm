@@ -6,9 +6,14 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     if current_user.admin?
-      @clients = Client.all.order(:name, :city)
+      @clients = Client.all
     else
-      @clients = current_user.clients.all.order(:name, :city)
+      @clients = current_user.clients.all
+    end
+    if params[:search].present?
+      @clients = @clients.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
+    else
+      @clients = @clients.order(:name, :city)
     end
   end
 
@@ -119,4 +124,5 @@ class ClientsController < ApplicationController
     def client_params
       params.require(:client).permit(:name, :street1, :street2, :city, :state, :zip, :phone, :industry)
     end
+
 end

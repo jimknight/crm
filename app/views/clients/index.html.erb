@@ -1,5 +1,14 @@
 <h2>Clients</h2>
 <p><%= link_to 'New Client', new_client_path, :class => "btn btn-primary" %></p>
+<%= form_tag clients_path, :method => 'get' do %>
+  <p>
+    <%= search_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+    <% if params[:search].present? %>
+      &nbsp;<%= link_to "clear search", clients_path %>
+    <% end %>
+  </p>
+<% end %>
 <p>Click column header to sort</p>
 <table class="table table-bordered">
   <thead>
