@@ -98,16 +98,21 @@
             <%= icon('reorder') %>
             Industries
           <% end %></li>
-          <% if @tab == "RSM's" %>
+
+<% if current_user && current_user.admin? %>
+        <% if @tab == "RSM's" %>
           <li class="active">
         <% else %>
           <li>
         <% end %>
         <%= link_to profiles_path do %>
-            <!-- <span class="glyphicon glyphicon-road"></span> -->
-            <%= icon('road') %>
-            RSM's
-          <% end %></li>
+          <!-- <span class="glyphicon glyphicon-road"></span> -->
+          <%= icon('road') %>
+          RSM's
+        <% end %>
+        </li>
+<% end %>
+
           <li>
             <%= link_to destroy_user_session_path, :method => :delete do %>
             <!-- <span class="glyphicon glyphicon-log-out"></span> -->

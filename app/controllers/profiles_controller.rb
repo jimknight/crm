@@ -4,26 +4,33 @@ class ProfilesController < ApplicationController
   respond_to :html
 
   def index
-    @profiles = Profile.all
-    respond_with(@profiles)
+    if current_user.admin?
+      @profiles = Profile.all
+      respond_with(@profiles)
+    else
+      redirect_to root_path, :alert => "Not authorized. Only administrators can view RSM's."
+    end
   end
 
   def new
     if current_user.admin?
       @profile = Profile.new
     else
-      redirect_to profiles_path, :alert => "Only administrators can create new RSM's."
+      redirect_to root_path, :alert => "Not authorized. Only administrators can create new RSM's."
     end
   end
 
   def show
-    respond_with(@profile)
+    if current_user.admin?
+      respond_with(@profile)
+    else
+      redirect_to root_path, :alert => "Not authorized. Only administrators can view RSM's."
+    end
   end
 
   def edit
-    # if not admin and not user, cancel
-    if @profile.user != current_user && !current_user.admin?
-      redirect_to profiles_path, :alert => "You are not authorized to edit a profile other than your own."
+    if !current_user.admin?
+      redirect_to root_path, :alert => "Not authorized. Only administrators can create edit RSM's."
     end
   end
 
