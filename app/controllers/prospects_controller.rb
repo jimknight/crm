@@ -1,5 +1,7 @@
 class ProspectsController < ApplicationController
 
+  before_action :set_tab
+
   def index
     if current_user.admin?
       @prospects = Client.where(client_type: 'Prospect')
@@ -11,6 +13,12 @@ class ProspectsController < ApplicationController
     else
       @prospects = @prospects.order(:name, :city)
     end
+  end
+
+private
+
+  def set_tab
+    @tab = "Prospect"
   end
 
 end
