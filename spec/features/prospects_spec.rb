@@ -15,7 +15,15 @@ describe "new" do
     page.should have_content "New prospect"
   end
   it "should disallow anyone other than marketing or admin to create prospects" do
-
+    @marketing = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    visit prospects_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_link "New Prospect"
+    visit new_prospect_path
+    save_and_open_page
+    page.should have_content "Not authorized"
   end
 end
 

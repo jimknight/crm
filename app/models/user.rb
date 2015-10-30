@@ -42,4 +42,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def marketing?
+    if self.role == "Marketing"
+      return true
+    else
+      return false
+    end
+  end
+
 end
