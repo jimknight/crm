@@ -95,6 +95,30 @@ describe "index" do
 end
 
 describe "user" do
+  before :each do
+    User.destroy_all
+    Profile.destroy_all
+  end
+  it "of marketing can't see any activities" do
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
+    visit activities_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_link "Activities"
+    page.should_not have_content "Activities"
+    page.should have_content "Not authorized"
+  end
+  it "of marketing can't see any appointments" do
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
+    visit appointments_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_link "Appointments"
+    page.should_not have_content "Listing appointments"
+    page.should have_content "Not authorized"
+  end
   it "can only see his created activities in the index", :js => true do
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
     @contact = Contact.create!(:name => "Wayne Scarano")
@@ -125,22 +149,20 @@ describe "user" do
     page.should_not have_content "i am wayne"
   end
   it "can only open his activity" do
-      @owner = User.create!(:email => "wscarano@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
-      @other_user = User.create!(:email => "jknight@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
-      @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
-      @contact = Contact.create!(:name => "Wayne Scarano")
-      @client.contacts << @contact
-      @activity = Activity.create!(:contact_id => @contact.id,:client_id => @client.id)
-      @owner.activities << @activity
-      visit activity_path @activity
-      fill_in "Email", :with => "jknight@sga.com"
-      fill_in "Password", :with => "ilovesga"
-      click_button "Sign in"
-      page.should have_content "Not authorized"
+    @owner = User.create!(:email => "wscarano@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @other_user = User.create!(:email => "jknight@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
+    @contact = Contact.create!(:name => "Wayne Scarano")
+    @client.contacts << @contact
+    @activity = Activity.create!(:contact_id => @contact.id,:client_id => @client.id)
+    @owner.activities << @activity
+    visit activity_path @activity
+    fill_in "Email", :with => "jknight@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_content "Not authorized"
   end
   it "can only edit his activities" do
-    User.destroy_all
-    Profile.destroy_all
     @owner = User.create!(:email => "wscarano@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @other_user = User.create!(:email => "jknight@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")

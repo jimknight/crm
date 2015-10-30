@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe "new" do
   it "should default the contact phone number to the client phone number" do
+    User.destroy_all
     @client = Client.create!(:name => "SGA", :phone => "908-359-4626")
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @user.clients << @client

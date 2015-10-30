@@ -1,4 +1,5 @@
 class AppointmentsController < ApplicationController
+  before_action :hide_from_marketing
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
   before_action :set_tab
 
@@ -71,6 +72,12 @@ class AppointmentsController < ApplicationController
   end
 
   private
+    def hide_from_marketing
+      if current_user.marketing? && !current_user.admin?
+        redirect_to prospects_path, :alert => "Not authorized. Users who are in the marketing role may not access appointments."
+      end
+    end
+
     def set_appointment
       @appointment = Appointment.find(params[:id])
     end

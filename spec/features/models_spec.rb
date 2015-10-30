@@ -67,3 +67,16 @@ describe "show" do
     page.should have_link "Edit"
   end
 end
+describe "user" do
+  it "of marketing can't see any models" do
+    User.destroy_all
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
+    visit models_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_link "Models"
+    page.should_not have_content "Models"
+    page.should have_content "Not authorized"
+  end
+end

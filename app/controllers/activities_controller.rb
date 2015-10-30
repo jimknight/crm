@@ -1,4 +1,5 @@
 class ActivitiesController < ApplicationController
+  before_action :hide_from_marketing
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :set_tab
 
@@ -123,6 +124,13 @@ class ActivitiesController < ApplicationController
   end
 
   private
+
+    def hide_from_marketing
+      if current_user.marketing? && !current_user.admin?
+        redirect_to prospects_path, :alert => "Not authorized. Users who are in the marketing role may not access activities."
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
       @activity = Activity.find(params[:id])
