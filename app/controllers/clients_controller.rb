@@ -6,9 +6,9 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     if current_user.admin?
-      @clients = Client.all
+      @clients = Client.all.where.not(client_type: 'Prospect')
     else
-      @clients = current_user.clients.all
+      @clients = current_user.clients.where.not(client_type: 'Prospect')
     end
     if params[:search].present?
       @clients = @clients.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)

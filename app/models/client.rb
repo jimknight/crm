@@ -20,6 +20,7 @@
 
 class Client < ActiveRecord::Base
 
+  before_save :default_values
   has_many :activities
   has_many :contacts
   has_and_belongs_to_many :users
@@ -27,6 +28,10 @@ class Client < ActiveRecord::Base
   def google_maps_address
     address = [name,street1,street2,city,state,zip].join(" ")
     return "http://maps.google.com/?q=#{ERB::Util.url_encode(address)}"
+  end
+
+  def default_values
+    self.client_type ||= 'Client'
   end
 
 end

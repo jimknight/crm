@@ -73,6 +73,18 @@ end
 describe "index" do
   before :each do
     User.destroy_all
+    Client.destroy_all
+  end
+  it "should not show prospects to admins in the clients list page" do
+    @client1 = Client.create!(:name => "SGA")
+    @client2 = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    visit clients_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_link "SGA"
+    page.should_not have_link "LavaTech"
   end
   it "should show a search box for clients and find the matching" do
     @client1 = Client.create!(:name => "SGA")
