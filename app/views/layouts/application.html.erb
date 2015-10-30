@@ -143,6 +143,19 @@
             <% end %>
             </li>
           <% end %>
+          <% if current_user && current_user.admin? %>
+            <% if @tab == "Setting" %>
+              <li class="active">
+            <% else %>
+              <li>
+            <% end %>
+            <%= link_to new_setting_path do %>
+              <!-- <span class="glyphicon glyphicon-road"></span> -->
+              <%= icon('gear') %>
+              Settings
+            <% end %>
+            </li>
+          <% end %>
           <li>
             <%= link_to destroy_user_session_path, :method => :delete do %>
             <!-- <span class="glyphicon glyphicon-log-out"></span> -->

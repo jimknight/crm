@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :settings
+
   resources :appointments
   resources :prospects
   get 'appointments/by-date/:appt_date' => 'appointments#by_date'
