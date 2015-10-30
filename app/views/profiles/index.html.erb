@@ -29,6 +29,9 @@
           <% if profile.admin %>
             *Admin
           <% end %>
+          <% if profile.user.marketing? %>
+            *Marketing
+          <% end %>
         </td>
         <td><%= profile.user.email %></td>
         <td>

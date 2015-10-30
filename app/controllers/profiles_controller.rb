@@ -44,6 +44,9 @@ class ProfilesController < ApplicationController
       redirect_to :back, :alert => "All fields are required. Please try again."
     else
       @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
+      if params[:role] == "1"
+        @user.role = "Marketing" # down the road if other roles, have to accommodate here
+      end
       if @user.save
         @profile = @user.profile
         @profile.update_attributes(profile_params)
@@ -63,6 +66,11 @@ class ProfilesController < ApplicationController
         @profile.user.update_attribute("admin",true)
       else
         @profile.user.update_attribute("admin",false)
+      end
+      if params[:role] == "1" # down the road if other roles, have to accommodate here
+        @profile.user.update_attribute("role","Marketing")
+      else
+        @profile.user.update_attribute("role","")
       end
       @profile.update(profile_params.tap{|x| x.delete(:admin)})
     else
@@ -97,6 +105,6 @@ class ProfilesController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :user_id, :admin)
+      params.require(:profile).permit(:first_name, :last_name, :user_id, :admin, :role)
     end
 end

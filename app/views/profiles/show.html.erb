@@ -4,6 +4,9 @@
   <% if @profile.admin %>
     *Admin
   <% end %>
+  <% if @profile.user.marketing? %>
+    *Marketing
+  <% end %>
 </p>
 <p>
   <% if @profile.user == current_user || current_user.admin? %>

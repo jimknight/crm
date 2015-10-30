@@ -1,10 +1,29 @@
 require "rails_helper"
 
   describe "create" do
-    it "should allow the creation of a new user by admins" do
+    before :each do
       User.destroy_all
       Profile.destroy_all
       Activity.destroy_all
+    end
+    it "should allow an admin to assign the marketing role to a user" do
+      @admin = User.create!(:email => "admin@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+      visit root_path
+      fill_in "Email", :with => "admin@sga.com"
+      fill_in "Password", :with => "ilovesga"
+      click_button "Sign in"
+      click_link "RSM's"
+      click_link "Add RSM"
+      fill_in "Email", :with => "jmaio@sga.com"
+      fill_in "First name", :with => "Joe"
+      fill_in "Last name", :with => "Maio"
+      fill_in "Password", :with => "ilovesga"
+      fill_in "Password confirmation", :with => "ilovesga"
+      check "role"
+      click_button "Save"
+      page.should have_content "Marketing"
+    end
+    it "should allow the creation of a new user by admins" do
       @admin = User.create!(:email => "admin@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
       visit root_path
       fill_in "Email", :with => "admin@sga.com"
@@ -21,9 +40,6 @@ require "rails_helper"
       page.should have_content "Joe Maio"
     end
     it "should show the correct failure message on not enough password characters" do
-      User.destroy_all
-      Profile.destroy_all
-      Activity.destroy_all
       @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
       visit new_profile_path
       fill_in "Email", :with => "admin@sga.com"
@@ -38,9 +54,6 @@ require "rails_helper"
       page.should have_content "Password is too short"
     end
     it "should show the correct error message if the user enters the wrong password_confirmation" do
-      User.destroy_all
-      Profile.destroy_all
-      Activity.destroy_all
       @admin = User.create!(:email => "admin@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
       visit root_path
       fill_in "Email", :with => "admin@sga.com"
@@ -58,9 +71,6 @@ require "rails_helper"
       page.should have_content "Your passwords don't match"
     end
     it "should show the correct error message if the user leaves off a required field" do
-      User.destroy_all
-      Profile.destroy_all
-      Activity.destroy_all
       @admin = User.create!(:email => "admin@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
       visit root_path
       fill_in "Email", :with => "admin@sga.com"
@@ -77,9 +87,6 @@ require "rails_helper"
       page.should have_content "All fields are required."
     end
     it "should not allow a non-admin to create a user" do
-      User.destroy_all
-      Profile.destroy_all
-      Activity.destroy_all
       @user = User.create!(:email => "user@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga")
       visit new_profile_path
       fill_in "Email", :with => "user@sga.com"
