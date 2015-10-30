@@ -1,0 +1,30 @@
+<h2>Prospects</h2>
+
+<p>Click column header to sort</p>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>State</th>
+      <th>City</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prospects.each do |prospect| %>
+      <tr>
+        <td><%= link_to prospect.name, prospect %></td>
+        <td><%= prospect.state %></td>
+        <td><%= prospect.city %></td>
+        <td><%= prospect.phone %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(function(){
+    $(".table").tablesorter();
+  });
+</script>
