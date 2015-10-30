@@ -1,5 +1,39 @@
 require "rails_helper"
 
+describe "new" do
+  before :each do
+    User.destroy_all
+    Client.destroy_all
+  end
+  it "should allow marketing or admin to create new prospects" do
+    @marketing = User.create!(:email => "marketing@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
+    visit prospects_path
+    fill_in "Email", :with => "marketing@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Prospect"
+    page.should have_content "New prospect"
+  end
+  it "should disallow anyone other than marketing or admin to create prospects" do
+
+  end
+end
+
+describe "create" do
+  it "should allow marketing or admin to create new prospects (and save them)" do
+    @marketing = User.create!(:email => "marketing@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
+    visit prospects_path
+    fill_in "Email", :with => "marketing@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Prospect"
+    page.should have_content "New prospect"
+    fill_in "Name", :with => "LavaTech"
+    click_button "Save"
+    page.should have_content "Prospect was successfully created."
+  end
+end
+
 describe "index" do
   before :each do
     User.destroy_all

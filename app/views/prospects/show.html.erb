@@ -1,0 +1,40 @@
+<h2><%= @prospect.name %></h2>
+
+<table class="table">
+  <tr>
+    <td>Phone</td>
+<td><%= @prospect.phone %></td>
+  </tr>
+    <tr>
+      <td>Fax</td>
+  <td><%= @prospect.fax %></td>
+    </tr>
+<tr><td>Street 1</td><td><%= @prospect.street1 %></td></tr>
+<tr><td>Street 2</td><td><%= @prospect.street2 %></td></tr>
+<tr><td>Street 3</td><td><%= @prospect.street3 %></td></tr>
+<tr>
+  <td>City</td>
+<td><%= @prospect.city %></td>
+</tr>
+<tr>
+  <td>State</td>
+<td><%= @prospect.state %></td>
+</tr>
+<tr>
+  <td>Zip</td>
+<td><%= @prospect.zip %></td>
+</tr>
+<tr>
+  <td>Industry</td>
+<td><%= @prospect.industry.nil? || @prospect.industry == "" ? "" : Industry.find(@prospect.industry).name %></td>
+</tr>
+</table>
+
+<% if @prospect.contacts.present? %>
+  <h2>Contacts for this prospect</h2>
+  <ul>
+  <% @prospect.contacts.each do |prospect| %>
+    <li><%= link_to prospect.name, [@prospect,prospect] %></li>
+  <% end %>
+  </ul>
+<% end %>
