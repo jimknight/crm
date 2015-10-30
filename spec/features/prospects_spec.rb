@@ -22,7 +22,6 @@ describe "new" do
     click_button "Sign in"
     page.should_not have_link "New Prospect"
     visit new_prospect_path
-    save_and_open_page
     page.should have_content "Not authorized"
   end
 end
