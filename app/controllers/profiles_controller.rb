@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
 
   def index
     if current_user.admin?
-      @profiles = Profile.all
+      @profiles = Profile.all.order(:first_name)
       respond_with(@profiles)
     else
       redirect_to root_path, :alert => "Not authorized. Only administrators can view RSM's."
