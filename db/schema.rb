@@ -11,25 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821143336) do
+ActiveRecord::Schema.define(version: 20151030134726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "active_admin_comments", force: true do |t|
-    t.string   "namespace",     limit: nil
-    t.text     "body"
-    t.string   "resource_id",   limit: nil, null: false
-    t.string   "resource_type", limit: nil, null: false
-    t.integer  "author_id"
-    t.string   "author_type",   limit: nil
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "activities", force: true do |t|
     t.integer  "client_id"
@@ -52,24 +37,6 @@ ActiveRecord::Schema.define(version: 20150821143336) do
     t.integer "activity_id", null: false
     t.integer "model_id",    null: false
   end
-
-  create_table "admin_users", force: true do |t|
-    t.string   "email",                  limit: nil, default: "", null: false
-    t.string   "encrypted_password",     limit: nil, default: "", null: false
-    t.string   "reset_password_token",   limit: nil
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
-  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "appointments", force: true do |t|
     t.string   "title"
@@ -100,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150821143336) do
     t.datetime "updated_at"
     t.string   "fax"
     t.string   "street3"
+    t.string   "client_type"
   end
 
   create_table "clients_users", force: true do |t|
