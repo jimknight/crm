@@ -34,14 +34,8 @@
   <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
     <%= icon('pencil') %> Edit
   <% end %>
-  <%= link_to new_activity_path(:prospect => @prospect), :class => "btn btn-primary" do %>
-    <%= icon('plus') %> Add Activity
-  <% end %>
   <%= link_to new_prospect_contact_path(@prospect), :class => "btn btn-primary" do %>
     <%= icon('plus') %> Add Contact
-  <% end %>
-  <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('plus') %> Add RSM
   <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back
@@ -51,7 +45,7 @@
 <% if @prospect.contacts.present? %>
   <h2>Contacts for this prospect</h2>
   <ul>
-  <% @prospect.contacts.each do |prospect| %>
+  <% @prospect.contacts.order(:name).each do |prospect| %>
     <li><%= link_to prospect.name, [@prospect,prospect] %></li>
   <% end %>
   </ul>
