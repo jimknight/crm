@@ -46,6 +46,19 @@ describe "index" do
     User.destroy_all
     Client.destroy_all
   end
+  it "should open the prospect not the client when clicking the link" do
+    @prospect = Client.create!(:name => "SGA",:client_type => "Prospect")
+    @contact = Contact.create!(:name => "Wayne Scarano")
+    @prospect.contacts << @contact
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    visit prospects_path
+    click_link "SGA"
+    page.should have_content "Contacts for this prospect"
+  end
   it "should show a link to the prospects page in the root" do
     @client1 = Client.create!(:name => "SGA")
     @client2 = Client.create!(:name => "LavaTech",:client_type => "Prospect")

@@ -17,7 +17,7 @@
   <tbody>
     <% @prospects.each do |prospect| %>
       <tr>
-        <td><%= link_to prospect.name, prospect %></td>
+        <td><%= link_to prospect.name, prospect_path(prospect) %></td>
         <td><%= prospect.state %></td>
         <td><%= prospect.city %></td>
         <td><%= prospect.phone %></td>
