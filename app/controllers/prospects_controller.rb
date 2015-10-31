@@ -52,6 +52,33 @@ class ProspectsController < ApplicationController
     end
   end
 
+  def add_rsm_to_prospect
+    @prospect = Client.find(params[:id])
+    if params[:user_id].nil?
+      @profiles = Profile.all.order(:first_name,:last_name)
+    else
+      @user = User.find(params[:user_id])
+      @prospect.users << @user
+      redirect_to prospect_path(@prospect), notice: "#{@user.user_name} was added to this prospect."
+    end
+  end
+
+  def remove_rsm_from_prospect
+    @prospect = Client.find(params[:id])
+    @user = User.find(params[:user_id])
+    if current_user.admin?
+      @prospect.users.delete(@user)
+      redirect_to @user.profile, notice: "Removed #{@prospect.name} from #{@user.user_name}'s list of prospects"
+    else
+      if current_user == @user
+        @prospect.users.delete(current_user)
+        redirect_to @user.profile, notice: "Removed #{@prospect.name} from your list of prospects"
+      else
+        redirect_to @user.profile, alert: "Only admin's can remove prospects from users' profiles."
+      end
+    end
+  end
+
 private
 
   def set_prospect

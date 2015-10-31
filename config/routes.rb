@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
   get 'clients/:id/add-rsm-to-client' => 'clients#add_rsm_to_client', :as => 'add_rsm_to_client'
   get 'clients/:id/remove_rsm_from_client' => 'clients#remove_rsm_from_client', :as => 'remove_rsm_from_client'
+  get 'prospects/:id/add-rsm-to-prospect' => 'prospects#add_rsm_to_prospect', :as => 'add_rsm_to_prospect'
+  get 'prospects/:id/remove_rsm_from_prospect' => 'prospects#remove_rsm_from_prospect', :as => 'remove_rsm_from_prospect'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

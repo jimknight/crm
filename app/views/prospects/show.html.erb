@@ -37,6 +37,9 @@
   <%= link_to new_prospect_contact_path(@prospect), :class => "btn btn-primary" do %>
     <%= icon('plus') %> Add Contact
   <% end %>
+  <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
+    <%= icon('plus') %> Add RSM
+  <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back
   <% end %>
@@ -47,6 +50,15 @@
   <ul>
   <% @prospect.contacts.order(:name).each do |prospect| %>
     <li><%= link_to prospect.name, [@prospect,prospect] %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<% if @prospect.users.present? %>
+  <h2>RSM's for this prospect</h2>
+  <ul>
+  <% @prospect.users.each do |user| %>
+    <li><%= link_to user.user_name, user.profile %></li>
   <% end %>
   </ul>
 <% end %>
