@@ -16,7 +16,12 @@ class ContactsController < ApplicationController
 
   # GET /contacts/new
   def new
-    @client = Client.find(params[:client_id])
+    if params[:prospect_id].present?
+      @client = Client.find(params[:prospect_id])
+      @tab = "Prospect"
+    else
+      @client = Client.find(params[:client_id])
+    end
     @contact = Contact.new
   end
 

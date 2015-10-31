@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :settings
 
   resources :appointments
-  resources :prospects
+
   get 'appointments/by-date/:appt_date' => 'appointments#by_date'
 
   get '/calendar' => 'calendar#show'
@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   resources :industries
 
   resources :clients do
+    resources :contacts
+  end
+  resources :prospects do
     resources :contacts
   end
 
