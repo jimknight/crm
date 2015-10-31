@@ -25,22 +25,19 @@ class ContactsController < ApplicationController
     @client = Client.find(params[:client_id])
   end
 
-  # POST /contacts
-  # POST /contacts.json
   def create
     @client = Client.find(params[:client_id])
     @contact = Contact.new(contact_params)
-
-    respond_to do |format|
-      if @contact.save
-        @client.contacts << @contact
-        format.html { redirect_to @client, notice: 'Contact was successfully created.' }
-        format.json { render :show, status: :created, location: @contact }
-
+    if @contact.save
+      @client.contacts << @contact
+      if @client.client_type == "Prospect"
+        UserMailer.notify_new_prospect_contact(@contact).deliver # email alert
+        redirect_to prospect_path(@client), notice: 'Contact was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
+        redirect_to @client, notice: 'Contact was successfully created.'
       end
+    else
+      render :new
     end
   end
 

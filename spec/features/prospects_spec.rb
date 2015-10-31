@@ -70,3 +70,18 @@ describe "index" do
     page.should_not have_link "SGA"
   end
 end
+
+describe "contact" do
+  it "should show the prospect page after creating a new contact for a prospect" do
+    @client = Client.create!(:name => "SGA",:client_type => "Prospect")
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    visit client_path(@client)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Add Contact"
+    fill_in "Name", :with => "Wayne Scarano"
+    click_button "Save"
+    page.should have_content "Contacts for this prospect"
+  end
+end
