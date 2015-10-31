@@ -36,7 +36,7 @@ class ContactsController < ApplicationController
     if @contact.save
       @client.contacts << @contact
       if @client.client_type == "Prospect"
-        UserMailer.notify_new_prospect_contact(@contact).deliver # email alert
+        UserMailer.notify_new_prospect_contact(@contact,current_user).deliver # email alert
         redirect_to prospect_path(@client), notice: 'Contact was successfully created.'
       else
         redirect_to @client, notice: 'Contact was successfully created.'

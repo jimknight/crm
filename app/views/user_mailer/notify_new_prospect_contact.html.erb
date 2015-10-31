@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= @user.user_name %> created a new lead for <%= @client.name %></p>
+    <p>
+      <b>Contact Information:</b><br/>
+      Name: <%= @contact.name %><br/>
+      Title: <%= @contact.title %><br/>
+      Email: <%= @contact.email %><br/>
+      Work Phone: <%= @contact.work_phone %><br/>
+      Mobile Phone: <%= @contact.mobile_phone %>
+    </p>
+    <p>
+      To login to the CRM site and view the client, just follow this link: <%= @url %>.
+    </p>
+  </body>
+</html>
