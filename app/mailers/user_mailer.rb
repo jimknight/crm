@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
     @send_to = @settings_doc.notify_on_new_prospect_contact
     return if @send_to == ""
     @city = @client.city.present? ? ", #{@client.city}" : ""
-    @url = client_url(@client)
+    @url = prospect_url(@client)
     mail(from: @user.email, to: @send_to, subject: "New Lead: #{@client.name}#{@city}, #{contact.name}")
   end
   def notify_rsm_new_prospect_contact_assignment(prospect,rsm,current_user)
