@@ -84,6 +84,23 @@ describe "index" do
   end
 end
 
+describe "show" do
+  it "should not allow a user to see administrators within the list of RSM's to assign" do
+    User.destroy_all
+    Profile.destroy_all
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Add RSM"
+    page.should_not have_content "admin@sga.com"
+    page.should have_content "user@sga.com"
+  end
+end
+
 describe "contact" do
   it "should show the prospect page after creating a new contact for a prospect" do
     @client = Client.create!(:name => "SGA",:client_type => "Prospect")
