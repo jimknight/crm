@@ -102,6 +102,10 @@ describe "show" do
 end
 
 describe "contact" do
+  before :each do
+    User.destroy_all
+    Client.destroy_all
+  end
   it "should show the prospect page after creating a new contact for a prospect" do
     @client = Client.create!(:name => "SGA",:client_type => "Prospect")
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
