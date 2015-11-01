@@ -28,7 +28,7 @@
             <% if @prospect.users.include?(profile.user) %>
               Already added
             <% else %>
-              <%= link_to add_rsm_to_client_path(@prospect,:user_id => profile.user), :class => "btn btn-primary" do %>
+              <%= link_to add_rsm_to_prospect_path(@prospect,:user_id => profile.user), :class => "btn btn-primary" do %>
                 <%= icon('plus') %>
                 Add this RSM to prospect
               <% end %>

@@ -57,9 +57,10 @@ class ProspectsController < ApplicationController
     if params[:user_id].nil?
       @profiles = Profile.all.order(:first_name,:last_name)
     else
-      @user = User.find(params[:user_id])
-      @prospect.users << @user
-      redirect_to prospect_path(@prospect), notice: "#{@user.user_name} was added to this prospect."
+      @rsm = User.find(params[:user_id])
+      @prospect.users << @rsm
+      UserMailer.notify_rsm_new_prospect_contact_assignment(@prospect,@rsm,current_user).deliver # email alert
+      redirect_to prospect_path(@prospect), notice: "#{@rsm.user_name} was added to this prospect."
     end
   end
 

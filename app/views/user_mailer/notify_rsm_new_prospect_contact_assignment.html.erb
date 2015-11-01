@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= @user.user_name %> assigned you a new lead for <%= @prospect.name %></p>
+    <p>
+      <b>Prospect Information:</b><br/>
+      Name: <%= @prospect.name %><br/>
+      Street1: <%= @prospect.street1 %><br/>
+      Street2: <%= @prospect.street2 %><br/>
+      Street3: <%= @prospect.street3 %><br/>
+      City: <%= @prospect.city %><br/>
+      State: <%= @prospect.state %><br/>
+      Zip: <%= @prospect.zip %><br/>
+      Phone: <%= @prospect.phone %><br/>
+      Fax: <%= @prospect.fax %><br/>
+      Industry: <%= @prospect.industry %>
+    </p>
+    <p>
+      To login to the CRM site and view the prospect, just follow this link: <%= @url %>.
+    </p>
+  </body>
+</html>=

@@ -13,4 +13,12 @@ class UserMailer < ActionMailer::Base
     @url = client_url(@client)
     mail(from: @user.email, to: @send_to, subject: "New Lead: #{@client.name}#{@city}, #{contact.name}")
   end
+  def notify_rsm_new_prospect_contact_assignment(prospect,rsm,current_user)
+    @user = current_user
+    @prospect = prospect
+    @send_to = rsm.email
+    @url = prospect_url(@prospect)
+    @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
+    mail(from: @user.email, to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")
+  end
 end
