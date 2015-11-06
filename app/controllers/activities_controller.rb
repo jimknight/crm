@@ -41,16 +41,18 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
-     if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin?
+   if current_user.activity_ids.include?(params[:id].to_i)
       @activity = current_user.activities.find(params[:id])
-      @client = @activity.client
-      if current_user.admin?
-        @clients = Client.all.order(:name)
-      else
-        @clients = current_user.clients.all.order(:name)
-      end
+    elsif current_user.admin?
+      @activity = Activity.find(params[:id])
     else
       redirect_to root_path, :alert => "Not authorized"
+    end
+    @client = @activity.client
+    if current_user.admin?
+      @clients = Client.all.order(:name)
+    else
+      @clients = current_user.clients.all.order(:name)
     end
   end
 
@@ -112,8 +114,10 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1
   # DELETE /activities/1.json
   def destroy
-    if current_user.activities.include?(params[:id]) || current_user.admin?
-      @activity = current_user.activities.find(params[:id])
+    if current_user.activity_ids.include?(params[:id].to_i)
+       @activity = current_user.activities.find(params[:id])
+     elsif current_user.admin?
+       @activity = Activity.find(params[:id])
     else
       redirect_to root_path, :notice => "Not authorized"
     end
