@@ -14,7 +14,11 @@
 </tr>
 <tr>
 <td>Contact</td>
-<td><%= @activity.contact.name %></td>
+<td>
+  <% if !@activity.contact.nil? %>
+    <%= @activity.contact.name %>
+  <% end %>
+</td>
 </tr>
 <tr>
 <td>Industry

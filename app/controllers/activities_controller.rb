@@ -56,9 +56,8 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  # POST /activities
-  # POST /activities.json
   def create
+    # Allow save with no contact
     @activity = Activity.new(activity_params)
     if params[:new_contact].present? && params[:activity][:client_id].present?
       @client = Client.find(params[:activity][:client_id])
@@ -66,24 +65,20 @@ class ActivitiesController < ApplicationController
       @client.contacts << @contact
       @activity.update_attribute(:contact_id, @contact.id)
     end
-    respond_to do |format|
-      if @activity.save
-        current_user.activities << @activity
-        if params[:activity][:models].present?
-          @model = Model.find(params[:activity][:models])
-          @activity.models << @model
-        end
-        format.html { redirect_to activities_path, notice: 'Activity was successfully created.' }
-        format.json { render :show, status: :created, location: @activity }
-      else
-        if activity_params[:client_id].present?
-          @client = Client.find(activity_params[:client_id])
-        else
-          @client = Client.new
-        end
-        format.html { render :new }
-        format.json { render json: @activity.errors, status: :unprocessable_entity }
+    if @activity.save
+      current_user.activities << @activity
+      if params[:activity][:models].present?
+        @model = Model.find(params[:activity][:models])
+        @activity.models << @model
       end
+      redirect_to activities_path, notice: 'Activity was successfully created.'
+    else
+      if activity_params[:client_id].present?
+        @client = Client.find(activity_params[:client_id])
+      else
+        @client = Client.new
+      end
+      render :new
     end
   end
 

@@ -22,7 +22,7 @@ class Activity < ActiveRecord::Base
   belongs_to :contact
   belongs_to :user
   has_and_belongs_to_many :models
-  validates :client, :contact, :presence => true
+  validates :client, :presence => true
   def user_name
     return user.user_name
   end

@@ -1,10 +1,13 @@
 require "rails_helper"
 
 describe "create" do
-  it "should allow creation of an activity", :js => true do
+  before :each do
     User.destroy_all
     Profile.destroy_all
     Contact.destroy_all
+    Activity.destroy_all
+  end
+  it "should allow creation of an activity", :js => true do
     @user = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
     @client.users << @user
@@ -20,6 +23,24 @@ describe "create" do
     select "Wayne Scarano", :from => "Choose a contact"
     find_field('City').value.should eq 'Hillsborough'
     find(:css, 'select#activity_state').value.should == 'NJ'
+    click_button "Save"
+    page.should have_content "Activity was successfully created."
+  end
+  it "should allow creation of an activity on client with no contacts" do
+    @user = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
+    @client.users << @user
+    visit activities_path
+    fill_in "Email", :with => "user1@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Activity"
+    page.should have_content "New activity"
+    select "SGA", :from => "Client"
+    click_button "Save"
+    page.should have_content "Activity was successfully created."
+    #<Client id: 222, name: "0", street1: ",\",\",+1 john.blackburn@alcoa.com\"", street2: nil, city: nil, state: nil, zip: nil, phone: nil, industry: nil, created_at: "2015-06-22 22:18:11", updated_at: "2015-10-30 14:15:30", fax: nil, street3: nil, client_type: "Client">
+
   end
   it "should allow dynamic creation of a contact for a client" do
     User.destroy_all

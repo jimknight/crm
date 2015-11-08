@@ -75,7 +75,9 @@
       <div class="panel-body">
         <p>
           <%= activity.client.name %>:
-          <%= activity.contact.name %><br>
+          <% if !activity.contact.nil? %>
+            <%= activity.contact.name %><br>
+          <% end %>
           <%= activity.comments %><br>
           <% if current_user.admin? && params[:user_id].nil? %>
             Submitted by <%= activity.user_name %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P") %>
