@@ -40,6 +40,9 @@
   <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
     <%= icon('plus') %> Add RSM
   <% end %>
+  <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
+    <%= icon('user') %> Convert to Client
+  <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back
   <% end %>

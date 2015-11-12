@@ -52,6 +52,14 @@ class ProspectsController < ApplicationController
     end
   end
 
+  def convert_to_client
+    @prospect = Client.find(params[:id])
+    @prospect.client_type = "Client"
+    @prospect.status = "Active"
+    @prospect.save!
+    redirect_to client_path(@prospect), notice: "Converted this prospect to an active client"
+  end
+
   def add_rsm_to_prospect
     @prospect = Client.find(params[:id])
     if params[:user_id].nil?

@@ -85,9 +85,11 @@ describe "index" do
 end
 
 describe "show" do
-  it "should not allow a user to see administrators within the list of RSM's to assign" do
+  before :each do
     User.destroy_all
     Profile.destroy_all
+  end
+  it "should not allow a user to see administrators within the list of RSM's to assign" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
@@ -98,6 +100,23 @@ describe "show" do
     click_link "Add RSM"
     page.should_not have_content "admin@sga.com"
     page.should have_content "user@sga.com"
+  end
+  it "should allow an admin to click a button to change to a normal client" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_link "Convert to Client"
+    click_link "Logout"
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Convert to Client"
+    page.should have_content "Converted this prospect to an active client"
   end
 end
 

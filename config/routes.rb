@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :prospects do
     resources :contacts
   end
+  get 'prospects/convert_to_client/:id' => 'prospects#convert_to_client', :as => 'convert_prospect_to_client'
 
   get 'clients/:id/reps/:user_id' => 'clients#show'
 
