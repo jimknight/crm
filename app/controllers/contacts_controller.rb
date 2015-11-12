@@ -8,10 +8,12 @@ class ContactsController < ApplicationController
     @contacts = Contact.all
   end
 
-  # GET /contacts/1
-  # GET /contacts/1.json
   def show
-    @client = Client.find(params[:client_id])
+    if params[:prospect_id].present?
+      @client = Client.find(params[:prospect_id])
+    else
+      @client = Client.find(params[:client_id])
+    end
   end
 
   # GET /contacts/new

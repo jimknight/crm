@@ -48,8 +48,8 @@
 <% if @prospect.contacts.present? %>
   <h2>Contacts for this prospect</h2>
   <ul>
-  <% @prospect.contacts.order(:name).each do |prospect| %>
-    <li><%= link_to prospect.name, [@prospect,prospect] %></li>
+  <% @prospect.contacts.order(:name).each do |contact| %>
+    <li><%= link_to contact.name, prospect_contact_path(@prospect,contact) %></li>
   <% end %>
   </ul>
 <% end %>
