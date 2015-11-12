@@ -25,7 +25,7 @@
   Email
 </td>
 <td>
-  <%= @contact.email %>
+  <%= link_to @contact.email, "mailto:#{@contact.email}" %>
 </td>
 </tr>
 
