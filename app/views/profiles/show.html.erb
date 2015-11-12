@@ -26,10 +26,10 @@
 <% if @profile.user.clients.any? %>
   <h2><%= @profile.user.user_name %>'s Clients</h2>
   <table>
-    <% @profile.user.clients.order(:name).each do |client| %>
+    <% @profile.user.clients.order(:name,:city).each do |client| %>
       <tr>
         <td style="padding:10px;">
-          <li><%= link_to client.name, client %></li>
+          <li><%= link_to "#{client.name} (#{client.location})", client %></li>
         </td>
         <td>
           <% if current_user == @profile.user || current_user.admin? %>

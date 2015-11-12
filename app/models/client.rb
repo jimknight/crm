@@ -30,6 +30,16 @@ class Client < ActiveRecord::Base
     return "http://maps.google.com/?q=#{ERB::Util.url_encode(address)}"
   end
 
+  def location
+    if self.city.present? && self.state.present?
+      return [self.city,self.state].join(",")
+    elsif !self.state.present? && self.city.present?
+      return self.city
+    else
+      return "no location defined"
+    end
+  end
+
   def default_values
     self.client_type ||= 'Client'
   end
