@@ -16,6 +16,7 @@
 #  fax         :string(255)
 #  street3     :string(255)
 #  client_type :string(255)
+#  status      :text
 #
 
 class Client < ActiveRecord::Base
@@ -51,6 +52,7 @@ class Client < ActiveRecord::Base
 
   def default_values
     self.client_type ||= 'Client'
+    self.status ||= 'Active'
   end
 
 end

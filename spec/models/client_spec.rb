@@ -16,6 +16,7 @@
 #  fax         :string(255)
 #  street3     :string(255)
 #  client_type :string(255)
+#  status      :text
 #
 
 require 'rails_helper'
