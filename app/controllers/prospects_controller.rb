@@ -8,7 +8,15 @@ class ProspectsController < ApplicationController
     else
       @prospects = current_user.clients.where(client_type: 'Prospect')
     end
-    if params[:search].present?
+    if params[:search_state].present?
+      @prospects = @prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
+    elsif params[:search_name].present?
+      @prospects = @prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name, :city)
+    elsif params[:search_city].present?
+      @prospects = @prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name, :city)
+    elsif params[:search_phone].present?
+      @prospects = @prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name, :city)
+    elsif params[:search].present?
       @prospects = @prospects.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
     else
       @prospects = @prospects.order(:name, :city)
