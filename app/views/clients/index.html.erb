@@ -1,16 +1,7 @@
 <h2>Active Clients</h2>
 <p><%= link_to "View archived clients", archived_clients_path %></p>
 <p><%= link_to 'New Client', new_client_path, :class => "btn btn-primary" %></p>
-<%= form_tag clients_path, :method => 'get' do %>
-  <p>
-    <%= search_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-    <% if params[:search].present? %>
-      &nbsp;<%= link_to "clear search", clients_path %>
-    <% end %>
-  </p>
-<% end %>
-<p>Click column header to sort</p>
+
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -22,6 +13,14 @@
   </thead>
 
   <tbody>
+    <tr>
+      <td><%= form_tag clients_path, :method => 'get' do %>
+        <%= search_field_tag :search_name, params[:search_name], :placeholder => "search by name" %>
+        <% end %></td>
+      <td><%= form_tag clients_path, :method => 'get' do %><%= search_field_tag :search_state, params[:search_state], :placeholder => "search by state" %><% end %></td>
+      <td><%= form_tag clients_path, :method => 'get' do %><%= search_field_tag :search_city, params[:search_city], :placeholder => "search by city" %><% end %></td>
+      <td><%= form_tag clients_path, :method => 'get' do %><%= search_field_tag :search_phone, params[:search_phone], :placeholder => "search by phone" %><% end %></td>
+    </tr>
     <% @clients.each do |client| %>
       <tr>
         <td><%= link_to client.name, client %></td>
@@ -32,9 +31,3 @@
     <% end %>
   </tbody>
 </table>
-
-<script>
-  $(function(){
-    $(".table").tablesorter();
-  });
-</script>

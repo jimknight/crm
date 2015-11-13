@@ -1883,3 +1883,14 @@ div.days {
 .tablesorter-header-inner {
   cursor: pointer;
 }
+
+input[type=search] {
+  padding:2px 2px 2px 25px;
+  border:2px solid #ddd;
+  border-radius: 5px;
+  width:100%;
+  background-image: url(asset-path('search.png'));
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+  color:red;
+}
