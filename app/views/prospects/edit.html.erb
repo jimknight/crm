@@ -1,0 +1,64 @@
+<h2>Editing prospect</h2>
+
+<%= form_for @prospect, :url => { :controller => "prospects", :action => "update" }, :html => {:class => "form", :role => "form"} do |f| %>
+  <% if @prospect.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@prospect.errors.count, "error") %> prohibited this prospect from being saved:</h2>
+
+      <ul>
+      <% @prospect.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :street1 %>
+    <%= f.text_field :street1, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :street2 %>
+    <%= f.text_field :street2, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :street3 %>
+    <%= f.text_field :street3, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :city %>
+    <%= f.text_field :city, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :state %>
+    <%= f.select :state, options_for_select(us_states,@prospect.state), {:include_blank => true}, {:class => "form-control"} %>
+  </div>
+  <div class="form-group">
+    <%= f.label :zip %>
+    <%= f.text_field :zip, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :phone %>
+    <%= f.text_field :phone, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :fax %>
+    <%= f.text_field :fax, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :industry %>
+    <%= f.select :industry, options_from_collection_for_select(Industry.all.order(:name), :id, :name, @prospect.industry), {:include_blank => true}, {:class => "form-control"} %>
+  </div>
+  <div class="form-group">
+    <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
+      <%= icon('check') %> Save
+    <% end %>
+    <%= link_to clients_path, :class => "btn btn-default" do %>
+      <%= icon('remove') %> Cancel
+    <% end %>
+  </div>
+<% end %>

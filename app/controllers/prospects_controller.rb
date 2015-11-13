@@ -48,6 +48,9 @@ class ProspectsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def show
     if current_user.admin? || current_user.clients.include?(@prospect)
       if params[:user_id]
@@ -57,6 +60,14 @@ class ProspectsController < ApplicationController
       end
     else
       redirect_to clients_path, :alert => "Unauthorized. Only marketing or admins and RSM's connected to this prospect can see this client"
+    end
+  end
+
+  def update
+    if @prospect.update(prospect_params)
+      redirect_to prospect_path(@prospect), notice: 'Prospect was successfully updated.'
+    else
+      render :edit
     end
   end
 

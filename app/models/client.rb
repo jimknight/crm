@@ -22,8 +22,8 @@
 class Client < ActiveRecord::Base
 
   before_save :default_values
-  has_many :activities
-  has_many :contacts
+  has_many :activities, dependent: :destroy
+  has_many :contacts, dependent: :destroy
   has_and_belongs_to_many :users
   validates :name, :presence => true
 
