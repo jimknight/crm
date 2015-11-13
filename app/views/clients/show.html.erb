@@ -47,6 +47,9 @@
     <%= link_to archive_client_path(@client), :class => "btn btn-primary" do %>
       <%= icon('archive') %> Archive
     <% end %>
+    <%= link_to client_path(@client), :method => :delete, :data => { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
+      <%= icon('trash') %> Delete
+    <% end %>
   <% end %>
   <% if @client.status == "Archived" %>
     <%= link_to un_archive_client_path(@client), :class => "btn btn-primary" do %>

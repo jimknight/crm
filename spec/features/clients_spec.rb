@@ -2,7 +2,27 @@ require "rails_helper"
 
 describe "show" do
   before :each do
+    Client.destroy_all
     User.destroy_all
+  end
+  it "should allow admins to delete a client" do
+    @client = Client.create!(:name => "SGA")
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @user.clients << @client
+    visit client_path(@client)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Delete"
+    # mail should go out here
+    click_link "Logout"
+    visit client_path(@client)
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Delete"
+    page.should have_content "Client was successfully destroyed."
   end
   it "should allow anyone to change status to archive" do
     @client = Client.create!(:name => "SGA", :status => "Active")
@@ -102,20 +122,6 @@ describe "index" do
     click_button "Sign in"
     page.should have_link "SGA"
     page.should_not have_link "LavaTech"
-  end
-  it "should show a search box for clients and find the matching" do
-    @client1 = Client.create!(:name => "SGA")
-    @client2 = Client.create!(:name => "LavaTech")
-    @user = User.create!(:email => "rep@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
-    @user.clients << [@client1,@client2]
-    visit clients_path
-    fill_in "Email", :with => "rep@sga.com"
-    fill_in "Password", :with => "ilovesga"
-    click_button "Sign in"
-    fill_in "search", :with => "lava"
-    click_button "Search"
-    page.should have_link "LavaTech"
-    page.should_not have_link "SGA"
   end
   it "should only show clients to specific reps (rsm's) and admins" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)

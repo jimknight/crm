@@ -1,4 +1,5 @@
 class ClientsController < ApplicationController
+
   before_action :hide_from_marketing
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :set_tab
@@ -42,7 +43,7 @@ class ClientsController < ApplicationController
     if current_user.admin?
       @clients = Client.where(status: 'Active').where.not(client_type: 'Prospect')
     else
-      @clients = current_user.where(status: 'Active').where.not(client_type: 'Prospect')
+      @clients = current_user.clients.where(status: 'Active').where.not(client_type: 'Prospect')
     end
     if params[:search_state].present?
       @clients = @clients.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
@@ -115,13 +116,18 @@ class ClientsController < ApplicationController
     end
   end
 
-  # DELETE /clients/1
-  # DELETE /clients/1.json
+  # Admins can delete but users can only request
   def destroy
-    @client.destroy
-    respond_to do |format|
-      format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.admin?
+      @client.destroy
+      redirect_to clients_url, notice: 'Client was successfully destroyed.'
+    else
+      @recipients = Setting.get_notify_on_client_delete_recipients
+      if !@recipients.present?
+        @recipients = "dalmeida@rossmixers.com"
+      end
+      UserMailer.notify_on_client_delete(@client,@recipients,current_user).deliver
+      redirect_to @client, notice: "An email was sent to #{@recipients} about your request to delete this client."
     end
   end
 

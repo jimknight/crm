@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= @user.user_name %> has requested to delete <%= @client.name %></p>
+    <p>
+      <b>Client Information:</b><br/>
+      Name: <%= @client.name %><br/>
+      Street1: <%= @client.street1 %><br/>
+      Street2: <%= @client.street2 %><br/>
+      Street3: <%= @client.street3 %><br/>
+      City: <%= @client.city %><br/>
+      State: <%= @client.state %><br/>
+      Zip: <%= @client.zip %><br/>
+      Phone: <%= @client.phone %><br/>
+      Fax: <%= @client.fax %><br/>
+      Industry: <%= @client.industry %>
+    </p>
+    <p>
+      To login to the CRM site and delete the client, just follow this link: <%= @url %>.
+    </p>
+  </body>
+</html>

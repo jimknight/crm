@@ -13,6 +13,14 @@ class UserMailer < ActionMailer::Base
     @url = prospect_url(@client)
     mail(from: @user.email, to: @send_to, subject: "New Lead: #{@client.name}#{@city}, #{contact.name}")
   end
+  def notify_on_client_delete(client,recipients,current_user)
+    @user = current_user
+    @client = client
+    @send_to = recipients
+    @city = @client.city.present? ? ", #{@client.city}" : ""
+    @url = client_url(@client)
+    mail(from: @user.email, to: @send_to, subject: "Deletion requested for: #{@client.name}#{@city}")
+  end
   def notify_rsm_new_prospect_contact_assignment(prospect,rsm,current_user)
     @user = current_user
     @prospect = prospect
