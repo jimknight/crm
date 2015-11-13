@@ -1,6 +1,5 @@
-<h2>Active Clients</h2>
-<p><%= link_to "View archived clients", archived_clients_path %></p>
-<p><%= link_to 'New Client', new_client_path, :class => "btn btn-primary" %></p>
+<h2>Archived Clients</h2>
+<p><%= link_to "View active clients", clients_path %></p>
 <%= form_tag clients_path, :method => 'get' do %>
   <p>
     <%= search_field_tag :search, params[:search] %>

@@ -1,4 +1,4 @@
-<h2><%= @client.name %></h2>
+<h2><%= @client.name %><% if @client.archived? %> (Archived)<% end %></h2>
 
 <table class="table">
   <tr>
@@ -31,17 +31,27 @@
 </table>
 
 <p>
-  <%= link_to edit_client_path(@client), :class => "btn btn-primary" do %>
-    <%= icon('pencil') %> Edit
+  <% if @client.status != "Archived" %>
+    <%= link_to edit_client_path(@client), :class => "btn btn-primary" do %>
+      <%= icon('pencil') %> Edit
+    <% end %>
+    <%= link_to new_activity_path(:client => @client), :class => "btn btn-primary" do %>
+      <%= icon('plus') %> Add Activity
+    <% end %>
+    <%= link_to new_client_contact_path(@client), :class => "btn btn-primary" do %>
+      <%= icon('plus') %> Add Contact
+    <% end %>
+    <%= link_to add_rsm_to_client_path(@client), :class => "btn btn-primary" do %>
+      <%= icon('plus') %> Add RSM
+    <% end %>
+    <%= link_to archive_client_path(@client), :class => "btn btn-primary" do %>
+      <%= icon('archive') %> Archive
+    <% end %>
   <% end %>
-  <%= link_to new_activity_path(:client => @client), :class => "btn btn-primary" do %>
-    <%= icon('plus') %> Add Activity
-  <% end %>
-  <%= link_to new_client_contact_path(@client), :class => "btn btn-primary" do %>
-    <%= icon('plus') %> Add Contact
-  <% end %>
-  <%= link_to add_rsm_to_client_path(@client), :class => "btn btn-primary" do %>
-    <%= icon('plus') %> Add RSM
+  <% if @client.status == "Archived" %>
+    <%= link_to un_archive_client_path(@client), :class => "btn btn-primary" do %>
+      <%= icon('archive') %> UnArchive
+    <% end %>
   <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back

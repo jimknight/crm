@@ -25,6 +25,15 @@ class Client < ActiveRecord::Base
   has_many :contacts
   has_and_belongs_to_many :users
   validates :name, :presence => true
+
+  def archived?
+    if self.status == "Archived"
+      return true
+    else
+      return false
+    end
+  end
+
   def google_maps_address
     address = [name,street1,street2,city,state,zip].join(" ")
     return "http://maps.google.com/?q=#{ERB::Util.url_encode(address)}"

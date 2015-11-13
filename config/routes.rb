@@ -33,6 +33,9 @@ Rails.application.routes.draw do
     resources :contacts
   end
   get 'prospects/convert_to_client/:id' => 'prospects#convert_to_client', :as => 'convert_prospect_to_client'
+  get 'clients/archive/:id' => 'clients#archive', :as => 'archive_client'
+  get 'clients/unarchive/:id' => 'clients#un_archive', :as => 'un_archive_client'
+  get 'clients-archived' => 'clients#index_archived', :as => 'archived_clients'
 
   get 'clients/:id/reps/:user_id' => 'clients#show'
 

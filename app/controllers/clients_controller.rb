@@ -3,13 +3,46 @@ class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :set_tab
 
-  # GET /clients
-  # GET /clients.json
+  def archive
+    if current_user.admin?
+      @client = Client.find(params[:id])
+    else
+      @client = current_user.clients.find(params[:id])
+    end
+    @client.status = "Archived"
+    @client.save!
+    redirect_to @client, :notice => "This client has been archived. You may un-archive later if you need to."
+  end
+
+  def un_archive
+    if current_user.admin?
+      @client = Client.find(params[:id])
+    else
+      @client = current_user.clients.find(params[:id])
+    end
+    @client.status = "Active"
+    @client.save!
+    redirect_to @client, :notice => "This client has been un-archived and set to active."
+  end
+
+  def index_archived
+    if current_user.admin?
+      @clients = Client.where(status: 'Archived').where.not(client_type: 'Prospect')
+    else
+      @clients = current_user.where(status: 'Archived').where.not(client_type: 'Prospect')
+    end
+    if params[:search].present?
+      @clients = @clients.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
+    else
+      @clients = @clients.order(:name, :city)
+    end
+  end
+
   def index
     if current_user.admin?
-      @clients = Client.all.where.not(client_type: 'Prospect')
+      @clients = Client.where(status: 'Active').where.not(client_type: 'Prospect')
     else
-      @clients = current_user.clients.where.not(client_type: 'Prospect')
+      @clients = current_user.where(status: 'Active').where.not(client_type: 'Prospect')
     end
     if params[:search].present?
       @clients = @clients.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)

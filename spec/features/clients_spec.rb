@@ -1,6 +1,23 @@
 require "rails_helper"
 
 describe "show" do
+  before :each do
+    User.destroy_all
+  end
+  it "should allow anyone to change status to archive" do
+    @client = Client.create!(:name => "SGA", :status => "Active")
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user.clients << @client
+    visit client_path(@client)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Archive"
+    page.should have_content "client has been archived"
+    page.should have_content "(Archived)"
+    click_link "UnArchive"
+    page.should have_content "client has been un-archived"
+  end
   it "should only show clients to specific reps (rsm's) and admins" do
     @client = Client.create!(:name => "SGA")
     @user1 = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
