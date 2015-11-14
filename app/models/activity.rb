@@ -17,6 +17,8 @@
 #
 
 class Activity < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :search_activities, :against => [:city, :state, :comments]
   mount_uploader :attachment, AttachmentUploader
   belongs_to :client
   belongs_to :contact

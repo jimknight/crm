@@ -22,7 +22,11 @@ class ProfilesController < ApplicationController
 
   def show
     if current_user.admin?
-      respond_with(@profile)
+      if params[:search_activities].nil?
+        @profile_activities = @profile.user.activities
+      else
+        @profile_activities = @profile.user.activities.search_activities(params[:search_activities]) # => [person_1, person_2]
+      end
     else
       redirect_to root_path, :alert => "Not authorized. Only administrators can view RSM's."
     end
