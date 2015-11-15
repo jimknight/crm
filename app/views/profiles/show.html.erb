@@ -32,15 +32,15 @@
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane active" id="activities">
     <% if !@profile_activities.nil? %>
+      <% if !params[:search_activities].nil? %>
+        <p><%= "Found #{pluralize(@profile_activities.count, 'activity')} matching '#{params[:search_activities]}'" %><br/>
+          <%= link_to 'Clear search results', @profile %>
+        </p>
+      <% end %>
       <% if @profile_activities.count > 1 %>
         <p><%= form_tag @profile, :method => 'get' do %>
           <%= search_field_tag :search_activities, params[:search_activities], :placeholder => "search activities" %>
         <% end %></p>
-        <% if !params[:search_activities].nil? %>
-          <p><%= "Found #{pluralize(@profile_activities.count, 'activity')} matching '#{params[:search_activities]}'" %><br/>
-            <%= link_to 'Clear search results', @profile %>
-          </p>
-        <% end %>
       <% end %>
       <% @profile_activities.order("activity_date DESC").each do |activity| %>
         <div class="panel panel-default">
