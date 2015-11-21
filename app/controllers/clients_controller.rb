@@ -124,7 +124,7 @@ class ClientsController < ApplicationController
     else
       @recipients = Setting.get_notify_on_client_delete_recipients
       if !@recipients.present?
-        @recipients = "dalmeida@rossmixers.com"
+        @recipients = "dalmeida@mixers.com"
       end
       UserMailer.notify_on_client_delete(@client,@recipients,current_user).deliver
       redirect_to @client, notice: "An email was sent to #{@recipients} about your request to delete this client."

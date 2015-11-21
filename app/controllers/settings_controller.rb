@@ -30,7 +30,7 @@ private
   end
 
   def setting_params
-    params.require(:setting).permit(:notify_on_new_prospect_contact)
+    params.require(:setting).permit(:notify_on_new_prospect_contact,:notify_on_client_delete)
   end
 
 end

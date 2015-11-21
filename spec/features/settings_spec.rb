@@ -5,6 +5,18 @@ describe "create" do
     User.destroy_all
     Setting.destroy_all
   end
+  it "should allow admins to update notify_on_client_delete" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    visit root_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Settings"
+    fill_in "setting_notify_on_client_delete", :with => "wscarano@sga.com"
+    click_button "Save"
+    page.should have_content "Settings were updated."
+    Setting.last.notify_on_client_delete.should == "wscarano@sga.com"
+  end
   it "should allow admins to create 1 settings document" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     visit root_path
