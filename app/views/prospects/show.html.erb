@@ -28,6 +28,10 @@
   <td>Industry</td>
 <td><%= @prospect.industry.nil? || @prospect.industry == "" ? "" : Industry.find(@prospect.industry).name %></td>
 </tr>
+<tr>
+  <td>From Web Form</td>
+<td><%= @prospect.form_dump.html_safe %></td>
+</tr>
 </table>
 
 <p>
