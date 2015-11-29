@@ -1,7 +1,6 @@
 <h2><%= @prospect.name %></h2>
 
 <table class="table">
-  <tr>
     <td>Phone</td>
 <td><%= @prospect.phone %></td>
   </tr>
@@ -28,6 +27,24 @@
   <td>Industry</td>
 <td><%= @prospect.industry.nil? || @prospect.industry == "" ? "" : Industry.find(@prospect.industry).name %></td>
 </tr>
+    <tr>
+      <td>EID</td>
+  <td><%= @prospect.eid %></td>
+    </tr>
+  <tr>
+      <tr>
+    <td>Import Time</td>
+<td><%= @prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
+  </tr>
+    <tr>
+        <tr>
+      <td>Type</td>
+  <td><%= @prospect.prospect_type %></td>
+    </tr>
+          <tr>
+        <td>Source</td>
+    <td><%= @prospect.source %></td>
+      </tr>
 <tr>
   <td>From Web Form</td>
 <td><%= @prospect.form_dump.html_safe %></td>
