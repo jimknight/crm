@@ -76,3 +76,4 @@ gem 'area'
 gem 'sprockets', '2.12.3'
 gem 'pg_search'
 gem 'jquery-turbolinks'
+gem 'whenever', :require => false
