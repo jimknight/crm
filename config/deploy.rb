@@ -4,6 +4,7 @@ lock '3.4.0'
 set :application, 'crm'
 set :user, "sgadeploy"
 set :repo_url, 'https://github.com/jimknight/crm.git'
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 # setup rbenv.
 set :rbenv_type, :system
@@ -136,7 +137,6 @@ namespace :deploy do
   # make sure we're deploying what we think we're deploying
   before :deploy, "deploy:check_revision"
   after :deploy, "deploy:setup_config"
-  after :deploy, "whenever:update_crontab"
   after :finishing, 'deploy:cleanup'
 
   # reload nginx to it will pick up any modified vhosts from
