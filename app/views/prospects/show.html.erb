@@ -27,6 +27,7 @@
   <td>Industry</td>
 <td><%= @prospect.industry.nil? || @prospect.industry == "" ? "" : Industry.find(@prospect.industry).name %></td>
 </tr>
+<% if !@prospect.eid.nil? %>
     <tr>
       <td>EID</td>
   <td><%= @prospect.eid %></td>
@@ -49,6 +50,7 @@
   <td>From Web Form</td>
 <td><%= @prospect.form_dump.html_safe %></td>
 </tr>
+<% end %>
 </table>
 
 <p>
