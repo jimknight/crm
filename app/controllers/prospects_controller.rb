@@ -3,11 +3,7 @@ class ProspectsController < ApplicationController
   before_action :set_tab
 
   def index
-    if current_user.admin?
-      @prospects = Client.where(client_type: 'Prospect')
-    else
-      @prospects = current_user.clients.where(client_type: 'Prospect')
-    end
+    @prospects = Client.unassigned_prospects
     if params[:search_state].present?
       @prospects = @prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
     elsif params[:search_name].present?

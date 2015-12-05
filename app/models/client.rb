@@ -55,4 +55,8 @@ class Client < ActiveRecord::Base
     self.status ||= 'Active'
   end
 
+  def self.unassigned_prospects
+    self.where(client_type:'Prospect').includes(:users).where(users:{id: nil})
+  end
+
 end
