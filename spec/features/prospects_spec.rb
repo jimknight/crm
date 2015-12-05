@@ -38,6 +38,7 @@ describe "create" do
     fill_in "Name", :with => "LavaTech"
     click_button "Save"
     page.should have_content "Prospect was successfully created."
+    page.should have_link "LavaTech"
   end
 end
 

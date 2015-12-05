@@ -31,13 +31,10 @@ class ProspectsController < ApplicationController
     if current_user.admin? || current_user.marketing?
       @prospect = Client.new(prospect_params)
       @prospect.client_type = "Prospect"
-      respond_to do |format|
-        if @prospect.save
-          @prospect.users << current_user
-          format.html { redirect_to prospect_path(@prospect), notice: 'Prospect was successfully created.' }
-        else
-          format.html { render :new }
-        end
+      if @prospect.save
+        redirect_to prospects_path, notice: 'Prospect was successfully created.'
+      else
+        render :new
       end
     else
       redirect_to root_path, :alert => "Not authorized. Only administrators or a user with the marketing role can create new prospects."
