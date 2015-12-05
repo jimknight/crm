@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :appointments
 
-  get 'appointments/by-date/:appt_date' => 'appointments#by_date'
+  get 'appointments/by-date/:appt_date' => 'appointments#by_date', :as => 'appointments_by_date'
 
   get '/calendar' => 'calendar#show'
 

@@ -1,34 +1,18 @@
-<p id="notice"><%= notice %></p>
+<h2>Appointment</h2>
+
+<table class="table">
+  <tr><td>Subject</td><td><%= @appointment.title %></td></tr>
+  <tr><td>Client</td><td><%= link_to @appointment.client.name, @appointment.client %></td></tr>
+  <tr><td>Start time</td><td><%= @appointment.start_time.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
+  <tr><td>End time</td><td><%= @appointment.end_time.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
+  <tr><td>Comments</td><td><%= @appointment.comments %></td></tr>
+</table>
 
 <p>
-  <strong>Title:</strong>
-  <%= @appointment.title %>
+  <%= link_to edit_appointment_path(@appointment), :class => "btn btn-primary" do %>
+    <%= icon('pencil') %> Edit
+  <% end %>
+  <%= link_to :back, :class => "btn btn-default" do %>
+    <%= icon('chevron-left') %> Back
+  <% end %>
 </p>
-
-<p>
-  <strong>Client:</strong>
-  <%= @appointment.client %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @appointment.user %>
-</p>
-
-<p>
-  <strong>Start time:</strong>
-  <%= @appointment.start_time %>
-</p>
-
-<p>
-  <strong>End time:</strong>
-  <%= @appointment.end_time %>
-</p>
-
-<p>
-  <strong>Comments:</strong>
-  <%= @appointment.comments %>
-</p>
-
-<%= link_to 'Edit', edit_appointment_path(@appointment) %> |
-<%= link_to 'Back', appointments_path %>
