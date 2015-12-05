@@ -67,8 +67,17 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    @appointment.destroy
-    respond_with(@appointment)
+    if current_user.admin?
+      @activity = Activity.find(params[:id])
+    else
+      @activity = current_user.appointments.find(params[:id])
+    end
+    if @activity.nil?
+      redirect_to root_path, :notice => "Not authorized to delete this appointment"
+    else
+      @activity.destroy
+      redirect_to appointments_path, notice: 'Appointment was successfully deleted.'
+    end
   end
 
   private

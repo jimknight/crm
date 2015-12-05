@@ -12,6 +12,9 @@
   <%= link_to edit_appointment_path(@appointment), :class => "btn btn-primary" do %>
     <%= icon('pencil') %> Edit
   <% end %>
+  <%= link_to appointment_path(@appointment), :method => :delete, :data => { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
+    <%= icon('trash') %> Delete
+  <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back
   <% end %>
