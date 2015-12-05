@@ -27,6 +27,8 @@ class ProfilesController < ApplicationController
       else
         @profile_activities = @profile.user.activities.search_activities(params[:search_activities]) # => [person_1, person_2]
       end
+      @rsm_clients = @profile.user.active_clients
+      @rsm_prospects = @profile.user.prospects
     else
       redirect_to root_path, :alert => "Not authorized. Only administrators can view RSM's."
     end

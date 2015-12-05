@@ -26,12 +26,13 @@
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#activities" aria-controls="activities" role="tab" data-toggle="tab">Activities</a></li>
   <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
+  <li role="presentation"><a href="#prospects" aria-controls="prospects" role="tab" data-toggle="tab">Prospects</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane active" id="activities">
-    <% if !@profile_activities.nil? %>
+    <% if @profile_activities.any? %>
       <% if !params[:search_activities].nil? %>
         <p><%= "Found #{pluralize(@profile_activities.count, 'activity')} matching '#{params[:search_activities]}'" %><br/>
           <%= link_to 'Clear search results', @profile %>
@@ -60,13 +61,15 @@
           </div>
         </div>
       <% end %>
+    <% else %>
+      <h2>No activities yet</h2>
     <% end %>
   </div>
   <div role="tabpanel" class="tab-pane" id="clients">
-    <% if @profile.user.clients.any? %>
-      <h2><%= @profile.user.user_name %>'s Clients</h2>
+    <% if @rsm_clients.any? %>
+      <h2><%= @profile.user.user_name %>'s active clients</h2>
       <table>
-        <% @profile.user.clients.order(:name,:city).each do |client| %>
+        <% @rsm_clients.order(:name,:city).each do |client| %>
           <tr>
             <td style="padding:10px;">
               <li><%= link_to "#{client.name} (#{client.location})", client %></li>
@@ -74,6 +77,27 @@
             <td>
               <% if current_user == @profile.user || current_user.admin? %>
                 <%= link_to remove_rsm_from_client_path(client,:user_id => @profile.user), :class => "btn btn-default", data: { confirm: "Remove this client from this list? Are you sure?" } do %>
+                  <%= icon('remove') %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="prospects">
+    <% if @rsm_prospects.any? %>
+      <h2><%= @profile.user.user_name %>'s prospects</h2>
+      <table>
+        <% @rsm_prospects.order(:name,:city).each do |prospect| %>
+          <tr>
+            <td style="padding:10px;">
+              <li><%= link_to "#{prospect.name} (#{prospect.location})", prospect_path(prospect) %></li>
+            </td>
+            <td>
+              <% if current_user == @profile.user || current_user.admin? %>
+                <%= link_to remove_rsm_from_prospect_path(prospect,:user_id => @profile.user), :class => "btn btn-default", data: { confirm: "Remove this prospect from this list? Are you sure?" } do %>
                   <%= icon('remove') %>
                 <% end %>
               <% end %>

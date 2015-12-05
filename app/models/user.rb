@@ -42,6 +42,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def active_clients
+    self.clients.where(status:'Active').where(client_type:'Client')
+  end
+
+  def prospects
+    return self.clients.where(client_type: 'Prospect')
+  end
+
   def marketing?
     if self.role == "Marketing"
       return true
