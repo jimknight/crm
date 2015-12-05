@@ -15,7 +15,7 @@ class ProspectsController < ApplicationController
     elsif params[:search].present?
       @prospects = @prospects.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
     else
-      @prospects = @prospects.order(:name, :city)
+      @prospects = @prospects.order(:import_datetime)
     end
   end
 

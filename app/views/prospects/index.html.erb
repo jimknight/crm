@@ -10,6 +10,7 @@
       <th>State</th>
       <th>City</th>
       <th>Phone</th>
+      <th>Imported</th>
     </tr>
   </thead>
 
@@ -28,6 +29,11 @@
         <td><%= prospect.state %></td>
         <td><%= prospect.city %></td>
         <td><%= prospect.phone %></td>
+        <td>
+          <% if !prospect.import_datetime.nil? %>
+            <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
