@@ -1,6 +1,6 @@
 <%= simple_form_for(@appointment) do |f| %>
   <%= f.input :client_id, collection: Client.all.order(:name) %>
-  <%= f.input :title %>
+  <%= f.input :title, label: 'Subject' %>
   <div class="row">
     <div class="col-md-3">
       <%= f.label "Date" %><br>
