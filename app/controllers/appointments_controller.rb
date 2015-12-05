@@ -47,6 +47,7 @@ class AppointmentsController < ApplicationController
   end
 
   def edit
+    @selected_date = @appointment.start_time.to_date
   end
 
   def create
@@ -54,6 +55,8 @@ class AppointmentsController < ApplicationController
     @appointment.user = current_user
     @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EDT").to_datetime
     @appointment.end_time = ("#{appointment_params[:start_date]} #{appointment_params[:end_time]} EDT").to_datetime
+    @appointment.start_date = @appointment.start_time.to_date
+    @appointment.end_date = @appointment.start_time.to_date
     if @appointment.save
       redirect_to calendar_path, :notice => "Appointment saved!"
     else
