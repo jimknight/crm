@@ -41,8 +41,12 @@ class Client < ActiveRecord::Base
   end
 
   def google_maps_address
-    address = [name,street1,street2,city,state,zip].join(" ")
-    return "http://maps.google.com/?q=#{ERB::Util.url_encode(address)}"
+    if street1.present?
+      address = [name,street1,street2,city,state,zip].join(" ")
+      return "http://maps.google.com/?q=#{ERB::Util.url_encode(address)}"
+    else
+      return ""
+    end
   end
 
   def location

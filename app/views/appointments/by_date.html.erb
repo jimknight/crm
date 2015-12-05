@@ -3,20 +3,24 @@
 <hr>
 <% @appointments.each do |appt| %>
   <h3><%= link_to appt.client.name, appt %> <%= appt.start_time.strftime("%l:%M %P") %> to <%= appt.end_time.strftime("%l:%M %P") %></h3>
-  <p>
-    <a href="<%= appt.client.google_maps_address %>">
-      <% if appt.client.street1.present? %>
-        <%= appt.client.street1 %><br>
-      <% end %>
-      <% if appt.client.street2.present? %>
-        <%= appt.client.street2 %><br>
-      <% end %>
-      <%= "#{appt.client.city}, #{appt.client.state} #{appt.client.zip}" %>
-    </a>
-  </p>
-  <p>
-    <a href="tel:<%= appt.client.phone %>"><%= appt.client.phone %></a>
-  </p>
+  <% if appt.client.google_maps_address.present? %>
+    <p>
+      <a href="<%= appt.client.google_maps_address %>">
+        <% if appt.client.street1.present? %>
+          <%= appt.client.street1 %><br>
+        <% end %>
+        <% if appt.client.street2.present? %>
+          <%= appt.client.street2 %><br>
+        <% end %>
+        <%= "#{appt.client.city}, #{appt.client.state} #{appt.client.zip}" %>
+      </a>
+    </p>
+  <% end %>
+  <% if appt.client.phone.present? %>
+    <p>
+      <a href="tel:<%= appt.client.phone %>"><%= appt.client.phone %></a>
+    </p>
+  <% end %>
   <% if appt.comments.present? %>
     <%= "Comments: #{appt.comments}" %>
   <% end %>
