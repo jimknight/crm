@@ -13,6 +13,7 @@
 #  updated_at           :datetime
 #  contact_description  :string(255)
 #  work_phone_extension :string(255)
+#  comments             :text
 #
 
 class Contact < ActiveRecord::Base
