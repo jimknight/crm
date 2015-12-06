@@ -25,7 +25,9 @@
   Email
 </td>
 <td>
-  <%= link_to @contact.email, "mailto:#{@contact.email}" %>
+  <% if @contact.email.present? %>
+    <%= link_to @contact.email, "mailto:#{@contact.email}" %>
+  <% end %>
 </td>
 </tr>
 

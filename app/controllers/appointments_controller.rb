@@ -37,6 +37,16 @@ class AppointmentsController < ApplicationController
   end
 
   def new
+    if params[:client].present?
+      @client = Client.find(params[:client])
+    else
+      @client = Client.new
+    end
+    if current_user.admin?
+      @clients = Client.all.order(:name)
+    else
+      @clients = current_user.clients.all.order(:name)
+    end
     if params[:day].present?
       @selected_date = Date.new(params[:year].to_i,params[:month].to_i,params[:day].to_i)
     else
@@ -51,12 +61,19 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new(:client_id => appointment_params[:client_id], :title => appointment_params[:title], :comments => appointment_params[:comments])
+    @appointment = Appointment.new(appointment_params)
     @appointment.user = current_user
     @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EDT").to_datetime
     @appointment.end_time = ("#{appointment_params[:start_date]} #{appointment_params[:end_time]} EDT").to_datetime
     @appointment.start_date = @appointment.start_time.to_date
     @appointment.end_date = @appointment.start_time.to_date
+    # Allow save with no contact
+    if params[:new_contact].present? && params[:appointment][:client_id].present?
+      @client = Client.find(params[:appointment][:client_id])
+      @contact = Contact.where(:name => params[:new_contact]).first_or_create
+      @client.contacts << @contact
+      @appointment.update_attribute(:contact_id, @contact.id)
+    end
     if @appointment.save
       redirect_to calendar_path, :notice => "Appointment saved!"
     else
@@ -66,7 +83,13 @@ class AppointmentsController < ApplicationController
 
   def update
     @appointment.update(appointment_params)
-    respond_with(@appointment)
+    if params[:new_contact].present?
+      @client = Client.find(params[:activity][:client_id])
+      @contact = Contact.where(:name => params[:new_contact]).first_or_create
+      @client.contacts << @contact
+      @appointment.update_attribute(:contact_id, @contact.id)
+    end
+    redirect_to calendar_path, :notice => "Appointment saved!"
   end
 
   def destroy
@@ -99,6 +122,6 @@ class AppointmentsController < ApplicationController
     end
 
     def appointment_params
-      params.require(:appointment).permit(:title, :client_id, :user_id, :start_date, :start_time, :end_date, :end_time, :comments)
+      params.require(:appointment).permit(:title, :client_id, :contact_id, :user_id, :start_date, :start_time, :end_date, :end_time, :comments)
     end
 end

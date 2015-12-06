@@ -41,3 +41,23 @@ var default_picker_options = {
 $(document).on('ready page:change', function() {
   $('.datetimepicker').datetimepicker(default_picker_options);
 });
+
+window.getClientJsonAppt = function(client_id) {
+  return $.getJSON("/clients/" + client_id + ".json", function(data) {
+    $("select#appointment_contact_id").empty().append('<option value=""></option>');
+    if (data["contacts"].length === 0) {
+      $('label[for="new_contact"]').text("Enter a new contact for this client");
+      $('label[for="appointment_contact_id"]').hide();
+      return $("select#appointment_contact_id").hide();
+    } else {
+      return $.each(data["contacts"], function(idx, obj) {
+        var $option;
+        $option = $("<option></option>").attr("value", obj["id"]).text(obj["name"]);
+        $('label[for="new_contact"]').text("or enter a new contact");
+        $('label[for="appointment_contact_id"]').show();
+        $("select#appointment_contact_id").show();
+        $("select#appointment_contact_id").append($option);
+      });
+    }
+  });
+};
