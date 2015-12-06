@@ -23,8 +23,16 @@
     <%= f.text_field :email, :class => "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :work_phone %>
-    <%= f.text_field :work_phone, :class => "form-control", :value => @client.phone %>
+    <div class="row">
+      <div class="col-xs-8">
+      <%= f.label :work_phone %>
+      <%= f.text_field :work_phone, :class => "form-control", :value => @client.phone %>
+      </div>
+      <div class="col-xs-4">
+      <%= f.label "Extension" %>
+      <%= f.text_field :work_phone_extension, :class => "form-control" %>
+      </div>
+    </div>
   </div>
   <div class="form-group">
     <%= f.label :mobile_phone %>

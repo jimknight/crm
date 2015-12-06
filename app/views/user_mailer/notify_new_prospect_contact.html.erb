@@ -10,7 +10,11 @@
       Name: <%= @contact.name %><br/>
       Title: <%= @contact.title %><br/>
       Email: <%= @contact.email %><br/>
-      Work Phone: <%= @contact.work_phone %><br/>
+      Work Phone: <%= @contact.work_phone %>
+      <% if @contact.work_phone_extension.present? %>
+        <%= @contact.pretty_work_phone_extension %>
+      <% end %>
+      <br/>
       Mobile Phone: <%= @contact.mobile_phone %>
     </p>
     <p>

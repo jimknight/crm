@@ -1,5 +1,5 @@
 <h2>Contact</h2>
-<h3><%= @client.name %></h3>
+<h3><%= link_to @client.name, @client %></h3>
 
 <table class="table">
 <tr>
@@ -35,6 +35,9 @@
 </td>
 <td>
   <%= @contact.work_phone %>
+  <% if !@contact.work_phone_extension.nil? %>
+    <%= @contact.pretty_work_phone_extension %>
+  <% end %>
 </td>
 </tr>
 
@@ -54,7 +57,7 @@
   <%= link_to edit_client_contact_path(@client,@contact), :class => "btn btn-primary" do %>
     <%= icon('pencil') %> Edit Contact
   <% end %>
-  <%= link_to @client, :class => "btn btn-default" do %>
-    <%= icon('remove') %> Cancel
+  <%= link_to :back, :class => "btn btn-default" do %>
+    <%= icon('chevron-left') %> Back
   <% end %>
 </p>

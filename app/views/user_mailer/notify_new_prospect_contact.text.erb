@@ -4,7 +4,11 @@ Contact Information:
 Name: <%= @contact.name %>
 Title: <%= @contact.title %>
 Email: <%= @contact.email %>
-Work Phone: <%= @contact.work_phone %>
+<% if @contact.work_phone_extension.present? %>
+  Work Phone: <%= @contact.work_phone %><%= @contact.pretty_work_phone_extension %>
+<% else %>
+  Work Phone: <%= @contact.work_phone %>
+<% end %>
 Mobile Phone: <%= @contact.mobile_phone %>
 
 To login to the CRM site and view the client, just follow this link: <%= @url %>.
