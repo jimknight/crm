@@ -22,6 +22,7 @@
 #  source          :text
 #  form_dump       :text
 #  import_datetime :datetime
+#  comments        :text
 #
 
 require 'rails_helper'

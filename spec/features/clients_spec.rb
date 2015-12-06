@@ -1,5 +1,24 @@
 require "rails_helper"
 
+describe "create" do
+  before :each do
+    Client.destroy_all
+    User.destroy_all
+  end
+  it "should have a comment field" do
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    visit new_client_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    fill_in "Name", :with => "SGA"
+    fill_in "Comments", :with => "We need to hire these guys"
+    click_button "Save"
+    click_link "Clients"
+    click_link "SGA"
+    page.should have_content "We need to hire these guys"
+  end
+end
 describe "show" do
   before :each do
     Client.destroy_all
