@@ -27,6 +27,7 @@
   <td>Industry</td>
 <td><%= @prospect.industry.nil? || @prospect.industry == "" ? "" : Industry.find(@prospect.industry).name %></td>
 </tr>
+<tr><td>Comments</td><td><%= @prospect.comments %></td></tr>
 <% if !@prospect.eid.nil? %>
     <tr>
       <td>EID</td>

@@ -27,6 +27,10 @@ describe "new" do
 end
 
 describe "create" do
+  before :each do
+    Client.destroy_all
+    User.destroy_all
+  end
   it "should allow marketing or admin to create new prospects (and save them)" do
     @marketing = User.create!(:email => "marketing@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
     visit prospects_path
@@ -39,6 +43,25 @@ describe "create" do
     click_button "Save"
     page.should have_content "Prospect was successfully created."
     page.should have_link "LavaTech"
+  end
+  it "should have a comment field" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @marketing = User.create!(:email => "marketing@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
+    visit prospects_path
+    fill_in "Email", :with => "marketing@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Prospect"
+    fill_in "Name", :with => "SGA"
+    fill_in "Comments", :with => "We need to hire these guys"
+    click_button "Save"
+    click_link "Logout"
+    visit prospects_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "SGA"
+    page.should have_content "We need to hire these guys"
   end
 end
 

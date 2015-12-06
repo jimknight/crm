@@ -112,7 +112,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def prospect_params
-    params.require(:client).permit(:name, :street1, :street2, :city, :state, :zip, :phone, :industry)
+    params.require(:client).permit(:name, :comments, :street1, :street2, :city, :state, :zip, :phone, :industry)
   end
 
 end
