@@ -24,7 +24,9 @@ namespace :load_data do
       import_formdump = data["FormDump"].force_encoding('Windows-1252').encode('UTF-8')
       existing_client = Client.find_by_eid(import_eid)
       import_datetime = DateTime.strptime(import_date + " EST", '%Y-%m-%d %R %Z')
-      if import_datetime >= "2015-12-01".to_date
+      if import_company == "1" || import_company == "-1"
+        puts "Skipping EID = #{import_eid} for client #{import_company}. Junk data"
+      elsif import_datetime >= "2015-12-01".to_date
         if existing_client.nil? && import_company.present?
           # create a new one - assume EST
           new_client = Client.create!(
@@ -34,6 +36,7 @@ namespace :load_data do
             :city => import_city,
             :state => import_state,
             :zip => import_zip,
+            :country => import_country,
             :import_datetime => import_datetime,
             :prospect_type => import_type,
             :source => import_source,
