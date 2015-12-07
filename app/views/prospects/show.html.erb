@@ -1,9 +1,4 @@
 <h2><%= @prospect.name %></h2>
-<%= form_tag prospect_notify_path do %>
-<%= label_tag "Forward prospect to" %>
-<%= email_field_tag :notify, nil, :placeholder => "user@company.com" %>
-<%= submit_tag "Send" %>
-<% end %>
 <table class="table">
     <td>Phone</td>
 <td><%= @prospect.phone %></td>
