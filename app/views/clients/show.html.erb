@@ -14,6 +14,7 @@
 <tr><td>Street 3</td><td><%= @client.street3 %></td></tr>
 <tr>  <td>City</td><td><%= @client.city %></td></tr><tr>  <td>State</td><td><%= @client.state %></td></tr>
 <tr>  <td>Zip</td><td><%= @client.zip %></td></tr>
+<tr>  <td>Country</td><td><%= @client.country %></td></tr>
 <tr>
   <td>Industry</td>
 <td><%= @client.industry.nil? || @client.industry == "" ? "" : Industry.find(@client.industry).name %></td>

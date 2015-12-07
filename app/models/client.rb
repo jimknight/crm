@@ -23,6 +23,7 @@
 #  form_dump       :text
 #  import_datetime :datetime
 #  comments        :text
+#  country         :string(255)
 #
 
 class Client < ActiveRecord::Base
