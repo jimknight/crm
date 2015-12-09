@@ -54,6 +54,10 @@
     <%= f.select :industry, options_from_collection_for_select(Industry.all.order(:name), :id, :name, @prospect.industry), {:include_blank => true}, {:class => "form-control"} %>
   </div>
   <div class="form-group">
+    <%= f.label :comments %>
+    <%= f.text_area :comments, :class => "form-control", :rows => "3" %>
+  </div>
+  <div class="form-group">
     <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
       <%= icon('check') %> Save
     <% end %>

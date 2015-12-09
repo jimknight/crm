@@ -26,6 +26,22 @@ describe "new" do
   end
 end
 
+describe "edit" do
+  it "should allow an update to the comments field" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @prospect = Client.create!(:name => "LavaTech", :client_type => "Prospect")
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Edit"
+    fill_in "Comments", :with => "Hire these guys"
+    click_button "Save"
+    visit prospect_path(@prospect)
+    page.should have_content "Hire these guys"
+  end
+end
+
 describe "create" do
   before :each do
     Client.destroy_all
