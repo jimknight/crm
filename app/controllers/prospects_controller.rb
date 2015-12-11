@@ -3,20 +3,22 @@ class ProspectsController < ApplicationController
   before_action :set_tab
 
   def index
-    @prospects = Client.unassigned_prospects
+    @unassigned_prospects = Client.unassigned_prospects
     if params[:search_state].present?
-      @prospects = @prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
+      @unassigned_prospects = @unassigned_prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
     elsif params[:search_name].present?
-      @prospects = @prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name, :city)
+      @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name, :city)
     elsif params[:search_city].present?
-      @prospects = @prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name, :city)
+      @unassigned_prospects = @unassigned_prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name, :city)
     elsif params[:search_phone].present?
-      @prospects = @prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name, :city)
+      @unassigned_prospects = @unassigned_prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name, :city)
     elsif params[:search].present?
-      @prospects = @prospects.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
+      @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
     else
-      @prospects = @prospects.order(:import_datetime)
+      @unassigned_prospects = @unassigned_prospects.order(:import_datetime)
     end
+    @assigned_prospects_to_rsms = Client.assigned_prospects_to_rsms.order(:name)
+    @assigned_prospects_to_outsiders = Client.assigned_prospects_to_outsiders.order(:name)
   end
 
   def new

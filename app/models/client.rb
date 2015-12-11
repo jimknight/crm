@@ -32,6 +32,7 @@ class Client < ActiveRecord::Base
   has_many :activities, dependent: :destroy
   has_many :contacts, dependent: :destroy
   has_and_belongs_to_many :users
+  has_many :outsiders
   validates :name, :presence => true
 
   def archived?
@@ -69,7 +70,15 @@ class Client < ActiveRecord::Base
   end
 
   def self.unassigned_prospects
-    self.where(client_type:'Prospect').where(status:'Active').includes(:users).where(users:{id: nil})
+    self.where(client_type:'Prospect').where(status:'Active').includes(:users).where(users:{id: nil}).includes(:outsiders).where(outsiders:{id: nil})
+  end
+
+  def self.assigned_prospects_to_rsms
+    self.where(client_type:'Prospect').where(status:'Active').includes(:users).where.not(users:{id: nil})
+  end
+
+  def self.assigned_prospects_to_outsiders
+    self.where(client_type:'Prospect').where(status:'Active').includes(:outsiders).where.not(outsiders:{id: nil})
   end
 
 end

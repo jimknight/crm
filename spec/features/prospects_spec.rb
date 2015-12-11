@@ -196,7 +196,7 @@ describe "show" do
     fill_in "Email", :with => "admin@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
-    click_link "Add RSM"
+    click_link "Assign to RSM"
     page.should_not have_content "admin@sga.com"
     page.should have_content "user@sga.com"
   end

@@ -29,4 +29,12 @@ class UserMailer < ActionMailer::Base
     @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
     mail(from: @user.email, to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")
   end
+  def notify_outsider_of_prospect(prospect,outsider,current_user)
+    @user = current_user
+    @prospect = prospect
+    @send_to = outsider.email
+    @url = prospect_url(@prospect)
+    @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
+    mail(from: @user.email, to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")
+  end
 end
