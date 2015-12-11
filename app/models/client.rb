@@ -69,7 +69,7 @@ class Client < ActiveRecord::Base
   end
 
   def self.unassigned_prospects
-    self.where(client_type:'Prospect').includes(:users).where(users:{id: nil})
+    self.where(client_type:'Prospect').where(status:'Active').includes(:users).where(users:{id: nil})
   end
 
 end

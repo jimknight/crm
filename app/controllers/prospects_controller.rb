@@ -65,6 +65,15 @@ class ProspectsController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user.admin? || current_user.marketing?
+      @prospect.update_attribute("status","Deleted")
+      redirect_to prospects_path, notice: 'Prospect was successfully deleted.'
+    else
+      redirect_to prospect_path(@prospect), :alert => "Unauthorized. Only admins can delete this prospect"
+    end
+  end
+
   def update
     if @prospect.update(prospect_params)
       redirect_to prospect_path(@prospect), notice: 'Prospect was successfully updated.'

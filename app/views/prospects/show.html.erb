@@ -1,4 +1,26 @@
 <h2><%= @prospect.name %></h2>
+
+<p>
+  <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
+    <%= icon('pencil') %> Edit
+  <% end %>
+  <%= link_to new_prospect_contact_path(@prospect), :class => "btn btn-primary" do %>
+    <%= icon('plus') %> Add Contact
+  <% end %>
+  <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
+    <%= icon('plus') %> Add RSM
+  <% end %>
+  <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
+    <%= icon('user') %> Convert to Client
+  <% end %>
+  <%= link_to prospect_path(@prospect), :method => :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
+    <%= icon('trash') %> Delete
+  <% end %>
+  <%= link_to :back, :class => "btn btn-default" do %>
+    <%= icon('chevron-left') %> Back
+  <% end %>
+</p>
+
 <table class="table">
     <td>Phone</td>
 <td><%= @prospect.phone %></td>
@@ -53,24 +75,6 @@
 </tr>
 <% end %>
 </table>
-
-<p>
-  <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('pencil') %> Edit
-  <% end %>
-  <%= link_to new_prospect_contact_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('plus') %> Add Contact
-  <% end %>
-  <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('plus') %> Add RSM
-  <% end %>
-  <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('user') %> Convert to Client
-  <% end %>
-  <%= link_to :back, :class => "btn btn-default" do %>
-    <%= icon('chevron-left') %> Back
-  <% end %>
-</p>
 
 <% if @prospect.contacts.present? %>
   <h2>Contacts for this prospect</h2>
