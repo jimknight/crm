@@ -3,22 +3,10 @@ class OutsidersController < ApplicationController
 
   respond_to :html
 
-  def index
-    @outsiders = Outsider.all
-    respond_with(@outsiders)
-  end
-
-  def show
-    respond_with(@outsider)
-  end
-
   def new
     @prospect = Client.find(params[:prospect_id])
     @outsider = Outsider.new
     respond_with(@outsider)
-  end
-
-  def edit
   end
 
   def create
@@ -29,16 +17,6 @@ class OutsidersController < ApplicationController
       UserMailer.notify_outsider_of_prospect(@prospect,@outsider,current_user).deliver # email alert
       redirect_to prospect_path(@prospect), :notice => "Prospect has been assigned and details were emailed to #{@outsider.email}."
     end
-  end
-
-  def update
-    @outsider.update(outsider_params)
-    respond_with(@outsider)
-  end
-
-  def destroy
-    @outsider.destroy
-    respond_with(@outsider)
   end
 
   private
