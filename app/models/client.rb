@@ -52,8 +52,10 @@ class Client < ActiveRecord::Base
   end
 
   def location
-    if self.city.present? && self.state.present?
-      return [self.city,self.state].join(",")
+    if self.city.present? && self.state.present? && self.country.present?
+      return [self.city,self.state].join(", ") + " (#{self.country})"
+    elsif self.city.present? && self.state.present?
+      return [self.city,self.state].join(", ")
     elsif !self.state.present? && self.city.present?
       return self.city
     else

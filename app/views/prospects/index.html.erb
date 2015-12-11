@@ -7,8 +7,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>State</th>
-      <th>City</th>
+      <th>Location</th>
       <th>Phone</th>
       <th>Imported</th>
     </tr>
@@ -26,8 +25,7 @@
     <% @prospects.each do |prospect| %>
       <tr>
         <td><%= link_to prospect.name, prospect_path(prospect) %></td>
-        <td><%= prospect.state %></td>
-        <td><%= prospect.city %></td>
+        <td><%= prospect.location %></td>
         <td><%= prospect.phone %></td>
         <td>
           <% if !prospect.import_datetime.nil? %>

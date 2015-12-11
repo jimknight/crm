@@ -122,6 +122,17 @@ describe "index" do
     page.should have_link "LavaTech"
     page.should_not have_link "SGA"
   end
+  it "should show the country" do
+    @prospect1 = Client.create!(:name => "SGA",:client_type => "Prospect",:city => "Hillsborough",:state => "NJ",:country => "US")
+    @prospect2 = Client.create!(:name => "LavaTech",:client_type => "Prospect",:city => "Leesburg",:state => "VA")
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    visit prospects_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_content "Hillsborough, NJ (US)"
+    page.should have_content "Leesburg, VA"
+  end
 end
 
 describe "show" do
