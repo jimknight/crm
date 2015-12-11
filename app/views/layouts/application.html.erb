@@ -97,17 +97,19 @@
               Clients
             <% end %>
           </li>
-          <% if @tab == "Prospect" %>
-            <li class="active">
-          <% else %>
-            <li>
-          <% end %>
-            <%= link_to prospects_path do %>
-              <!-- <span class="glyphicon glyphicon-user"></span> -->
-              <%= icon('user') %>
-              Prospects
+          <% if current_user && current_user.admin? %>
+            <% if @tab == "Prospect" %>
+              <li class="active">
+            <% else %>
+              <li>
             <% end %>
-          </li>
+              <%= link_to prospects_path do %>
+                <!-- <span class="glyphicon glyphicon-user"></span> -->
+                <%= icon('user') %>
+                Prospects
+              <% end %>
+            </li>
+          <% end %>
           <% if @tab == "Models" %>
             <li class="active">
           <% else %>

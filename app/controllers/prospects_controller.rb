@@ -42,17 +42,26 @@ class ProspectsController < ApplicationController
   end
 
   def edit
-  end
-
-  def show
-    if current_user.admin? || current_user.clients.include?(@prospect)
+    if current_user.admin? || current_user.marketing? || current_user.clients.include?(@prospect)
       if params[:user_id]
         @rep_activities = @prospect.activities.where(:user_id => params[:user_id])
       else
         @rep_activities = @prospect.activities
       end
     else
-      redirect_to clients_path, :alert => "Unauthorized. Only marketing or admins and RSM's connected to this prospect can see this client"
+      redirect_to clients_path, :alert => "Unauthorized. Only marketing or admins and RSM's connected to this prospect can edit this prospect"
+    end
+  end
+
+  def show
+    if current_user.admin? || current_user.marketing? || current_user.clients.include?(@prospect)
+      if params[:user_id]
+        @rep_activities = @prospect.activities.where(:user_id => params[:user_id])
+      else
+        @rep_activities = @prospect.activities
+      end
+    else
+      redirect_to clients_path, :alert => "Unauthorized. Only marketing or admins and RSM's connected to this prospect can see this prospect"
     end
   end
 

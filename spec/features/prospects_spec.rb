@@ -27,6 +27,11 @@ describe "new" do
 end
 
 describe "edit" do
+  before :each do
+    User.destroy_all
+    Profile.destroy_all
+    Client.destroy_all
+  end
   it "should allow an update to the comments field" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @prospect = Client.create!(:name => "LavaTech", :client_type => "Prospect")
@@ -39,6 +44,19 @@ describe "edit" do
     click_button "Save"
     visit prospect_path(@prospect)
     page.should have_content "Hire these guys"
+  end
+  it "should only allow the RSM assigned or marketing or admin to edit" do
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    visit edit_prospect_path(@prospect)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_content "Editing prospect"
+    page.should have_content "Unauthorized"
+    @prospect.users << @user
+    visit edit_prospect_path(@prospect)
+    page.should have_content "Editing prospect"
   end
 end
 
@@ -85,6 +103,23 @@ describe "index" do
   before :each do
     User.destroy_all
     Client.destroy_all
+  end
+  it "should only show the prospects link or show index to admins" do
+    #Prospects view should only be seen by admins
+    @prospect = Client.create!(:name => "SGA",:client_type => "Prospect")
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    visit root_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_link "Prospects"
+    click_link "Logout"
+    visit root_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_link "Prospects"
   end
   it "should open the prospect not the client when clicking the link" do
     @prospect = Client.create!(:name => "SGA",:client_type => "Prospect")
@@ -168,6 +203,19 @@ describe "show" do
     click_button "Sign in"
     click_link "Convert to Client"
     page.should have_content "Converted this prospect to an active client"
+  end
+  it "should allow the assignee to see the prospect" do
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_content "LavaTech"
+    page.should have_content "Unauthorized"
+    @prospect.users << @user
+    visit prospect_path(@prospect)
+    page.should have_content "LavaTech"
   end
 end
 
