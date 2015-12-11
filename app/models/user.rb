@@ -46,8 +46,8 @@ class User < ActiveRecord::Base
     self.clients.where(status:'Active').where(client_type:'Client')
   end
 
-  def prospects
-    return self.clients.where(client_type: 'Prospect')
+  def active_prospects
+    return self.clients.where(status:'Active').where(client_type: 'Prospect')
   end
 
   def marketing?
