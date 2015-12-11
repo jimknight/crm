@@ -1894,3 +1894,7 @@ input[type=search] {
   background-position: 5px 5px;
   color:red;
 }
+
+abbr[title], abbr[data-original-title] {
+  border-bottom-width: 0;
+}
