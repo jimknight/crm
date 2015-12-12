@@ -126,7 +126,9 @@ namespace :load_data do
           end
           if contact_name.present? && contact_name.length >= 3
             new_contact = Contact.find_or_create_by(:client_id => new_client.id, :name => contact_name)
-            new_contact.email = contact_email
+            if EmailValidator.valid?(contact_email)
+              new_contact.email = contact_email
+            end
             new_contact.work_phone = contact_phone
             new_contact.mobile_phone = contact_mobile_phone
             if new_contact.changed?
