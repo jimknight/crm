@@ -1,5 +1,24 @@
 namespace :load_data do
 
+  # Title
+  # First Name
+  # Middle Name
+  # Last Name
+  # Full Name
+  # Suffix
+  # Company
+  # Job
+  # Title Business Street
+  # Business City
+  # Business State
+  # Business Postal Code
+  # Fax
+  # Business Phone
+  # Extension
+  # Mobile Phone
+  # Business Mail
+  # Comments
+
   desc "Import from ACT file for Fred Reiss"
   task :import_for_lee => :environment do
     require 'area'
@@ -17,6 +36,7 @@ namespace :load_data do
         client_street3 = ""
         client_city = row['Business City']
         client_zip = row['Business Postal Code']
+        client_state = row['Business State']
         client_fax = ""
         client_phone = row['Business Phone']
         contact_name = row['Full Name']
@@ -35,14 +55,9 @@ namespace :load_data do
           new_client.street1 = client_street1
           new_client.street2 = client_street2
           new_client.street3 = client_street3
-          if client_zip.present?
-            begin
-            new_client.state = client_zip.split("-")[0].to_region(:state => true)
-            rescue
-              # don't bother
-            end
-            new_client.zip = client_zip
-          end
+          new_client.state = client_state
+          new_client.city = client_city
+          new_client.zip = client_zip
           if new_client.changed?
             new_client.save!
             user = User.find_by_email('lzurman@mixers.com')
