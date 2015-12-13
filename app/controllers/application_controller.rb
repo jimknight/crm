@@ -13,4 +13,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
+  def authenticate_admin_user!
+    raise SecurityError unless current_user.try(:admin?)
+  end
+
+  rescue_from SecurityError do |exception|
+    redirect_to root_path, :alert => "Not authorized. Only administrators can see the admin dashboard."
+  end
+
 end
