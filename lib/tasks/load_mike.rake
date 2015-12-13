@@ -80,7 +80,7 @@ namespace :load_data do
   # E-mail Login
   # E-mail System
 
-  desc "Import from ACT file for Fred Reiss"
+  desc "Import from ACT file for Mike Morse"
   task :import_for_mike => :environment do
     require 'area'
     require 'csv'

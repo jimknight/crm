@@ -19,7 +19,7 @@ namespace :load_data do
   # Business Mail
   # Comments
 
-  desc "Import from ACT file for Fred Reiss"
+  desc "Import from ACT file for Lee Zurman"
   task :import_for_lee => :environment do
     require 'area'
     require 'csv'
