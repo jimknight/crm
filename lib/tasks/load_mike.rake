@@ -122,7 +122,9 @@ namespace :load_data do
           if new_client.changed?
             new_client.save!
             user = User.find_by_email('mmorse@mixers.com')
-            new_client.users << user
+            unless new_client.users.include?(user)
+               new_client.users << user
+            end
           end
           if contact_name.present? && contact_name.length >= 3
             new_contact = Contact.find_or_create_by(:client_id => new_client.id, :name => contact_name)
@@ -133,7 +135,9 @@ namespace :load_data do
             new_contact.mobile_phone = contact_mobile_phone
             if new_contact.changed?
               new_contact.save!
-              new_client.contacts << new_contact
+              unless new_client.contacts.include?(new_contact)
+                new_client.contacts << new_contact
+              end
             end
           end
         end
