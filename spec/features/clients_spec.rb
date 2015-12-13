@@ -24,6 +24,16 @@ describe "show" do
     Client.destroy_all
     User.destroy_all
   end
+  it "should show the creation date for a client" do
+    @client = Client.create!(:name => "SGA")
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user.clients << @client
+    visit client_path(@client)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_content "Created"
+  end
   it "should allow admins to delete a client" do
     @client = Client.create!(:name => "SGA")
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")

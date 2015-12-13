@@ -20,6 +20,10 @@
 <td><%= @client.industry.nil? || @client.industry == "" ? "" : Industry.find(@client.industry).name %></td>
 </tr>
 <tr><td>Comments</td><td><%= @client.comments %></td></tr>
+<tr><td>Created</td><td><%= @client.created_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
+<% if @client.created_at.to_i != @client.updated_at.to_i %>
+  <tr><td>Updated</td><td><%= @client.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
+<% end %>
 </table>
 
 <p>

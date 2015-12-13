@@ -53,7 +53,12 @@
 <td><%= @prospect.industry.nil? || @prospect.industry == "" ? "" : Industry.find(@prospect.industry).name %></td>
 </tr>
 <tr><td>Comments</td><td><%= @prospect.comments %></td></tr>
-<% if !@prospect.eid.nil? %>
+<% if @prospect.eid.nil? %>
+  <tr><td>Created</td><td><%= @prospect.created_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
+  <% if @prospect.created_at.to_i != @prospect.updated_at.to_i %>
+    <tr><td>Updated</td><td><%= @prospect.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
+  <% end %>
+<% else %>
     <tr>
       <td>EID</td>
   <td><%= @prospect.eid %></td>
