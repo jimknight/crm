@@ -3,22 +3,26 @@ class ProspectsController < ApplicationController
   before_action :set_tab
 
   def index
-    @unassigned_prospects = Client.unassigned_prospects
-    if params[:search_state].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
-    elsif params[:search_name].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name, :city)
-    elsif params[:search_city].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name, :city)
-    elsif params[:search_phone].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name, :city)
-    elsif params[:search].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
+    if current_user.admin? || current_user.marketing?
+      @unassigned_prospects = Client.unassigned_prospects
+      if params[:search_state].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
+      elsif params[:search_name].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name, :city)
+      elsif params[:search_city].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name, :city)
+      elsif params[:search_phone].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name, :city)
+      elsif params[:search].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
+      else
+        @unassigned_prospects = @unassigned_prospects.order(:import_datetime)
+      end
+      @assigned_prospects_to_rsms = Client.assigned_prospects_to_rsms.order(:name)
+      @assigned_prospects_to_outsiders = Client.assigned_prospects_to_outsiders.order(:name)
     else
-      @unassigned_prospects = @unassigned_prospects.order(:import_datetime)
+      redirect_to root_path, :alert => "Not authorized. Only administrators can see prospects."
     end
-    @assigned_prospects_to_rsms = Client.assigned_prospects_to_rsms.order(:name)
-    @assigned_prospects_to_outsiders = Client.assigned_prospects_to_outsiders.order(:name)
   end
 
   def new
