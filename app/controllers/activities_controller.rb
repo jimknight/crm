@@ -32,9 +32,9 @@ class ActivitiesController < ApplicationController
       @client = Client.new
     end
     if current_user.admin?
-      @clients = Client.all.order(:name)
+      @clients = Client.all.order(:name,:city)
     else
-      @clients = current_user.clients.all.order(:name)
+      @clients = current_user.clients.all.order(:name,:city)
     end
     @activity = Activity.new(:activity_date => Date.today)
   end
@@ -50,9 +50,9 @@ class ActivitiesController < ApplicationController
     end
     @client = @activity.client
     if current_user.admin?
-      @clients = Client.all.order(:name)
+      @clients = Client.all.order(:name,:city)
     else
-      @clients = current_user.clients.all.order(:name)
+      @clients = current_user.clients.all.order(:name,:city)
     end
   end
 

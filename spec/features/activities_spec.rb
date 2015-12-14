@@ -19,7 +19,7 @@ describe "create" do
     click_button "Sign in"
     click_link "New Activity"
     page.should have_content "New activity"
-    select "SGA", :from => "Client"
+    select "SGA (Hillsborough, NJ)", :from => "Client"
     select "Wayne Scarano", :from => "Choose a contact"
     find_field('City').value.should eq 'Hillsborough'
     find(:css, 'select#activity_state').value.should == 'NJ'
