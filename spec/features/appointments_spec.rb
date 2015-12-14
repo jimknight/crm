@@ -35,3 +35,21 @@ describe "show" do
     page.should have_content "deleted"
   end
 end
+
+describe "edit" do
+  it "should allow a user to edit a saved appointment" do
+    User.destroy_all
+    Client.destroy_all
+    Appointment.destroy_all
+    @client = Client.create!(:name => "SGA")
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user.clients << @client
+    @appointment = Appointment.create!(:user_id => @user.id, :title => "Meeting with POTUS", :client_id => @client.id, :start_time => Time.now, :end_time => 1.hours.from_now, :start_date => Date.today, :end_date => Date.today)
+    visit appointment_path(@appointment)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Edit"
+    page.should have_content "Edit"
+  end
+end

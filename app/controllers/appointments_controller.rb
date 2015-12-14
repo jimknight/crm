@@ -57,6 +57,12 @@ class AppointmentsController < ApplicationController
   end
 
   def edit
+    if current_user.admin?
+      @clients = Client.all.order(:name)
+    else
+      @clients = current_user.clients.all.order(:name)
+    end
+    @client = @appointment.client
     @selected_date = @appointment.start_time.to_date
   end
 
