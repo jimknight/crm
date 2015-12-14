@@ -39,8 +39,6 @@ describe "create" do
     select "SGA", :from => "Client"
     click_button "Save"
     page.should have_content "Activity was successfully created."
-    #<Client id: 222, name: "0", street1: ",\",\",+1 john.blackburn@alcoa.com\"", street2: nil, city: nil, state: nil, zip: nil, phone: nil, industry: nil, created_at: "2015-06-22 22:18:11", updated_at: "2015-10-30 14:15:30", fax: nil, street3: nil, client_type: "Client">
-
   end
   it "should allow dynamic creation of a contact for a client" do
     User.destroy_all
