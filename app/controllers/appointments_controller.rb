@@ -43,9 +43,9 @@ class AppointmentsController < ApplicationController
       @client = Client.new
     end
     if current_user.admin?
-      @clients = Client.all.order(:name)
+      @clients = Client.all.order(:name,:city)
     else
-      @clients = current_user.clients.all.order(:name)
+      @clients = current_user.clients.all.order(:name,:city)
     end
     if params[:day].present?
       @selected_date = Date.new(params[:year].to_i,params[:month].to_i,params[:day].to_i)

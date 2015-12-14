@@ -64,6 +64,15 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def name_and_location
+    location = self.location
+    if location == "no location defined"
+      return name
+    else
+      return "#{name} (#{location})"
+    end
+  end
+
   def default_values
     self.client_type ||= 'Client'
     self.status ||= 'Active'
