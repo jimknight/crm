@@ -58,9 +58,9 @@ class AppointmentsController < ApplicationController
 
   def edit
     if current_user.admin?
-      @clients = Client.all.order(:name)
+      @clients = Client.all.order(:name,:city)
     else
-      @clients = current_user.clients.all.order(:name)
+      @clients = current_user.clients.all.order(:name,:city)
     end
     @client = @appointment.client
     @selected_date = @appointment.start_time.to_date
