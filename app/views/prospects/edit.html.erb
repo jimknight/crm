@@ -38,6 +38,10 @@
     <%= f.select :state, options_for_select(us_states,@prospect.state), {:include_blank => true}, {:class => "form-control"} %>
   </div>
   <div class="form-group">
+    <%= f.label :country %>
+    <%= f.text_field :country, :class => "form-control" %>
+  </div>
+  <div class="form-group">
     <%= f.label :zip %>
     <%= f.text_field :zip, :class => "form-control" %>
   </div>

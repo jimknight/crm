@@ -24,6 +24,21 @@ describe "new" do
     visit new_prospect_path
     page.should have_content "Not authorized"
   end
+  it "should create country and street3" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    visit prospects_path
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "New Prospect"
+    fill_in "Street3", :with => "street3 value"
+    fill_in "Name", :with => "SGA"
+    fill_in "Country", :with => "US of A"
+    click_button "Save"
+    click_link "SGA"
+    page.should have_content "US of A"
+    page.should have_content "street3 value"
+  end
 end
 
 describe "edit" do
