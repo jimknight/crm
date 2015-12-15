@@ -1,5 +1,4 @@
 class OutsidersController < ApplicationController
-  before_action :set_outsider, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
@@ -20,11 +19,8 @@ class OutsidersController < ApplicationController
   end
 
   private
-    def set_outsider
-      @outsider = Outsider.find(params[:id])
-    end
-
     def outsider_params
       params.require(:outsider).permit(:email, :first_name, :last_name)
     end
+
 end
