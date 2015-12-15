@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :clients do
     resources :contacts
   end
+  resources :outsiders
   resources :prospects do
     resources :contacts
     resources :outsiders

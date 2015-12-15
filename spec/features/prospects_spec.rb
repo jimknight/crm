@@ -176,6 +176,18 @@ describe "show" do
     Profile.destroy_all
     Client.destroy_all
   end
+  it "should allow assignment of prospect to external user" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Assign to External"
+    fill_in "Email", :with => "jimknight@sga.com"
+    click_button "Save"
+    page.should have_content "Prospect has been assigned and details were emailed"
+  end
   it "should allow admins to delete prospects" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
