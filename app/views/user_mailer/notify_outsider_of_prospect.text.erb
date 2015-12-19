@@ -12,3 +12,10 @@ Phone: <%= @prospect.phone %>
 Fax: <%= @prospect.fax %>
 Industry: <%= @prospect.industry %>
 Comments: <%= @prospect.comments %>
+<% if !@prospect.eid.nil? %>
+  EID: <%= @prospect.eid %>
+  Import Time: <%= @prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
+  Type: <%= @prospect.prospect_type %>
+  Source: <%= @prospect.source %>
+  From Web Form: <%= @prospect.form_dump.html_safe %>
+<% end %>

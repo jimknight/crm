@@ -218,14 +218,19 @@ describe "show" do
   it "should not allow a user to see administrators within the list of RSM's to assign" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
-    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect",:eid => "123",:import_datetime => Time.now,:form_dump => "Sent from SGA")
     visit prospect_path(@prospect)
     fill_in "Email", :with => "admin@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
     click_link "Assign to RSM"
+    click_link "Add this RSM to prospect"
     page.should_not have_content "admin@sga.com"
     page.should have_content "user@sga.com"
+    sent_email = ActionMailer::Base.deliveries.last
+    sent_email.subject.should == "New Lead: LavaTech"
+    sent_email.text_part.body.to_s.should have_content "Sent from SGA"
+    sent_email.html_part.body.to_s.should have_content "Sent from SGA"
   end
   it "should allow an admin to click a button to change to a normal client" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)

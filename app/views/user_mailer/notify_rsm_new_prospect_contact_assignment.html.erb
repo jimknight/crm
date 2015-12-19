@@ -16,7 +16,15 @@
       Zip: <%= @prospect.zip %><br/>
       Phone: <%= @prospect.phone %><br/>
       Fax: <%= @prospect.fax %><br/>
-      Industry: <%= @prospect.industry %>
+      Industry: <%= @prospect.industry %><br/>
+      Comments: <%= @prospect.comments %><br/>
+      <% if !@prospect.eid.nil? %>
+        EID: <%= @prospect.eid %><br/>
+        Import Time: <%= @prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %><br/>
+        Type: <%= @prospect.prospect_type %><br/>
+        Source: <%= @prospect.source %><br/>
+        From Web Form: <%= @prospect.form_dump.html_safe %>
+      <% end %>
     </p>
     <p>
       To login to the CRM site and view the prospect, just follow this link: <%= @url %>.
