@@ -32,7 +32,7 @@ class Client < ActiveRecord::Base
   has_many :activities, dependent: :destroy
   has_many :contacts, dependent: :destroy
   has_and_belongs_to_many :users
-  has_many :outsiders
+  has_and_belongs_to_many :outsiders
   validates :name, :presence => true
 
   def archived?

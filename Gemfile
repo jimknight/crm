@@ -79,3 +79,7 @@ gem 'jquery-turbolinks'
 gem 'whenever', :require => false
 gem 'email_validator'
 gem 'activeadmin', github: 'activeadmin'
+gem 'rails4-autocomplete'
+
+# jQuery UI dependency.
+gem 'jquery-ui-rails'

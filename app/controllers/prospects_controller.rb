@@ -1,6 +1,7 @@
 class ProspectsController < ApplicationController
   before_action :set_prospect, only: [:show, :edit, :update, :destroy]
   before_action :set_tab
+  autocomplete :outsider, :email, :full => true
 
   def index
     if current_user.admin? || current_user.marketing?

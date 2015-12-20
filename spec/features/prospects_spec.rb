@@ -282,3 +282,35 @@ describe "contact" do
     page.should have_content "Contacts for this prospect"
   end
 end
+
+describe "outsider" do
+  before :each do
+    User.destroy_all
+    Profile.destroy_all
+    Client.destroy_all
+    Outsider.destroy_all
+  end
+  it "should allow assignment of prospect to external user" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link "Assign to External"
+    fill_in "Email", :with => "jimknight@sga.com"
+    fill_in "First name", :with => "Jimbo"
+    click_button "Save"
+    @outsider = Outsider.last
+    @outsider.first_name.should == "Jimbo"
+    visit prospect_path(@prospect)
+    click_link "Assign to External"
+    fill_in "Email", :with => "jimknight@sga.com"
+    fill_in "First name", :with => "James"
+    click_button "Save"
+    Outsider.count.should == 1
+    @outsider = Outsider.last
+    @outsider.first_name.should == "James"
+    @prospect.outsiders.count.should == 1
+  end
+end

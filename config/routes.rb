@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   end
   resources :outsiders
   resources :prospects do
+    get :autocomplete_outsider_email, :on => :collection
     resources :contacts
     resources :outsiders
   end

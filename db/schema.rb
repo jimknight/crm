@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213153923) do
+ActiveRecord::Schema.define(version: 20151220173008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,14 @@ ActiveRecord::Schema.define(version: 20151213153923) do
     t.string   "country"
   end
 
+  create_table "clients_outsiders", id: false, force: true do |t|
+    t.integer "client_id",   null: false
+    t.integer "outsider_id", null: false
+  end
+
+  add_index "clients_outsiders", ["client_id", "outsider_id"], name: "index_clients_outsiders_on_client_id_and_outsider_id", using: :btree
+  add_index "clients_outsiders", ["outsider_id", "client_id"], name: "index_clients_outsiders_on_outsider_id_and_client_id", using: :btree
+
   create_table "clients_users", force: true do |t|
     t.integer "client_id"
     t.integer "user_id"
@@ -135,7 +143,6 @@ ActiveRecord::Schema.define(version: 20151213153923) do
     t.string   "email"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "client_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

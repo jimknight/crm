@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, :placeholder => "externaluser@company.com" %>
+    <%= f.input :email, :url => autocomplete_outsider_email_prospects_path, :as => :autocomplete, :placeholder => "externaluser@company.com" %>
     <%= f.input :first_name, :placeholder => "optional" %>
     <%= f.input :last_name, :placeholder => "optional" %>
     <%= f.input :client, :as => :hidden, :input_html => { :value => @prospect.id } %>
