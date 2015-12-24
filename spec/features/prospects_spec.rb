@@ -80,10 +80,10 @@ describe "create" do
     Client.destroy_all
     User.destroy_all
   end
-  it "should allow marketing or admin to create new prospects (and save them)" do
-    @marketing = User.create!(:email => "marketing@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
+  it "should allow admin to create new prospects (and save them)" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     visit prospects_path
-    fill_in "Email", :with => "marketing@sga.com"
+    fill_in "Email", :with => "admin@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
     click_link "New Prospect"
@@ -119,22 +119,38 @@ describe "index" do
     User.destroy_all
     Client.destroy_all
   end
-  it "should only show the prospects link or show index to admins" do
-    #Prospects view should only be seen by admins
-    @prospect = Client.create!(:name => "SGA",:client_type => "Prospect")
-    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+  it "should only show all prospects to admins but assigned prospects to rsm's" do
+    @rsm1 = User.create!(:email => "rsm1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @rsm2 = User.create!(:email => "rsm2@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
-    visit root_path
-    fill_in "Email", :with => "user@sga.com"
-    fill_in "Password", :with => "ilovesga"
-    click_button "Sign in"
-    page.should_not have_link "Prospects"
-    click_link "Logout"
-    visit root_path
+    @unassigned_prospect = Client.create!(:name => "SGA",:client_type => "Prospect")
+    @prospect_assigned_to_another_rsm = Client.create!(:name => "Acme",:client_type => "Prospect")
+    @prospect_assigned_to_another_rsm.users << @rsm1
+    @prospect_assigned_to_this_rsm = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    @prospect_assigned_to_this_rsm.users << @rsm2
+    visit prospects_path
     fill_in "Email", :with => "admin@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
-    page.should have_link "Prospects"
+    page.should have_link "Acme"
+    page.should have_link "SGA"
+    page.should have_link "LavaTech"
+    click_link "Logout"
+    visit prospects_path
+    fill_in "Email", :with => "rsm1@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_link "LavaTech"
+    page.should_not have_link "SGA"
+    page.should have_link "Acme"
+    click_link "Logout"
+    visit prospects_path
+    fill_in "Email", :with => "rsm2@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_link "LavaTech"
+    page.should_not have_link "SGA"
+    page.should_not have_link "Acme"
   end
   it "should open the prospect not the client when clicking the link" do
     @prospect = Client.create!(:name => "SGA",:client_type => "Prospect")

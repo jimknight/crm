@@ -45,128 +45,105 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <% if current_user && current_user.marketing? && !current_user.admin? %>
-          <% if @tab == "Prospect" %>
-            <li class="active">
-          <% else %>
-            <li>
-          <% end %>
-            <%= link_to prospects_path do %>
-              <!-- <span class="glyphicon glyphicon-user"></span> -->
-              <%= icon('user') %>
-              Prospects
-            <% end %>
-          </li>
-          <li>
-            <%= link_to destroy_user_session_path, :method => :delete do %>
-            <!-- <span class="glyphicon glyphicon-log-out"></span> -->
-            <%= icon('sign-out') %>
-            Logout
-            <% end %>
-          </li>
+        <% if @tab == "Activities" %>
+          <li class="active">
         <% else %>
-          <% if @tab == "Activities" %>
-            <li class="active">
-          <% else %>
-            <li>
-          <% end %>
-            <%= link_to activities_path do %>
-                <!-- <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> -->
-                <%= icon('briefcase') %>
-              Activities
-            <% end %>
-          </li>
-          <% if @tab == "Appointments" %>
-            <li class="active">
-          <% else %>
-            <li>
-          <% end %>
-            <%= link_to calendar_path do %>
-                <!-- <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> -->
-                <%= icon('calendar') %>
-              Appointments
-            <% end %>
-          </li>
-          <% if @tab == "Client" %>
-            <li class="active">
-          <% else %>
-            <li>
-          <% end %>
-            <%= link_to clients_path do %>
-              <!-- <span class="glyphicon glyphicon-user"></span> -->
-              <%= icon('user') %>
-              Clients
-            <% end %>
-          </li>
-          <% if current_user && current_user.admin? %>
-            <% if @tab == "Prospect" %>
-              <li class="active">
-            <% else %>
-              <li>
-            <% end %>
-              <%= link_to prospects_path do %>
-                <!-- <span class="glyphicon glyphicon-user"></span> -->
-                <%= icon('user') %>
-                Prospects
-              <% end %>
-            </li>
-          <% end %>
-          <% if @tab == "Models" %>
-            <li class="active">
-          <% else %>
-            <li>
-          <% end %>
-            <%= link_to models_path do %>
-              <!-- <span class="glyphicon glyphicon-book"></span> -->
-              <%= icon('book') %>
-              Models
-            <% end %>
-          </li>
-          <% if @tab == "Industries" %>
-            <li class="active">
-          <% else %>
-            <li>
-          <% end %>
-          <%= link_to industries_path do %>
-              <!-- <span class="glyphicon glyphicon-th-large"></span> -->
-              <%= icon('reorder') %>
-              Industries
-            <% end %>
-          </li>
-          <% if current_user && current_user.admin? %>
-            <% if @tab == "RSM's" %>
-              <li class="active">
-            <% else %>
-              <li>
-            <% end %>
-            <%= link_to profiles_path do %>
-              <!-- <span class="glyphicon glyphicon-road"></span> -->
-              <%= icon('road') %>
-              RSM's
-            <% end %>
-            </li>
-          <% end %>
-          <% if current_user && current_user.admin? %>
-            <% if @tab == "Setting" %>
-              <li class="active">
-            <% else %>
-              <li>
-            <% end %>
-            <%= link_to new_setting_path do %>
-              <!-- <span class="glyphicon glyphicon-road"></span> -->
-              <%= icon('gear') %>
-              Settings
-            <% end %>
-            </li>
-          <% end %>
           <li>
-            <%= link_to destroy_user_session_path, :method => :delete do %>
-            <!-- <span class="glyphicon glyphicon-log-out"></span> -->
-            <%= icon('sign-out') %>
-            Logout
-            <% end %>
+        <% end %>
+          <%= link_to activities_path do %>
+              <!-- <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> -->
+              <%= icon('briefcase') %>
+            Activities
+          <% end %>
+        </li>
+        <% if @tab == "Appointments" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+          <%= link_to calendar_path do %>
+              <!-- <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> -->
+              <%= icon('calendar') %>
+            Appointments
+          <% end %>
+        </li>
+        <% if @tab == "Client" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+          <%= link_to clients_path do %>
+            <!-- <span class="glyphicon glyphicon-user"></span> -->
+            <%= icon('user') %>
+            Clients
+          <% end %>
+        </li>
+        <% if @tab == "Prospect" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+          <%= link_to prospects_path do %>
+            <!-- <span class="glyphicon glyphicon-user"></span> -->
+            <%= icon('user') %>
+            Prospects
+          <% end %>
+        </li>
+        <% if @tab == "Models" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+          <%= link_to models_path do %>
+            <!-- <span class="glyphicon glyphicon-book"></span> -->
+            <%= icon('book') %>
+            Models
+          <% end %>
+        </li>
+        <% if @tab == "Industries" %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+        <%= link_to industries_path do %>
+            <!-- <span class="glyphicon glyphicon-th-large"></span> -->
+            <%= icon('reorder') %>
+            Industries
+          <% end %>
+        </li>
+        <% if current_user && current_user.admin? %>
+          <% if @tab == "RSM's" %>
+            <li class="active">
+          <% else %>
+            <li>
+          <% end %>
+          <%= link_to profiles_path do %>
+            <!-- <span class="glyphicon glyphicon-road"></span> -->
+            <%= icon('road') %>
+            RSM's
+          <% end %>
           </li>
         <% end %>
+        <% if current_user && current_user.admin? %>
+          <% if @tab == "Setting" %>
+            <li class="active">
+          <% else %>
+            <li>
+          <% end %>
+          <%= link_to new_setting_path do %>
+            <!-- <span class="glyphicon glyphicon-road"></span> -->
+            <%= icon('gear') %>
+            Settings
+          <% end %>
+          </li>
+        <% end %>
+        <li>
+          <%= link_to destroy_user_session_path, :method => :delete do %>
+          <!-- <span class="glyphicon glyphicon-log-out"></span> -->
+          <%= icon('sign-out') %>
+          Logout
+          <% end %>
+        </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

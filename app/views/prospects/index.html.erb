@@ -3,91 +3,117 @@
   <p><%= link_to 'New Prospect', new_prospect_path, :class => "btn btn-primary" %></p>
 <% end %>
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#unassigned" aria-controls="unassigned" role="tab" data-toggle="tab">Unassigned</a></li>
-  <li role="presentation"><a href="#assignedrsm" aria-controls="assignedrsm" role="tab" data-toggle="tab">Assigned to RSMs</a></li>
-  <li role="presentation"><a href="#assignedoutsider" aria-controls="assignedoutsider" role="tab" data-toggle="tab">Assigned to External Users</a></li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="unassigned">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Location</th>
-          <th>Phone</th>
-          <th>Imported</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @unassigned_prospects.each do |prospect| %>
+<% if current_user.admin? %>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#unassigned" aria-controls="unassigned" role="tab" data-toggle="tab">Unassigned</a></li>
+    <li role="presentation"><a href="#assignedrsm" aria-controls="assignedrsm" role="tab" data-toggle="tab">Assigned to RSMs</a></li>
+    <li role="presentation"><a href="#assignedoutsider" aria-controls="assignedoutsider" role="tab" data-toggle="tab">Assigned to External Users</a></li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="unassigned">
+      <table class="table table-bordered">
+        <thead>
           <tr>
-            <td><%= link_to prospect.name, prospect_path(prospect) %></td>
-            <td><%= prospect.location %></td>
-            <td><%= prospect.phone %></td>
-            <td>
-              <% if !prospect.import_datetime.nil? %>
-                <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
-              <% end %>
-            </td>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Phone</th>
+            <th>Imported</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <div role="tabpanel" class="tab-pane" id="assignedrsm">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Location</th>
-          <th>Phone</th>
-          <th>Imported</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @assigned_prospects_to_rsms.each do |prospect| %>
+        </thead>
+        <tbody>
+          <% @unassigned_prospects.each do |prospect| %>
+            <tr>
+              <td><%= link_to prospect.name, prospect_path(prospect) %></td>
+              <td><%= prospect.location %></td>
+              <td><%= prospect.phone %></td>
+              <td>
+                <% if !prospect.import_datetime.nil? %>
+                  <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="assignedrsm">
+      <table class="table table-bordered">
+        <thead>
           <tr>
-            <td><%= link_to prospect.name, prospect_path(prospect) %></td>
-            <td><%= prospect.location %></td>
-            <td><%= prospect.phone %></td>
-            <td>
-              <% if !prospect.import_datetime.nil? %>
-                <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
-              <% end %>
-            </td>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Phone</th>
+            <th>Imported</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <div role="tabpanel" class="tab-pane" id="assignedoutsider">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Location</th>
-          <th>Phone</th>
-          <th>Imported</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @assigned_prospects_to_outsiders.each do |prospect| %>
+        </thead>
+        <tbody>
+          <% @assigned_prospects_to_rsms.each do |prospect| %>
+            <tr>
+              <td><%= link_to prospect.name, prospect_path(prospect) %></td>
+              <td><%= prospect.location %></td>
+              <td><%= prospect.phone %></td>
+              <td>
+                <% if !prospect.import_datetime.nil? %>
+                  <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="assignedoutsider">
+      <table class="table table-bordered">
+        <thead>
           <tr>
-            <td><%= link_to prospect.name, prospect_path(prospect) %></td>
-            <td><%= prospect.location %></td>
-            <td><%= prospect.phone %></td>
-            <td>
-              <% if !prospect.import_datetime.nil? %>
-                <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
-              <% end %>
-            </td>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Phone</th>
+            <th>Imported</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @assigned_prospects_to_outsiders.each do |prospect| %>
+            <tr>
+              <td><%= link_to prospect.name, prospect_path(prospect) %></td>
+              <td><%= prospect.location %></td>
+              <td><%= prospect.phone %></td>
+              <td>
+                <% if !prospect.import_datetime.nil? %>
+                  <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+<% else %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Phone</th>
+        <th>Imported</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @assigned_prospects_to_current_rsm.each do |prospect| %>
+        <tr>
+          <td><%= link_to prospect.name, prospect_path(prospect) %></td>
+          <td><%= prospect.location %></td>
+          <td><%= prospect.phone %></td>
+          <td>
+            <% if !prospect.import_datetime.nil? %>
+              <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
