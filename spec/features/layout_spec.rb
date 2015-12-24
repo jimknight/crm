@@ -1,6 +1,9 @@
 require "rails_helper"
 
 describe "login" do
+  before :each do
+    User.destroy_all
+  end
   it "should not show the upper navigation if user isn't logged in" do
     visit root_path
     page.should_not have_link "Appointments"
