@@ -173,15 +173,3 @@ describe "index" do
     page.should have_link "NoReps"
   end
 end
-describe "user" do
-  it "of marketing can't see any clients" do
-    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
-    visit clients_path
-    fill_in "Email", :with => "user@sga.com"
-    fill_in "Password", :with => "ilovesga"
-    click_button "Sign in"
-    page.should_not have_link "Clients"
-    page.should_not have_content "Clients"
-    page.should have_content "Not authorized"
-  end
-end

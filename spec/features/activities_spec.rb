@@ -118,26 +118,6 @@ describe "user" do
     User.destroy_all
     Profile.destroy_all
   end
-  it "of marketing can't see any activities" do
-    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
-    visit activities_path
-    fill_in "Email", :with => "user@sga.com"
-    fill_in "Password", :with => "ilovesga"
-    click_button "Sign in"
-    page.should_not have_link "Activities"
-    page.should_not have_content "Activities"
-    page.should have_content "Not authorized"
-  end
-  it "of marketing can't see any appointments" do
-    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
-    visit appointments_path
-    fill_in "Email", :with => "user@sga.com"
-    fill_in "Password", :with => "ilovesga"
-    click_button "Sign in"
-    page.should_not have_link "Appointments"
-    page.should_not have_content "Listing appointments"
-    page.should have_content "Not authorized"
-  end
   it "can only see his created activities in the index", :js => true do
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
     @contact = Contact.create!(:name => "Wayne Scarano")
