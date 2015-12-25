@@ -26,7 +26,7 @@
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
   </head>
   <body style="background:white;">
-  <% if current_user %>
+
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -41,7 +41,7 @@
         <%= image_tag "logo.png", :height => '50', :alt => "Ross CRM" %>
       </a>
     </div>
-
+  <% if current_user %>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -147,8 +147,6 @@
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
-  <% else %>
-    <br/>
   <% end %>
 </nav>
 
@@ -160,8 +158,10 @@
             </div>            <% end %>
             <% if alert %>
             <div class="alert alert-danger" role="alert"><%= alert %></div>
-<% end %>
-
+            <% end %>
+            <% if !current_user %>
+            <br/>
+            <% end %>
         <%= yield %>
       </div>
           <footer>
