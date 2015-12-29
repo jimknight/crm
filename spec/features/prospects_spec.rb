@@ -207,6 +207,23 @@ describe "show" do
     Profile.destroy_all
     Client.destroy_all
   end
+  it "should not show admin buttons to RSM's" do
+    @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    @prospect.users << @user
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_link "Assign to External"
+    click_link "Logout"
+    visit prospect_path(@prospect)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should_not have_link "Assign to External"
+  end
   it "should allow assignment of prospect to external user" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")

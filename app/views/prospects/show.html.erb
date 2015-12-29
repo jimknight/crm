@@ -1,6 +1,7 @@
 <h2><%= @prospect.name %></h2>
 
 <p>
+<% if current_user.admin? %>
   <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
     <%= icon('pencil') %> Edit
   <% end %>
@@ -22,6 +23,17 @@
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back
   <% end %>
+<% else %>
+  <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
+    <%= icon('pencil') %> Edit
+  <% end %>
+  <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
+    <%= icon('share') %> Convert to Client
+  <% end %>
+  <%= link_to :back, :class => "btn btn-default" do %>
+    <%= icon('chevron-left') %> Back
+  <% end %>
+<% end %>
 </p>
 
 <table class="table">
