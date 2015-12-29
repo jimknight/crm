@@ -251,7 +251,7 @@ describe "show" do
   it "should allow an admin to click a button to change to a normal client" do
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
-    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect")
+    @prospect = Client.create!(:name => "LavaTech",:client_type => "Prospect",:street1 => "street1",:street2 => "street2",:street3 => "street3",:comments => "great one",:eid => "123",:import_datetime => Time.now,:form_dump => "Sent from SGA")
     visit prospect_path(@prospect)
     fill_in "Email", :with => "user@sga.com"
     fill_in "Password", :with => "ilovesga"
@@ -264,6 +264,9 @@ describe "show" do
     click_button "Sign in"
     click_link "Convert to Client"
     page.should have_content "Converted this prospect to an active client"
+    page.should have_content "street3"
+    page.should have_content "great one"
+    page.should have_content "Sent from SGA"
   end
   it "should allow the assignee to see the prospect" do
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")

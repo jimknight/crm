@@ -24,6 +24,30 @@
 <% if @client.created_at.to_i != @client.updated_at.to_i %>
   <tr><td>Updated</td><td><%= @client.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
 <% end %>
+<% if !@client.eid.nil? %>
+    <tr>
+      <td>EID</td>
+  <td><%= @client.eid %></td>
+    </tr>
+  <tr>
+      <tr>
+    <td>Import Time</td>
+<td><%= @client.import_datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
+  </tr>
+    <tr>
+        <tr>
+      <td>Type</td>
+  <td><%= @client.prospect_type %></td>
+    </tr>
+          <tr>
+        <td>Source</td>
+    <td><%= @client.source %></td>
+      </tr>
+<tr>
+  <td>From Web Form</td>
+<td><%= @client.form_dump.html_safe %></td>
+</tr>
+<% end %>
 </table>
 
 <p>
