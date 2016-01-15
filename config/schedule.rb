@@ -23,6 +23,6 @@ every 1.hours do
   rake "load_data:prospects"
 end
 
-every 1.day do
+every 1.day, :at => '11:30 pm' do
   rake "db:backup"
 end
