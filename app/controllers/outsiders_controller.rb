@@ -15,7 +15,7 @@ class OutsidersController < ApplicationController
       @outsider = Outsider.new(outsider_params)
       if @outsider.save
         @prospect.outsiders << @outsider
-        UserMailer.notify_outsider_of_prospect(@prospect,@outsider,current_user).deliver # email alert
+        UserMailer.notify_outsider_of_prospect(@prospect,@outsider,current_user).deliver_now # email alert
         redirect_to prospect_path(@prospect), :notice => "Prospect has been assigned and details were emailed to #{@outsider.email}."
       end
     else
@@ -23,7 +23,7 @@ class OutsidersController < ApplicationController
       if !@prospect.outsiders.include?(@outsider)
         @prospect.outsiders << @outsider
       end
-      UserMailer.notify_outsider_of_prospect(@prospect,@outsider,current_user).deliver # email alert
+      UserMailer.notify_outsider_of_prospect(@prospect,@outsider,current_user).deliver_now # email alert
       redirect_to prospect_path(@prospect), :notice => "Prospect has been assigned and details were emailed to #{@outsider.email}."
     end
   end

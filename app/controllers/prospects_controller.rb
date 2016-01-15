@@ -101,7 +101,7 @@ class ProspectsController < ApplicationController
     else
       @rsm = User.find(params[:user_id])
       @prospect.users << @rsm
-      UserMailer.notify_rsm_new_prospect_contact_assignment(@prospect,@rsm,current_user).deliver # email alert
+      UserMailer.notify_rsm_new_prospect_contact_assignment(@prospect,@rsm,current_user).deliver_now # email alert
       redirect_to prospect_path(@prospect), notice: "#{@rsm.user_name} was added to this prospect."
     end
   end
