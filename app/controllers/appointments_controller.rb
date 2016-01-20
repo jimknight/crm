@@ -69,8 +69,8 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
     @appointment.user = current_user
-    @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EDT").to_datetime
-    @appointment.end_time = ("#{appointment_params[:start_date]} #{appointment_params[:end_time]} EDT").to_datetime
+    @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EST").to_datetime
+    @appointment.end_time = ("#{appointment_params[:start_date]} #{appointment_params[:end_time]} EST").to_datetime
     @appointment.start_date = @appointment.start_time.to_date
     @appointment.end_date = @appointment.start_time.to_date
     # Allow save with no contact
@@ -89,6 +89,11 @@ class AppointmentsController < ApplicationController
 
   def update
     @appointment.update(appointment_params)
+    @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EST").to_datetime
+    @appointment.end_time = ("#{appointment_params[:start_date]} #{appointment_params[:end_time]} EST").to_datetime
+    @appointment.start_date = @appointment.start_time.to_date
+    @appointment.end_date = @appointment.start_time.to_date
+    @appointment.save
     if params[:new_contact].present?
       @client = Client.find(params[:activity][:client_id])
       @contact = Contact.where(:name => params[:new_contact]).first_or_create
