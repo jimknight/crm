@@ -21,7 +21,9 @@ Rails.application.routes.draw do
       patch 'users/:id' => 'devise/registrations#update', :as => 'user_registration'
     end
 
-  resources :activities
+  resources :activities do
+    get :autocomplete_client_name, :on => :collection
+  end
 
   resources :models
 
@@ -36,6 +38,7 @@ Rails.application.routes.draw do
     resources :contacts
     resources :outsiders
   end
+
   get 'prospects/convert_to_client/:id' => 'prospects#convert_to_client', :as => 'convert_prospect_to_client'
   get 'clients/archive/:id' => 'clients#archive', :as => 'archive_client'
   get 'clients/unarchive/:id' => 'clients#un_archive', :as => 'un_archive_client'

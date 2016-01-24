@@ -2,6 +2,17 @@ class ActivitiesController < ApplicationController
   before_action :hide_from_marketing
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :set_tab
+  autocomplete :client, :name, :extra_data => [:city,:state,:country], :display_value => :name_and_location
+
+  # Scope autocomplete to clients for that user
+  def get_autocomplete_items(parameters)
+    items = super(parameters)
+    if current_user.admin?
+      items
+    else
+      items.includes(:users).where(users:{id: current_user.id})
+    end
+  end
 
   # GET /activities
   # GET /activities.json
@@ -57,35 +68,75 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    # Allow save with no contact
     @activity = Activity.new(activity_params)
-    if params[:new_contact].present? && params[:activity][:client_id].present?
-      @client = Client.find(params[:activity][:client_id])
-      @contact = Contact.where(:name => params[:new_contact]).first_or_create
-      @client.contacts << @contact
-      @activity.update_attribute(:contact_id, @contact.id)
-    end
-    if @activity.save
-      current_user.activities << @activity
-      if params[:activity][:models].present?
-        @model = Model.find(params[:activity][:models])
-        @activity.models << @model
-      end
-      redirect_to activities_path, notice: 'Activity was successfully created.'
-    else
-      if activity_params[:client_id].present?
+    if valid_client_choice?
+      # Allow save with no contact
+      if params[:new_contact].present? && activity_params[:client_id].present?
         @client = Client.find(activity_params[:client_id])
-      else
-        @client = Client.new
+        @contact = Contact.where(:name => params[:new_contact]).first_or_create
+        @client.contacts << @contact
+        @activity.update_attribute(:contact_id, @contact.id)
       end
+      if @activity.save
+        current_user.activities << @activity
+        if activity_params[:models].present?
+          @model = Model.find(activity_params[:models])
+          @activity.models << @model
+        end
+        redirect_to activities_path, notice: 'Activity was successfully created.'
+      else
+        if activity_params[:client_id].present?
+          @client = Client.find(activity_params[:client_id])
+        else
+          @client = Client.new
+        end
+        render :new
+      end
+    else
+      @activity.errors[:base] = "The client you entered '#{params[:client_name]}' doesn't exist yet. Please choose from the existing clients or create a new client first. Then retry."
       render :new
     end
   end
 
-  # PATCH/PUT /activities/1
-  # PATCH/PUT /activities/1.json
+  def create_old
+    # Verify client exists first because of the type-ahead
+    @client = Client.find(params[:client_id_val])
+    if @client.nil?
+      @activity.errors[:base] = "The client you entered '#{params[:client_id_val]}' doesn't exist yet. Please create the client first."
+      render :new
+    else
+      # Allow save with no contact
+      @activity = Activity.new(activity_params.merge(:client_id => params[:client_id_val]))
+      if params[:new_contact].present? && params[:client_id_val].present?
+        @client = Client.find(params[:client_id_val])
+        @contact = Contact.where(:name => params[:new_contact]).first_or_create
+        @client.contacts << @contact
+        @activity.update_attribute(:contact_id, @contact.id)
+      end
+      if @activity.save
+        current_user.activities << @activity
+        if params[:activity][:models].present?
+          @model = Model.find(params[:activity][:models])
+          @activity.models << @model
+        end
+        redirect_to activities_path, notice: 'Activity was successfully created.'
+      else
+        if params[:client_id_val].present?
+          @client = Client.find(params[:client_id_val])
+        else
+          @client = Client.new
+        end
+        render :new
+      end
+    end
+  end
+
   def update
-    respond_to do |format|
+    # Verify client exists first because of the type-ahead
+    if !valid_client_choice?
+      @activity.errors[:base] = "The client you entered '#{params[:client_name]}' doesn't exist yet. Please choose from the existing clients or create a new client first. Then retry."
+      render :edit
+    else
       if @activity.update(activity_params)
         if params[:activity][:models].present?
           @model = Model.find(params[:activity][:models])
@@ -97,11 +148,9 @@ class ActivitiesController < ApplicationController
           @client.contacts << @contact
           @activity.update_attribute(:contact_id, @contact.id)
         end
-        format.html { redirect_to activities_path, notice: 'Activity was successfully updated.' }
-        format.json { render :show, status: :ok, location: @activity }
+        redirect_to activities_path, notice: 'Activity was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @activity.errors, status: :unprocessable_entity }
+        render :edit
       end
     end
   end
@@ -137,6 +186,17 @@ class ActivitiesController < ApplicationController
 
     def set_tab
       @tab = "Activities"
+    end
+
+    def valid_client_choice?
+      if params[:client_name].present? && activity_params[:client_id].present?
+        @client = Client.find(activity_params[:client_id])
+        if @client.name_and_location == params[:client_name]
+          return true
+        else
+          return false
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
