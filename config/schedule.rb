@@ -20,9 +20,9 @@
 # Learn more: http://github.com/javan/whenever
 
 every 1.hours do
-  rake "load_data:prospects"
+  rake "load_data:prospects", :output => {:error => 'log/cron_load_data_prospects_error.log', :standard => 'log/cron_load_data_prospects.log'}
 end
 
 every 1.day, :at => '11:30 pm' do
-  rake "db:backup"
+  rake "db:backup", :output => {:error => 'log/cron_db_backup_error.log', :standard => 'log/cron_db_backup.log'}
 end
