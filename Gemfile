@@ -30,8 +30,8 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'launchy'
-  # gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
-  gem 'capybara-webkit', :github => 'thoughtbot/capybara-webkit', :ref => 'e5d840d4be94f8631ac17b558f5ab63102ad9955'
+  gem "capybara-webkit"
+  gem 'faker'
 end
 
 gem 'annotate', '~> 2.6.5'
@@ -66,8 +66,8 @@ end
 
 gem 'figaro'
 gem 'simple_form'
-gem 'momentjs-rails'
-gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+gem 'momentjs-rails'#, '~> 2.9',  :github => 'derekprior/momentjs-rails'
+# gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'business_time'
 gem 'carrierwave'
 gem 'roo', '~> 2.0.0'
@@ -78,7 +78,7 @@ gem 'pg_search'
 gem 'jquery-turbolinks'
 gem 'whenever', :require => false
 gem 'email_validator'
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', '~> 1.0.0.pre2'
 gem 'rails4-autocomplete'
 
 # jQuery UI dependency.
