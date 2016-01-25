@@ -17,7 +17,7 @@ namespace :load_data do
       import_phone = data["Phone"]
       import_email = data["Email"]
       import_street = data["Address"][0]["Street"]
-      import_city = data["Address"][0]["City"]
+      import_city = data["Address"][0]["City"].force_encoding('Windows-1252').encode('UTF-8')
       import_state = data["Address"][0]["State"]
       import_country = data["Address"][0]["Country"]
       import_zip = data["Address"][0]["ZipCode"]
