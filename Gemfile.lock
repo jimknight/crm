@@ -331,6 +331,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
+  kaminari
   launchy
   letter_opener
   momentjs-rails

@@ -1,6 +1,5 @@
 <h2>Activities</h2>
 <p><%= link_to 'New Activity', new_activity_path, :class => "btn btn-primary" %></p>
-
 <% @activities.each do |activity| %>
   <div class="panel panel-default">
     <!-- Default panel contents -->
@@ -24,3 +23,6 @@
     </div>
   </div>
 <% end %>
+<div style="background:#F5F5F5;padding:0 10px;border-radius:5px;">
+  <%= paginate @activities %>
+</div>

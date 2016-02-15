@@ -14,15 +14,14 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  # GET /activities
-  # GET /activities.json
   def index
     if current_user.admin?
-      @activities = Activity.all.order("activity_date DESC")
+      @activities = Activity.all.order("activity_date DESC").page params[:page]
     else
-      @activities = current_user.activities.order("activity_date DESC")
+      @activities = current_user.activities.order("activity_date DESC").page params[:page]
     end
   end
+
 
   # GET /activities/1
   def show
@@ -52,7 +51,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
-   if current_user.activity_ids.include?(params[:id].to_i)
+    if current_user.activity_ids.include?(params[:id].to_i)
       @activity = current_user.activities.find(params[:id])
     elsif current_user.admin?
       @activity = Activity.find(params[:id])
@@ -159,9 +158,9 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1.json
   def destroy
     if current_user.activity_ids.include?(params[:id].to_i)
-       @activity = current_user.activities.find(params[:id])
-     elsif current_user.admin?
-       @activity = Activity.find(params[:id])
+      @activity = current_user.activities.find(params[:id])
+    elsif current_user.admin?
+      @activity = Activity.find(params[:id])
     else
       redirect_to root_path, :notice => "Not authorized"
     end
@@ -173,34 +172,34 @@ class ActivitiesController < ApplicationController
 
   private
 
-    def hide_from_marketing
-      if current_user.marketing? && !current_user.admin?
-        redirect_to prospects_path, :alert => "Not authorized. Users who are in the marketing role may not access activities."
+  def hide_from_marketing
+    if current_user.marketing? && !current_user.admin?
+      redirect_to prospects_path, :alert => "Not authorized. Users who are in the marketing role may not access activities."
+    end
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    @activity = Activity.find(params[:id])
+  end
+
+  def set_tab
+    @tab = "Activities"
+  end
+
+  def valid_client_choice?
+    if params[:client_name].present? && activity_params[:client_id].present?
+      @client = Client.find(activity_params[:client_id])
+      if @client.name_and_location == params[:client_name]
+        return true
+      else
+        return false
       end
     end
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      @activity = Activity.find(params[:id])
-    end
-
-    def set_tab
-      @tab = "Activities"
-    end
-
-    def valid_client_choice?
-      if params[:client_name].present? && activity_params[:client_id].present?
-        @client = Client.find(activity_params[:client_id])
-        if @client.name_and_location == params[:client_name]
-          return true
-        else
-          return false
-        end
-      end
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def activity_params
-      params.require(:activity).permit(:attachment, :attachment_cache, :client_id, :activity_date, :contact_id, :city, :remove_attachment, :state, :industry, :comments)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def activity_params
+    params.require(:activity).permit(:attachment, :attachment_cache, :client_id, :activity_date, :contact_id, :city, :remove_attachment, :state, :industry, :comments)
+  end
 end

@@ -83,3 +83,5 @@ gem 'rails4-autocomplete'
 
 # jQuery UI dependency.
 gem 'jquery-ui-rails'
+
+gem 'kaminari'
