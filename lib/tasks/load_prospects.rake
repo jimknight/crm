@@ -15,6 +15,7 @@ namespace :load_data do
       import_company = data["Company"].force_encoding('Windows-1252').encode('UTF-8')
       import_contactname = data["ContactName"].force_encoding('Windows-1252').encode('UTF-8')
       import_phone = data["Phone"]
+      import_fax = data["Fax"]
       import_email = data["Email"]
       import_street = data["Address"][0]["Street"].force_encoding('Windows-1252').encode('UTF-8')
       import_city = data["Address"][0]["City"].force_encoding('Windows-1252').encode('UTF-8')
@@ -42,13 +43,14 @@ namespace :load_data do
             :source => import_source,
             :form_dump => import_formdump,
             :client_type => "Prospect",
-            :status => "Active"
-            )
+            :status => "Active",
+            :fax => import_fax
+          )
           new_contact = Contact.create!(
             :name => import_contactname,
             :work_phone => import_phone,
             :email => import_email
-            )
+          )
           new_client.contacts << new_contact
           puts "Imported #{new_client.name}"
         else
@@ -101,4 +103,3 @@ end
 #     "Email": "1",
 #     "FormDump": "Webinar Request - <BR><BR>12\/5\/2015 1:40:20 PM<BR><BR><html><body><br><b>Company Name<\/b>1<BR><BR><br><b>First Name: <\/b>-1`<BR><BR><br><b>Last Name: <\/b>1<BR><BR><br><b>City: <\/b>1<BR><BR><br><b>State: <\/b>1<BR><BR><br><b>Phone: <\/b>1<BR><BR><br><b>Email: <\/b>1<BR><BR><br><\/body><\/html>"
 # }
-
