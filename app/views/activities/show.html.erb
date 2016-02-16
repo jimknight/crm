@@ -1,73 +1,68 @@
 <h2>Activity</h2>
 <h3>Submitted by <%= @activity.user_name %> on <%= @activity.created_at.strftime("%m/%d/%Y %I:%M %P") %></h3>
-
-  <table class="table">
-
-    <tbody>
+<table class="table">
+  <tbody>
+    <tr>
+      <td>Date</td>
+      <td> <%= @activity.activity_date.strftime("%m/%d/%Y") %></td>
+    </tr>
+    <tr>
+      <td>Client</td>
+      <td> <%= link_to sanitize @activity.client.name, @activity.client %></td>
+    </tr>
+    <tr>
+      <td>Contact</td>
+      <td>
+        <% if !@activity.contact.nil? %>
+          <%= @activity.contact.name %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Industry
+      </td>
+      <td>
+        <% if @activity.industry.present? %>
+          <%= Industry.find(@activity.industry).name %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Model
+      </td>
+      <td>
+        <% if @activity.models.any? %>
+          <%= Model.find(@activity.models.first).name %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Comments</td>
+      <td><%= @activity.comments %></td>
+    </tr>
+    <% if @activity.attachment_url.present? %>
       <tr>
-<td>Date</td>
-<td> <%= @activity.activity_date.strftime("%m/%d/%Y") %></td>
+        <td>Attachment</td>
+        <td>
+          <%= link_to sanitize File.basename(@activity.attachment_url), @activity.attachment_url, :target => "_blank" %>
+          <%= "[#{number_to_human_size(File.size(@activity.attachment.current_path))}]" %>
+          <% if attachment_is_image? %>
+            <br/>
+            <%= image_tag(@activity.attachment_url, :width => 50) %>
+          <% end %>
+        </td>
       </tr>
-      <tr>
-<td>Client</td>
-<td> <%= link_to @activity.client.name, @activity.client %></td>
-</tr>
-<tr>
-<td>Contact</td>
-<td>
-  <% if !@activity.contact.nil? %>
-    <%= @activity.contact.name %>
-  <% end %>
-</td>
-</tr>
-<tr>
-<td>Industry
-</td>
-<td>
-<% if @activity.industry.present? %>
-    <%= Industry.find(@activity.industry).name %>
     <% end %>
-</td>
-</tr>
-<tr>
-<td>Model
-</td>
-<td>
-<% if @activity.models.any? %>
-    <%= Model.find(@activity.models.first).name %>
-    <% end %>
-</td>
-</tr>
-<tr>
-<td>Comments</td>
-<td><%= @activity.comments %></td>
-</tr>
-<% if @activity.attachment_url.present? %>
-<tr>
-<td>Attachment</td>
-<td>
-  <%= link_to File.basename(@activity.attachment_url), @activity.attachment_url, :target => "_blank" %>
-  <%= "[#{number_to_human_size(File.size(@activity.attachment.current_path))}]" %>
-  <% if attachment_is_image? %>
-    <br/><%= image_tag(@activity.attachment_url, :width => 50) %>
-  <% end %>
-</td>
-</tr>
-<% end %>
-</tbody>
+  </tbody>
 </table>
-
-
 </p>
-  <p>
-<%  if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin? %>
-
+<p>
+  <%  if current_user.activity_ids.include?(params[:id].to_i) || current_user.admin? %>
     <%= link_to edit_activity_path(@activity), :class => "btn btn-primary" do %>
       <%= icon('pencil') %> Edit
     <% end %>
-
-<% end %>
+  <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back
   <% end %>
-    </p>
+</p>

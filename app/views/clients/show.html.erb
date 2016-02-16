@@ -1,122 +1,148 @@
 <h2><%= @client.name %><% if @client.archived? %> (Archived)<% end %></h2>
-
 <table class="table">
   <tr>
     <td>Phone</td>
-<td><%= @client.phone %></td>
+    <td><%= @client.phone %></td>
   </tr>
+  <tr>
+    <td>Fax</td>
+    <td><%= @client.fax %></td>
+  </tr>
+  <tr>
+    <td>Street 1</td>
+    <td><%= @client.street1 %></td>
+  </tr>
+  <tr>
+    <td>Street 2</td>
+    <td><%= @client.street2 %></td>
+  </tr>
+  <tr>
+    <td>Street 3</td>
+    <td><%= @client.street3 %></td>
+  </tr>
+  <tr>
+    <td>City</td>
+    <td><%= @client.city %></td>
+  </tr>
+  <tr>
+    <td>State</td>
+    <td><%= @client.state %></td>
+  </tr>
+  <tr>
+    <td>Zip</td>
+    <td><%= @client.zip %></td>
+  </tr>
+  <tr>
+    <td>Country</td>
+    <td><%= @client.country %></td>
+  </tr>
+  <tr>
+    <td>Industry</td>
+    <td><%= @client.industry.nil? || @client.industry == "" ? "" : Industry.find(@client.industry).name %></td>
+  </tr>
+  <tr>
+    <td>Comments</td>
+    <td><%= @client.comments %></td>
+  </tr>
+  <tr>
+    <td>Created</td>
+    <td><%= @client.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+  </tr>
+  <% if @client.created_at.to_i != @client.updated_at.to_i %>
     <tr>
-      <td>Fax</td>
-  <td><%= @client.fax %></td>
+      <td>Updated</td>
+      <td><%= @client.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td>
     </tr>
-<tr><td>Street 1</td><td><%= @client.street1 %></td></tr>
-<tr><td>Street 2</td><td><%= @client.street2 %></td></tr>
-<tr><td>Street 3</td><td><%= @client.street3 %></td></tr>
-<tr>  <td>City</td><td><%= @client.city %></td></tr><tr>  <td>State</td><td><%= @client.state %></td></tr>
-<tr>  <td>Zip</td><td><%= @client.zip %></td></tr>
-<tr>  <td>Country</td><td><%= @client.country %></td></tr>
-<tr>
-  <td>Industry</td>
-<td><%= @client.industry.nil? || @client.industry == "" ? "" : Industry.find(@client.industry).name %></td>
-</tr>
-<tr><td>Comments</td><td><%= @client.comments %></td></tr>
-<tr><td>Created</td><td><%= @client.created_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
-<% if @client.created_at.to_i != @client.updated_at.to_i %>
-  <tr><td>Updated</td><td><%= @client.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
-<% end %>
-<% if !@client.eid.nil? %>
+  <% end %>
+  <% if !@client.eid.nil? %>
     <tr>
       <td>EID</td>
-  <td><%= @client.eid %></td>
+      <td><%= @client.eid %></td>
     </tr>
-  <tr>
-      <tr>
-    <td>Import Time</td>
-<td><%= @client.import_datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
-  </tr>
     <tr>
-        <tr>
-      <td>Type</td>
-  <td><%= @client.prospect_type %></td>
-    </tr>
-          <tr>
-        <td>Source</td>
-    <td><%= @client.source %></td>
+      <tr>
+        <td>Import Time</td>
+        <td><%= @client.import_datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
       </tr>
-<tr>
-  <td>From Web Form</td>
-<td><%= @client.form_dump.html_safe %></td>
-</tr>
-<% end %>
-</table>
-
-<p>
-  <% if @client.status != "Archived" %>
-    <%= link_to edit_client_path(@client), :class => "btn btn-primary" do %>
-      <%= icon('pencil') %> Edit
+      <tr>
+        <tr>
+          <td>Type</td>
+          <td><%= @client.prospect_type %></td>
+        </tr>
+        <tr>
+          <td>Source</td>
+          <td><%= @client.source %></td>
+        </tr>
+        <tr>
+          <td>From Web Form</td>
+          <td><%= sanitize @client.form_dump %></td>
+        </tr>
+      <% end %>
+    </table>
+    <p>
+      <% if @client.status != "Archived" %>
+        <%= link_to edit_client_path(@client), :class => "btn btn-primary" do %>
+          <%= icon('pencil') %> Edit
     <% end %>
-    <%= link_to new_activity_path(:client => @client), :class => "btn btn-primary" do %>
-      <%= icon('plus') %> Add Activity
+        <%= link_to new_activity_path(:client => @client), :class => "btn btn-primary" do %>
+          <%= icon('plus') %> Add Activity
     <% end %>
-    <%= link_to new_client_contact_path(@client), :class => "btn btn-primary" do %>
-      <%= icon('plus') %> Add Contact
+        <%= link_to new_client_contact_path(@client), :class => "btn btn-primary" do %>
+          <%= icon('plus') %> Add Contact
     <% end %>
-    <%= link_to add_rsm_to_client_path(@client), :class => "btn btn-primary" do %>
-      <%= icon('plus') %> Add RSM
+        <%= link_to add_rsm_to_client_path(@client), :class => "btn btn-primary" do %>
+          <%= icon('plus') %> Add RSM
     <% end %>
-    <%= link_to archive_client_path(@client), :class => "btn btn-primary" do %>
-      <%= icon('archive') %> Archive
+        <%= link_to archive_client_path(@client), :class => "btn btn-primary" do %>
+          <%= icon('archive') %> Archive
     <% end %>
-    <%= link_to client_path(@client), :method => :delete, :data => { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
-      <%= icon('trash') %> Delete
+        <%= link_to client_path(@client), :method => :delete, :data => { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
+          <%= icon('trash') %> Delete
     <% end %>
+      <% end %>
+      <% if @client.status == "Archived" %>
+        <%= link_to un_archive_client_path(@client), :class => "btn btn-primary" do %>
+          <%= icon('archive') %> UnArchive
+    <% end %>
+      <% end %>
+      <%= link_to :back, :class => "btn btn-default" do %>
+        <%= icon('chevron-left') %> Back
   <% end %>
-  <% if @client.status == "Archived" %>
-    <%= link_to un_archive_client_path(@client), :class => "btn btn-primary" do %>
-      <%= icon('archive') %> UnArchive
+    </p>
+    <% if @client.contacts.present? %>
+      <h2>Contacts for this client</h2>
+      <ul>
+        <% @client.contacts.each do |contact| %>
+          <li><%= link_to contact.name, [@client,contact] %></li>
+        <% end %>
+      </ul>
     <% end %>
-  <% end %>
-  <%= link_to :back, :class => "btn btn-default" do %>
-    <%= icon('chevron-left') %> Back
-  <% end %>
-</p>
-
-<% if @client.contacts.present? %>
-  <h2>Contacts for this client</h2>
-  <ul>
-  <% @client.contacts.each do |contact| %>
-    <li><%= link_to contact.name, [@client,contact] %></li>
-  <% end %>
-  </ul>
-<% end %>
-
-<% if @client.users.present? %>
-  <h2>RSM's for this client</h2>
-  <ul>
-  <% @client.users.each do |user| %>
-    <li><%= link_to user.user_name, user.profile %></li>
-  <% end %>
-  </ul>
-<% end %>
-
-<% if @rep_activities.any? %>
-  <h2>Activities for this Client <%= params[:user_id] ? "by #{User.find(params[:user_id]).user_name}" : "" %></h2>
-  <% @rep_activities.order("activity_date DESC").each do |activity| %>
-    <div class="panel panel-default">
-      <!-- Default panel contents -->
-      <div class="panel-heading"><%= link_to activity.activity_date.to_date, activity %></div>
-      <div class="panel-body">
-        <p>
-          <%= activity.client.name %>:
+    <% if @client.users.present? %>
+      <h2>RSM's for this client</h2>
+      <ul>
+        <% @client.users.each do |user| %>
+          <li><%= link_to user.user_name, user.profile %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if @rep_activities.any? %>
+      <h2>Activities for this Client <%= params[:user_id] ? "by #{User.find(params[:user_id]).user_name}" : "" %></h2>
+      <% @rep_activities.order("activity_date DESC").each do |activity| %>
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <div class="panel-heading"><%= link_to activity.activity_date.to_date, activity %></div>
+          <div class="panel-body">
+            <p>
+              <%= activity.client.name %>:
           <% if !activity.contact.nil? %>
-            <%= activity.contact.name %><br>
-          <% end %>
-          <%= activity.comments %><br>
-          <% if current_user.admin? && params[:user_id].nil? %>
-            Submitted by <%= activity.user_name %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P") %>
-          <% end %>
-        </p>
-      </div>
-    </div>
-  <% end %>
-<% end %>
+                <%= activity.contact.name %><br>
+              <% end %>
+              <%= activity.comments %><br>
+              <% if current_user.admin? && params[:user_id].nil? %>
+                Submitted by <%= activity.user_name %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P") %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>

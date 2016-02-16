@@ -1,124 +1,140 @@
 <h2><%= @prospect.name %></h2>
-
 <p>
-<% if current_user.admin? %>
-  <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('pencil') %> Edit
+  <% if current_user.admin? %>
+    <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
+      <%= icon('pencil') %> Edit
   <% end %>
-  <%= link_to new_prospect_contact_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('plus') %> Add Contact
+    <%= link_to new_prospect_contact_path(@prospect), :class => "btn btn-primary" do %>
+      <%= icon('plus') %> Add Contact
   <% end %>
-  <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('user') %> Assign to RSM
+    <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
+      <%= icon('user') %> Assign to RSM
   <% end %>
-  <%= link_to new_prospect_outsider_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('envelope') %> Assign to External
+    <%= link_to new_prospect_outsider_path(@prospect), :class => "btn btn-primary" do %>
+      <%= icon('envelope') %> Assign to External
   <% end %>
-  <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('share') %> Convert to Client
+    <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
+      <%= icon('share') %> Convert to Client
   <% end %>
-  <%= link_to prospect_path(@prospect), :method => :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
-    <%= icon('trash') %> Delete
+    <%= link_to prospect_path(@prospect), :method => :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
+      <%= icon('trash') %> Delete
   <% end %>
-  <%= link_to :back, :class => "btn btn-default" do %>
-    <%= icon('chevron-left') %> Back
+    <%= link_to :back, :class => "btn btn-default" do %>
+      <%= icon('chevron-left') %> Back
   <% end %>
-<% else %>
-  <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('pencil') %> Edit
+  <% else %>
+    <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
+      <%= icon('pencil') %> Edit
   <% end %>
-  <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
-    <%= icon('share') %> Convert to Client
+    <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
+      <%= icon('share') %> Convert to Client
   <% end %>
-  <%= link_to :back, :class => "btn btn-default" do %>
-    <%= icon('chevron-left') %> Back
+    <%= link_to :back, :class => "btn btn-default" do %>
+      <%= icon('chevron-left') %> Back
   <% end %>
-<% end %>
+  <% end %>
 </p>
-
 <table class="table">
-    <td>Phone</td>
-<td><%= @prospect.phone %></td>
-  </tr>
-    <tr>
-      <td>Fax</td>
+  <td>Phone</td>
+  <td><%= @prospect.phone %></td>
+</tr>
+<tr>
+  <td>Fax</td>
   <td><%= @prospect.fax %></td>
-    </tr>
-<tr><td>Street 1</td><td><%= @prospect.street1 %></td></tr>
-<tr><td>Street 2</td><td><%= @prospect.street2 %></td></tr>
-<tr><td>Street 3</td><td><%= @prospect.street3 %></td></tr>
+</tr>
+<tr>
+  <td>Street 1</td>
+  <td><%= @prospect.street1 %></td>
+</tr>
+<tr>
+  <td>Street 2</td>
+  <td><%= @prospect.street2 %></td>
+</tr>
+<tr>
+  <td>Street 3</td>
+  <td><%= @prospect.street3 %></td>
+</tr>
 <tr>
   <td>City</td>
-<td><%= @prospect.city %></td>
+  <td><%= @prospect.city %></td>
 </tr>
 <tr>
   <td>State</td>
-<td><%= @prospect.state %></td>
+  <td><%= @prospect.state %></td>
 </tr>
 <tr>
   <td>Zip</td>
-<td><%= @prospect.zip %></td>
+  <td><%= @prospect.zip %></td>
 </tr>
-<tr>  <td>Country</td><td><%= @prospect.country %></td></tr>
+<tr>
+  <td>Country</td>
+  <td><%= @prospect.country %></td>
+</tr>
 <tr>
   <td>Industry</td>
-<td><%= @prospect.industry.nil? || @prospect.industry == "" ? "" : Industry.find(@prospect.industry).name %></td>
+  <td><%= @prospect.industry.nil? || @prospect.industry == "" ? "" : Industry.find(@prospect.industry).name %></td>
 </tr>
-<tr><td>Comments</td><td><%= @prospect.comments %></td></tr>
+<tr>
+  <td>Comments</td>
+  <td><%= @prospect.comments %></td>
+</tr>
 <% if @prospect.eid.nil? %>
-  <tr><td>Created</td><td><%= @prospect.created_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
+  <tr>
+    <td>Created</td>
+    <td><%= @prospect.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+  </tr>
   <% if @prospect.created_at.to_i != @prospect.updated_at.to_i %>
-    <tr><td>Updated</td><td><%= @prospect.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
+    <tr>
+      <td>Updated</td>
+      <td><%= @prospect.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+    </tr>
   <% end %>
 <% else %>
-    <tr>
-      <td>EID</td>
-  <td><%= @prospect.eid %></td>
-    </tr>
   <tr>
-      <tr>
-    <td>Import Time</td>
-<td><%= @prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
+    <td>EID</td>
+    <td><%= @prospect.eid %></td>
   </tr>
+  <tr>
     <tr>
-        <tr>
-      <td>Type</td>
-  <td><%= @prospect.prospect_type %></td>
+      <td>Import Time</td>
+      <td><%= @prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
     </tr>
-          <tr>
-        <td>Source</td>
-    <td><%= @prospect.source %></td>
+    <tr>
+      <tr>
+        <td>Type</td>
+        <td><%= @prospect.prospect_type %></td>
       </tr>
-<tr>
-  <td>From Web Form</td>
-<td><%= @prospect.form_dump.html_safe %></td>
-</tr>
-<% end %>
-</table>
-
-<% if @prospect.contacts.present? %>
-  <h2>Contacts for this prospect</h2>
-  <ul>
-  <% @prospect.contacts.order(:name).each do |contact| %>
-    <li><%= link_to contact.name, prospect_contact_path(@prospect,contact) %></li>
+      <tr>
+        <td>Source</td>
+        <td><%= @prospect.source %></td>
+      </tr>
+      <tr>
+        <td>From Web Form</td>
+        <td><%= sanitize @prospect.form_dump %></td>
+      </tr>
+    <% end %>
+  </table>
+  <% if @prospect.contacts.present? %>
+    <h2>Contacts for this prospect</h2>
+    <ul>
+      <% @prospect.contacts.order(:name).each do |contact| %>
+        <li><%= link_to contact.name, prospect_contact_path(@prospect,contact) %></li>
+      <% end %>
+    </ul>
   <% end %>
-  </ul>
-<% end %>
-
-<% if @prospect.users.present? %>
-  <h2>RSM's for this prospect</h2>
-  <ul>
-  <% @prospect.users.each do |user| %>
-    <li><%= link_to user.user_name, user.profile %></li>
+  <% if @prospect.users.present? %>
+    <h2>RSM's for this prospect</h2>
+    <ul>
+      <% @prospect.users.each do |user| %>
+        <li><%= link_to user.user_name, user.profile %></li>
+      <% end %>
+    </ul>
   <% end %>
-  </ul>
-<% end %>
-
-<% if @prospect.outsiders.present? %>
-  <h2>External assignees for this prospect</h2>
-  <ul>
-  <% @prospect.outsiders.each do |outsider| %>
-    <li><%= link_to outsider.email, "mailto:#{outsider.email}" %></li>
+  <% if @prospect.outsiders.present? %>
+    <h2>External assignees for this prospect</h2>
+    <ul>
+      <% @prospect.outsiders.each do |outsider| %>
+        <li><%= link_to outsider.email, "mailto:#{outsider.email}" %></li>
+      <% end %>
+    </ul>
   <% end %>
-  </ul>
-<% end %>
