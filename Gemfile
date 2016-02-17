@@ -85,3 +85,4 @@ gem 'rails4-autocomplete'
 gem 'jquery-ui-rails'
 
 gem 'kaminari'
+gem 'exception_notification'
