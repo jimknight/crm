@@ -87,4 +87,7 @@ Rails.application.configure do
     :sender_address => %{"Wayne Scarano" <wscarano@sga.com>},
     :exception_recipients => %w{jimknight@lavatech.com}
   }
+
+  # Real error messages for now
+  config.consider_all_requests_local = true
 end
