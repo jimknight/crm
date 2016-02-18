@@ -23,12 +23,12 @@ class ProfilesController < ApplicationController
   def show
     if current_user.admin?
       if params[:search_activities].nil?
-        @profile_activities = @profile.user.activities
+        @profile_activities = @user.activities
       else
-        @profile_activities = @profile.user.activities.search_activities(params[:search_activities]) # => [person_1, person_2]
+        @profile_activities = @user.activities.search_activities(params[:search_activities]) # => [person_1, person_2]
       end
-      @rsm_clients = @profile.user.active_clients
-      @rsm_prospects = @profile.user.active_prospects
+      @rsm_clients = @user.active_clients
+      @rsm_prospects = @user.active_prospects
     else
       redirect_to root_path, :alert => "Not authorized. Only administrators can view RSM's."
     end
@@ -50,9 +50,6 @@ class ProfilesController < ApplicationController
       redirect_to :back, :alert => "All fields are required. Please try again."
     else
       @user = User.new(:admin => params[:admin], :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
-      if params[:role] == "1"
-        @user.role = "Marketing" # down the road if other roles, have to accommodate here
-      end
       if @user.save
         @profile = @user.profile
         @profile.update_attributes(profile_params)
@@ -68,21 +65,23 @@ class ProfilesController < ApplicationController
 
   def update
     if current_user.admin?
-      if profile_params["admin"] == "1"
-        @profile.user.update_attribute("admin",true)
+      @user = @profile.user
+      if password_changed? && password_valid?
+        admin = profile_params["admin"] == "1" ? true : false
+        @user.update(user_params.merge(:admin => admin))
+        @profile.update(:first_name => profile_params[:first_name], :last_name => profile_params[:last_name])
+        redirect_to profiles_path, :notice => "Profile and password updated."
+      elsif password_changed? && password_invalid?
+        render :edit
       else
-        @profile.user.update_attribute("admin",false)
+        admin = profile_params["admin"] == "1" ? true : false
+        @user.update(:admin => admin)
+        @profile.update(:first_name => profile_params[:first_name], :last_name => profile_params[:last_name])
+        redirect_to profiles_path, :notice => "Profile updated."
       end
-      if params[:role] == "1" # down the road if other roles, have to accommodate here
-        @profile.user.update_attribute("role","Marketing")
-      else
-        @profile.user.update_attribute("role","")
-      end
-      @profile.update(profile_params.tap{|x| x.delete(:admin)})
     else
-      @profile.update(profile_params)
+      redirect_to profiles_path, :alert => "Unauthorized. Only admins can update profiles."
     end
-    redirect_to profiles_path
   end
 
   def destroy
@@ -93,7 +92,7 @@ class ProfilesController < ApplicationController
   def reset_password
     if current_user.admin?
       @profile = Profile.find(params[:id])
-      @user = @profile.user
+      @user = @user
       @user.send_reset_password_instructions
       redirect_to profiles_path, :alert => "You have successfully reset the password for #{@profile.first_name} #{@profile.last_name}. They have been sent reset instructions via email."
     else
@@ -102,15 +101,43 @@ class ProfilesController < ApplicationController
   end
 
   private
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
 
-    def set_tab
-      @tab = "RSM's"
-    end
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
 
-    def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :user_id, :admin, :role)
+  def set_tab
+    @tab = "RSM's"
+  end
+
+  def password_changed?
+    user_params[:password].present? || user_params[:password_confirmation].present?
+  end
+
+  def password_valid?
+    return false if user_params[:password] != user_params[:password_confirmation]
+    return false if user_params[:password].length < 8
+    return true
+  end
+
+  def password_invalid?
+    if user_params[:password] != user_params[:password_confirmation]
+      @profile.errors[:base] << "The passwords don't match. Please retry."
+      return true
     end
+    if user_params[:password].length < 8
+      @profile.errors[:base] << "The password is too short. It needs to be at least 8 characters long."
+      return true
+    end
+    return false
+  end
+
+  def profile_params
+    params.require(:profile).permit(:first_name, :last_name, :user_id, :admin, :role)
+  end
+
+  def user_params
+    params.require(:profile).permit(:password,:password_confirmation)
+  end
+
 end
