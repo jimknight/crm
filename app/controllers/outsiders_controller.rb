@@ -17,20 +17,25 @@ class OutsidersController < ApplicationController
         @prospect.outsiders << @outsider
         UserMailer.notify_outsider_of_prospect(@prospect,@outsider,current_user).deliver_now # email alert
         redirect_to prospect_path(@prospect), :notice => "Prospect has been assigned and details were emailed to #{@outsider.email}."
+      else
+        render :new
       end
     else
-      @outsider.update_attributes!(outsider_params)
-      if !@prospect.outsiders.include?(@outsider)
-        @prospect.outsiders << @outsider
+      if @outsider.update_attributes(outsider_params)
+        if !@prospect.outsiders.include?(@outsider)
+          @prospect.outsiders << @outsider
+        end
+        UserMailer.notify_outsider_of_prospect(@prospect,@outsider,current_user).deliver_now # email alert
+        redirect_to prospect_path(@prospect), :notice => "Prospect has been assigned and details were emailed to #{@outsider.email}."
+      else
+        render :new
       end
-      UserMailer.notify_outsider_of_prospect(@prospect,@outsider,current_user).deliver_now # email alert
-      redirect_to prospect_path(@prospect), :notice => "Prospect has been assigned and details were emailed to #{@outsider.email}."
     end
   end
 
   private
-    def outsider_params
-      params.require(:outsider).permit(:email, :first_name, :last_name)
-    end
+  def outsider_params
+    params.require(:outsider).permit(:email, :first_name, :last_name)
+  end
 
 end
