@@ -33,7 +33,7 @@ describe "show" do
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
-    @activity = Activity.create!(:contact_id => @contact.id,:client_id => @client.id,:user_id => @user.id)
+    @activity = Activity.create!(:activity_date => Time.now,:contact_id => @contact.id,:client_id => @client.id,:user_id => @user.id)
     @activity.models << @model
     visit model_path(@model)
     fill_in "Email", :with => "user@sga.com"
