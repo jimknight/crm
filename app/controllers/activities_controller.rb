@@ -92,7 +92,7 @@ class ActivitiesController < ApplicationController
         render :new
       end
     else
-      @activity.errors[:base] = "The client you entered '#{params[:client_name]}' doesn't exist yet. Please choose from the existing clients or create a new client first. Then retry."
+      @activity.errors[:base] << "The client you entered '#{params[:client_name]}' doesn't exist yet. Please choose from the existing clients or create a new client first. Then retry."
       render :new
     end
   end
