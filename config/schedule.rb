@@ -26,7 +26,3 @@ end
 every 1.day, :at => '11:30 pm' do
   rake "db:backup", :output => {:error => 'log/cron_db_backup_error.log', :standard => 'log/cron_db_backup.log'}
 end
-
-every :reboot do
-  command "/etc/init.d/unicorn_mb_production start"
-end
