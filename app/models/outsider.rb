@@ -14,5 +14,6 @@ class Outsider < ActiveRecord::Base
 
   has_and_belongs_to_many :clients
   validates :email, :presence => true
+  validates :email, :email => true
 
 end

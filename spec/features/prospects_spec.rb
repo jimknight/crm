@@ -5,8 +5,8 @@ describe "new" do
     User.destroy_all
     Client.destroy_all
   end
-  it "should allow marketing or admin to create new prospects" do
-    @marketing = User.create!(:email => "marketing@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :role => "Marketing")
+  it "should allow admin to create new prospects" do
+    @marketing = User.create!(:email => "marketing@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga",:admin => true)
     visit prospects_path
     fill_in "Email", :with => "marketing@sga.com"
     fill_in "Password", :with => "ilovesga"
@@ -14,7 +14,7 @@ describe "new" do
     click_link "New Prospect"
     page.should have_content "New prospect"
   end
-  it "should disallow anyone other than marketing or admin to create prospects" do
+  it "should disallow anyone other than admin to create prospects" do
     @marketing = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     visit prospects_path
     fill_in "Email", :with => "user@sga.com"

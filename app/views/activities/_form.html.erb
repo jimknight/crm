@@ -2,18 +2,16 @@
   <% if @activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
-
       <ul>
-      <% @activity.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @activity.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
   <div class="form-group">
     <%= f.label :activity_date %>
-    <%= f.text_field :activity_date, :type => "date", :class => "form-control", :value => @activity.activity_date.to_date %>
+    <%= f.text_field :activity_date, :type => "date", :class => "form-control", :value => @activity.activity_date.nil? ? "" : @activity.activity_date.to_date %>
   </div>
   <div class="form-group">
     <%= f.label :client_id %>
@@ -28,6 +26,8 @@
     <%= f.label :contact_id, "Choose a contact" %>
     <% if @activity.contact %>
       <%= f.select :contact_id, options_from_collection_for_select(@client.contacts.order(:name), :id, :name, @activity.contact.id), {:include_blank => true}, {:class => "form-control"} %>
+    <% elsif @client.nil? %>
+      <%= f.select :contact_id, "", {:include_blank => true}, {:class => "form-control"} %>
     <% else %>
       <%= f.select :contact_id, options_from_collection_for_select(@client.contacts.order(:name), :id, :name), {:include_blank => true}, {:class => "form-control"} %>
     <% end %>
@@ -70,7 +70,6 @@
     <% end %>
     <%= f.hidden_field :attachment_cache %>
   </div>
-
   <div class="form-group">
     <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
       <%= icon('check') %> Save

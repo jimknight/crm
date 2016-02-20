@@ -36,6 +36,29 @@ describe "new" do
   end
 end
 
+describe "create" do
+  it "should alert when user doesn't enter a subject" do
+    User.destroy_all
+    Client.destroy_all
+    Appointment.destroy_all
+    @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
+    @contact = Contact.create!(:name => "Wayne Scarano")
+    @client.contacts << @contact
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    @user.clients << @client
+    visit new_appointment_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    select "SGA (Hillsborough, NJ)", :from => "Client"
+    fill_in "appointment_start_date", :with => "2016-02-24"
+    fill_in "Start time", :with => "12:00:00"
+    fill_in "End time", :with => "12:40:00"
+    click_button "Save"
+    page.should have_content "can't be blank"
+  end
+end
+
 describe "show" do
   it "should allow the user to delete the appointment" do
     User.destroy_all

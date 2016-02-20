@@ -13,7 +13,7 @@ class AppointmentsController < ApplicationController
 
   def index
     @appointments = current_user.appointments
-      respond_with do |format|
+    respond_with do |format|
       format.html {
         respond_with @appointments
       }
@@ -67,6 +67,16 @@ class AppointmentsController < ApplicationController
   end
 
   def create
+    if params[:appointment][:client_id].present?
+      @client = Client.find(params[:appointment][:client_id])
+    else
+      @client = Client.new
+    end
+    if current_user.admin?
+      @clients = Client.all.order(:name,:city)
+    else
+      @clients = current_user.clients.all.order(:name,:city)
+    end
     @appointment = Appointment.new(appointment_params)
     @appointment.user = current_user
     @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EST").to_datetime
@@ -118,21 +128,21 @@ class AppointmentsController < ApplicationController
   end
 
   private
-    def hide_from_marketing
-      if current_user.marketing? && !current_user.admin?
-        redirect_to prospects_path, :alert => "Not authorized. Users who are in the marketing role may not access appointments."
-      end
+  def hide_from_marketing
+    if current_user.marketing? && !current_user.admin?
+      redirect_to prospects_path, :alert => "Not authorized. Users who are in the marketing role may not access appointments."
     end
+  end
 
-    def set_appointment
-      @appointment = Appointment.find(params[:id])
-    end
+  def set_appointment
+    @appointment = Appointment.find(params[:id])
+  end
 
-    def set_tab
-      @tab = "Appointments"
-    end
+  def set_tab
+    @tab = "Appointments"
+  end
 
-    def appointment_params
-      params.require(:appointment).permit(:title, :client_id, :contact_id, :user_id, :start_date, :start_time, :end_date, :end_time, :comments)
-    end
+  def appointment_params
+    params.require(:appointment).permit(:title, :client_id, :contact_id, :user_id, :start_date, :start_time, :end_date, :end_time, :comments)
+  end
 end

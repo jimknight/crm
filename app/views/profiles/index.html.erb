@@ -1,5 +1,4 @@
 <h2>RSM's</h2>
-
 <% if current_user.admin? %>
   <p>
     <%= link_to new_profile_path, :class => "btn btn-primary" do %>
@@ -7,7 +6,6 @@
     <% end %>
   </p>
 <% end %>
-
 <table class="table">
   <thead>
     <tr>
@@ -16,11 +14,10 @@
       <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @profiles.each do |profile| %>
       <tr>
-        <td>
+        <td style="vertical-align:middle;">
           <% if profile.first_name == "" %>
             <%= link_to "No name defined yet", profile %>
           <% else %>
@@ -33,17 +30,11 @@
             *Marketing
           <% end %>
         </td>
-        <td><%= profile.user.email %></td>
-        <td>
+        <td style="vertical-align:middle;"><%= profile.user.email %></td>
+        <td style="vertical-align:middle;">
           <% if profile.user == current_user || current_user.admin? %>
             <%= link_to edit_profile_path(profile), :class => "btn btn-primary" do %>
               <%= icon('pencil') %> Edit
-            <% end %>
-          <% end %>
-          <% if current_user.admin? %>
-            <%= link_to reset_user_password_path(profile), :class => "btn btn-primary" do %>
-              <%= icon('repeat') %>
-              Reset password
             <% end %>
           <% end %>
         </td>

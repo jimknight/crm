@@ -25,6 +25,7 @@ class Activity < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :models
   validates :client, :presence => true
+  validates :activity_date, :presence => true
   def user_name
     return user.user_name
   end

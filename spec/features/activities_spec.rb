@@ -159,7 +159,7 @@ describe "user" do
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
-    @activity = Activity.create!(:contact_id => @contact.id,:client_id => @client.id)
+    @activity = Activity.create!(:activity_date => Time.now,:contact_id => @contact.id,:client_id => @client.id)
     @owner.activities << @activity
     visit activity_path @activity
     fill_in "Email", :with => "jknight@sga.com"
@@ -173,7 +173,7 @@ describe "user" do
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ", :phone => "+1-908-359-4626")
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
-    @activity = Activity.create!(:contact_id => @contact.id,:client_id => @client.id)
+    @activity = Activity.create!(:activity_date => Time.now,:contact_id => @contact.id,:client_id => @client.id)
     @owner.activities << @activity
     visit edit_activity_path @activity
     fill_in "Email", :with => "jknight@sga.com"
