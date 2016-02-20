@@ -28,5 +28,5 @@ every 1.day, :at => '11:30 pm' do
 end
 
 every :reboot do
-  runner "/bin/bash -l -c '/etc/init.d/unicorn_mb_production start'"
+  command "/bin/bash -l -c '/etc/init.d/unicorn_mb_production start'"
 end
