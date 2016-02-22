@@ -21,6 +21,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
+    @user = @profile.user
     if current_user.admin?
       if params[:search_activities].nil?
         @profile_activities = @user.activities
