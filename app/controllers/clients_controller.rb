@@ -30,7 +30,7 @@ class ClientsController < ApplicationController
     if current_user.admin?
       @clients = Client.where(status: 'Archived').where.not(client_type: 'Prospect')
     else
-      @clients = current_user.where(status: 'Archived').where.not(client_type: 'Prospect')
+      @clients = current_user.clients.where(status: 'Archived').where.not(client_type: 'Prospect')
     end
     if params[:search].present?
       @clients = @clients.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
@@ -159,24 +159,24 @@ class ClientsController < ApplicationController
   end
 
   private
-    def hide_from_marketing
-      if current_user.marketing? && !current_user.admin?
-        redirect_to prospects_path, :alert => "Not authorized. Users who are in the marketing role may not access clients."
-      end
+  def hide_from_marketing
+    if current_user.marketing? && !current_user.admin?
+      redirect_to prospects_path, :alert => "Not authorized. Users who are in the marketing role may not access clients."
     end
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_client
-      @client = Client.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_client
+    @client = Client.find(params[:id])
+  end
 
-    def set_tab
-      @tab = "Client"
-    end
+  def set_tab
+    @tab = "Client"
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def client_params
-      params.require(:client).permit(:name, :country, :comments, :street1, :street2, :city, :state, :zip, :phone, :industry)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def client_params
+    params.require(:client).permit(:name, :country, :comments, :street1, :street2, :city, :state, :zip, :phone, :industry)
+  end
 
 end

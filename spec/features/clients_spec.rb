@@ -67,6 +67,20 @@ describe "show" do
     click_link "UnArchive"
     page.should have_content "client has been un-archived"
   end
+  it "should allow a user to see their archived clients" do
+    @client = Client.create!(:name => "SGA", :status => "Active")
+    @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+    visit archived_clients_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_content "Archived Clients"
+    @user.clients << @client
+    visit client_path(@client)
+    click_link "Archive"
+    visit archived_clients_path
+    page.should have_link "SGA"
+  end
   it "should only show clients to specific reps (rsm's) and admins" do
     @client = Client.create!(:name => "SGA")
     @user1 = User.create!(:email => "user1@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
