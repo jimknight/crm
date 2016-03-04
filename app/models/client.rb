@@ -3,27 +3,27 @@
 # Table name: clients
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
-#  street1         :string(255)
-#  street2         :string(255)
-#  city            :string(255)
-#  state           :string(255)
-#  zip             :string(255)
-#  phone           :string(255)
-#  industry        :string(255)
+#  name            :string
+#  street1         :string
+#  street2         :string
+#  city            :string
+#  state           :string
+#  zip             :string
+#  phone           :string
+#  industry        :string
 #  created_at      :datetime
 #  updated_at      :datetime
-#  fax             :string(255)
-#  street3         :string(255)
-#  client_type     :string(255)
+#  fax             :string
+#  street3         :string
+#  client_type     :string
 #  status          :text
-#  eid             :string(255)
+#  eid             :string
 #  prospect_type   :text
 #  source          :text
 #  form_dump       :text
 #  import_datetime :datetime
 #  comments        :text
-#  country         :string(255)
+#  country         :string
 #
 
 class Client < ActiveRecord::Base

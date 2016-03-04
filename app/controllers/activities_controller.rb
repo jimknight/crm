@@ -92,6 +92,11 @@ class ActivitiesController < ApplicationController
         render :new
       end
     else
+      if activity_params[:client_id].present?
+        @client = Client.find(activity_params[:client_id])
+      else
+        @client = Client.new
+      end
       @activity.errors[:base] << "The client you entered '#{params[:client_name]}' doesn't exist yet. Please choose from the existing clients or create a new client first. Then retry."
       render :new
     end
@@ -120,11 +125,6 @@ class ActivitiesController < ApplicationController
         end
         redirect_to activities_path, notice: 'Activity was successfully created.'
       else
-        if params[:client_id_val].present?
-          @client = Client.find(params[:client_id_val])
-        else
-          @client = Client.new
-        end
         render :new
       end
     end
@@ -195,6 +195,11 @@ class ActivitiesController < ApplicationController
       else
         return false
       end
+    elsif activity_params[:client_id].present?
+      @client = Client.find(activity_params[:client_id])
+      return true
+    else
+      return false
     end
   end
 

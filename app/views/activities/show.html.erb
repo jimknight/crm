@@ -44,7 +44,7 @@
       <tr>
         <td>Attachment</td>
         <td>
-          <%= link_to sanitize File.basename(@activity.attachment_url), @activity.attachment_url, :target => "_blank" %>
+          <%= link_to File.basename(@activity.attachment_url), @activity.attachment_url, :target => "_blank" %>
           <%= "[#{number_to_human_size(File.size(@activity.attachment.current_path))}]" %>
           <% if attachment_is_image? %>
             <br/>

@@ -3,7 +3,7 @@
 # Table name: appointments
 #
 #  id         :integer          not null, primary key
-#  title      :string(255)
+#  title      :string
 #  client_id  :integer
 #  user_id    :integer
 #  start_time :datetime

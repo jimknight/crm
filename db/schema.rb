@@ -17,12 +17,12 @@ ActiveRecord::Schema.define(version: 20151220173008) do
   enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace",     limit: 255
+    t.string   "namespace"
     t.text     "body"
-    t.string   "resource_id",   limit: 255, null: false
-    t.string   "resource_type", limit: 255, null: false
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
     t.integer  "author_id"
-    t.string   "author_type",   limit: 255
+    t.string   "author_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,14 +35,14 @@ ActiveRecord::Schema.define(version: 20151220173008) do
     t.integer  "client_id"
     t.datetime "activity_date"
     t.integer  "contact_id"
-    t.string   "city",          limit: 255
-    t.string   "state",         limit: 255
-    t.string   "industry",      limit: 255
+    t.string   "city"
+    t.string   "state"
+    t.string   "industry"
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "attachment",    limit: 255
+    t.string   "attachment"
   end
 
   add_index "activities", ["client_id"], name: "index_activities_on_client_id", using: :btree
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20151220173008) do
   end
 
   create_table "appointments", force: :cascade do |t|
-    t.string   "title",      limit: 255
+    t.string   "title"
     t.integer  "client_id"
     t.integer  "user_id"
     t.datetime "start_time"
@@ -72,27 +72,27 @@ ActiveRecord::Schema.define(version: 20151220173008) do
   add_index "appointments", ["user_id"], name: "index_appointments_on_user_id", using: :btree
 
   create_table "clients", force: :cascade do |t|
-    t.string   "name",            limit: 255
-    t.string   "street1",         limit: 255
-    t.string   "street2",         limit: 255
-    t.string   "city",            limit: 255
-    t.string   "state",           limit: 255
-    t.string   "zip",             limit: 255
-    t.string   "phone",           limit: 255
-    t.string   "industry",        limit: 255
+    t.string   "name"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "phone"
+    t.string   "industry"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "fax",             limit: 255
-    t.string   "street3",         limit: 255
-    t.string   "client_type",     limit: 255
+    t.string   "fax"
+    t.string   "street3"
+    t.string   "client_type"
     t.text     "status"
-    t.string   "eid",             limit: 255
+    t.string   "eid"
     t.text     "prospect_type"
     t.text     "source"
     t.text     "form_dump"
     t.datetime "import_datetime"
     t.text     "comments"
-    t.string   "country",         limit: 255
+    t.string   "country"
   end
 
   create_table "clients_outsiders", id: false, force: :cascade do |t|
@@ -112,44 +112,44 @@ ActiveRecord::Schema.define(version: 20151220173008) do
   add_index "clients_users", ["user_id"], name: "index_clients_users_on_user_id", using: :btree
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "name",                 limit: 255
-    t.string   "title",                limit: 255
-    t.string   "email",                limit: 255
-    t.string   "work_phone",           limit: 255
-    t.string   "mobile_phone",         limit: 255
+    t.string   "name"
+    t.string   "title"
+    t.string   "email"
+    t.string   "work_phone"
+    t.string   "mobile_phone"
     t.integer  "client_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "contact_description",  limit: 255
-    t.string   "work_phone_extension", limit: 255
+    t.string   "contact_description"
+    t.string   "work_phone_extension"
     t.text     "comments"
   end
 
   add_index "contacts", ["client_id"], name: "index_contacts_on_client_id", using: :btree
 
   create_table "industries", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "models", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "outsiders", force: :cascade do |t|
-    t.string   "email",      limit: 255
-    t.string   "first_name", limit: 255
-    t.string   "last_name",  limit: 255
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string   "first_name", limit: 255
-    t.string   "last_name",  limit: 255
+    t.string   "first_name"
+    t.string   "last_name"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -165,20 +165,20 @@ ActiveRecord::Schema.define(version: 20151220173008) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                              default: false
-    t.string   "role",                   limit: 255
+    t.boolean  "admin",                  default: false
+    t.string   "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

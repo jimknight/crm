@@ -3,16 +3,16 @@
 # Table name: contacts
 #
 #  id                   :integer          not null, primary key
-#  name                 :string(255)
-#  title                :string(255)
-#  email                :string(255)
-#  work_phone           :string(255)
-#  mobile_phone         :string(255)
+#  name                 :string
+#  title                :string
+#  email                :string
+#  work_phone           :string
+#  mobile_phone         :string
 #  client_id            :integer
 #  created_at           :datetime
 #  updated_at           :datetime
-#  contact_description  :string(255)
-#  work_phone_extension :string(255)
+#  contact_description  :string
+#  work_phone_extension :string
 #  comments             :text
 #
 

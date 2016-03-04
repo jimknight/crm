@@ -131,6 +131,14 @@ describe "show" do
     @user2 = User.create!(:email => "user2@sga.com",:password => "ilovesga", :password_confirmation => "ilovesga")
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
   end
+  it "should not error out when showing a profile with no activities" do
+    @profile = @user1.profile
+    visit profile_path(@profile)
+    fill_in "Email", :with => "admin@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_content "user1@sga.com"
+  end
   it "should only allow an admin to see a profile" do
     @profile = @user1.profile
     visit profile_path(@profile)

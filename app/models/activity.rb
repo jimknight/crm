@@ -6,14 +6,14 @@
 #  client_id     :integer
 #  activity_date :datetime
 #  contact_id    :integer
-#  city          :string(255)
-#  state         :string(255)
-#  industry      :string(255)
+#  city          :string
+#  state         :string
+#  industry      :string
 #  comments      :text
 #  created_at    :datetime
 #  updated_at    :datetime
 #  user_id       :integer
-#  attachment    :string(255)
+#  attachment    :string
 #
 
 class Activity < ActiveRecord::Base
