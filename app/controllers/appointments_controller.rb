@@ -105,7 +105,7 @@ class AppointmentsController < ApplicationController
     @appointment.end_date = @appointment.start_time.to_date
     @appointment.save
     if params[:new_contact].present?
-      @client = Client.find(params[:activity][:client_id])
+      @client = Client.find(params[:appointment][:client_id])
       @contact = Contact.where(:name => params[:new_contact]).first_or_create
       @client.contacts << @contact
       @appointment.update_attribute(:contact_id, @contact.id)
@@ -115,14 +115,14 @@ class AppointmentsController < ApplicationController
 
   def destroy
     if current_user.admin?
-      @activity = Activity.find(params[:id])
+      @appointment = Appointment.find(params[:id])
     else
-      @activity = current_user.appointments.find(params[:id])
+      @appointment = current_user.appointments.find(params[:id])
     end
-    if @activity.nil?
+    if @appointment.nil?
       redirect_to root_path, :notice => "Not authorized to delete this appointment"
     else
-      @activity.destroy
+      @appointment.destroy
       redirect_to appointments_path, notice: 'Appointment was successfully deleted.'
     end
   end
