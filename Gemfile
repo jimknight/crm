@@ -86,3 +86,4 @@ gem 'jquery-ui-rails'
 
 gem 'kaminari'
 gem 'exception_notification'
+gem 'factory_girl_rails'
