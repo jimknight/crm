@@ -1,5 +1,21 @@
 require "rails_helper"
 
+describe "show" do
+  it "should have a link to the client document from the activity" do
+    @activity = FactoryGirl.create :activity
+    @client = @activity.client
+    @user = FactoryGirl.create :user
+    @client.users << @user
+    @user.activities << @activity
+    visit activity_path(@activity)
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    click_link @client.name
+    page.should have_content "Activities for this Client"
+  end
+end
+
 describe "create" do
   before :each do
     User.destroy_all
