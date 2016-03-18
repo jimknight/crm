@@ -14,12 +14,19 @@ Rails.application.routes.draw do
   get 'profiles/reset_password/:id' => 'profiles#reset_password', :as => 'reset_user_password'
   resources :profiles
 
+  namespace :profiles do
+    namespace :move do
+      get  :new
+      post :create
+    end
+  end
+
   # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password
   devise_for :users, :skip => [:registrations]
-    as :user do
-      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
-      patch 'users/:id' => 'devise/registrations#update', :as => 'user_registration'
-    end
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+    patch 'users/:id' => 'devise/registrations#update', :as => 'user_registration'
+  end
 
   resources :activities do
     get :autocomplete_client_name, :on => :collection

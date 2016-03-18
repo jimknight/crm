@@ -1,0 +1,20 @@
+<h2>Move all clients from one RSM to another RSM</h2>
+<p>This feature allows admins to allow for the case where an RSM leaves the company or position and another RSM is required to take over the clients of the previous RSM.</p>
+<%= form_tag '/profiles/move/create', :html => {:class => "form", :role => "form"} do %>
+  <div class="form-group">
+    <%= label_tag "from", "Move clients FROM this RSM:" %>
+    <%= select_tag "from", options_from_collection_for_select(User.all, "id", "user_name"), :include_blank => true, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= label_tag "to", "TO this RSM:" %>
+    <%= select_tag "to", options_from_collection_for_select(User.all, "id", "user_name"), :include_blank => true, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
+      <%= icon('arrow-right') %> Move clients
+    <% end %>
+    <%= link_to profiles_path, :class => "btn btn-default" do %>
+      <%= icon('remove') %> Cancel
+    <% end %>
+  </div>
+<% end %>
