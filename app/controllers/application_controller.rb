@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # Devise https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password
   before_filter :configure_permitted_parameters, if: :devise_controller?
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) { |u|
+    devise_parameter_sanitizer.permit(:account_update) { |u|
       u.permit(:password, :password_confirmation, :current_password)
     }
   end
