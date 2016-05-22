@@ -53,7 +53,7 @@
         </td>
       </tr>
     <% end %>
-    <% if @activity.attachment_url.present? %>
+    <% if @activity.activity_attachments.empty? && @activity.attachment_url.present? %>
       <tr>
         <td>Attachment</td>
         <td>
