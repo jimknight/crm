@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318191951) do
+ActiveRecord::Schema.define(version: 20160522174921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160318191951) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "attachment"
+    t.json     "atachments"
   end
 
   add_index "activities", ["client_id"], name: "index_activities_on_client_id", using: :btree
@@ -51,6 +52,13 @@ ActiveRecord::Schema.define(version: 20160318191951) do
   create_table "activities_models", id: false, force: :cascade do |t|
     t.integer "activity_id", null: false
     t.integer "model_id",    null: false
+  end
+
+  create_table "activity_attachments", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.string   "attachment"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "appointments", force: :cascade do |t|

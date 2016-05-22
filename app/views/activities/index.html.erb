@@ -8,6 +8,9 @@
       <% if activity && activity.attachment_url.present? %>
         <%= icon('paperclip') %>
       <% end %>
+      <% activity.activity_attachments.each do %>
+        <%= icon('paperclip') %>
+      <% end %>
     </div>
     <div class="panel-body">
       <p>

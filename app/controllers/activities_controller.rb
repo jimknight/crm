@@ -22,7 +22,6 @@ class ActivitiesController < ApplicationController
     end
   end
 
-
   # GET /activities/1
   def show
     if current_user.activity_ids.include?(params[:id].to_i)
@@ -32,9 +31,9 @@ class ActivitiesController < ApplicationController
     else
       redirect_to root_path, :alert => "Not authorized"
     end
+    @activity_attachments = @activity.activity_attachments.all
   end
 
-  # GET /activities/new
   def new
     if params[:client].present?
       @client = Client.find(params[:client])
@@ -47,6 +46,7 @@ class ActivitiesController < ApplicationController
       @clients = current_user.clients.all.order(:name,:city)
     end
     @activity = Activity.new(:activity_date => Date.today)
+    @activity_attachment = @activity.activity_attachments.build
   end
 
   # GET /activities/1/edit
@@ -77,6 +77,11 @@ class ActivitiesController < ApplicationController
         @activity.update_attribute(:contact_id, @contact.id)
       end
       if @activity.save
+        if !params[:activity_attachments].nil?
+          params[:activity_attachments]['attachment'].each do |a|
+            @activity_attachment = @activity.activity_attachments.create!(:attachment => a)
+          end
+        end
         current_user.activities << @activity
         if activity_params[:models].present?
           @model = Model.find(activity_params[:models])
@@ -137,6 +142,17 @@ class ActivitiesController < ApplicationController
       render :edit
     else
       if @activity.update(activity_params)
+        if !params[:remove_activity_attachments].nil?
+          params[:remove_activity_attachments].each do |aa_id|
+            aa = @activity.activity_attachments.find(aa_id)
+            aa.destroy
+          end
+        end
+        if !params[:activity_attachments].nil?
+          params[:activity_attachments]['attachment'].each do |a|
+            @activity_attachment = @activity.activity_attachments.create!(:attachment => a)
+          end
+        end
         if params[:activity][:models].present?
           @model = Model.find(params[:activity][:models])
           @activity.models << @model
@@ -205,6 +221,6 @@ class ActivitiesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def activity_params
-    params.require(:activity).permit(:attachment, :attachment_cache, :client_id, :activity_date, :contact_id, :city, :remove_attachment, :state, :industry, :comments)
+    params.require(:activity).permit(:attachment_cache, :client_id, :activity_date, :contact_id, :city, :remove_activity_attachments, :state, :industry, :comments, activity_attachment_attributes: [:id, :activity_id, :attachment])
   end
 end

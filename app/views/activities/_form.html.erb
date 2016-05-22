@@ -54,22 +54,28 @@
     <%= f.label :comments %>
     <%= f.text_area :comments, :class => "form-control", :rows => "3" %>
   </div>
-  <div class="form-group">
-    <%= f.label :attachment, "Attach a file (optional)" %>
-    <%= f.file_field :attachment %>
-    <% if @activity.attachment? && attachment_is_image? %>
-      <p style="margin-top:10px;">
-        <%= image_tag(@activity.attachment_url, :width => 50) %>
-      </p>
-      <p>
-        <label>
-          <%= f.check_box :remove_attachment %>
-          Remove attachment
-        </label>
-      </p>
-    <% end %>
-    <%= f.hidden_field :attachment_cache %>
+  <div class="field" style="margin-bottom:1em;">
+    <%= f.label :attachment, "Attach file(s) (optional)" %><br>
+    <%= f.file_field :attachment, :multiple => true, name: "activity_attachments[attachment][]" %>
   </div>
+  <% if @activity.activity_attachments.count > 0 %>
+    <table style="border-top:1px solid #ccc;margin-bottom:1em;">
+      <% @activity.activity_attachments.each do |aa| %>
+        <tr>
+          <td style="padding:0.5em; border-bottom:1px solid #ccc;">
+            <%= link_to File.basename(aa.attachment_url), aa.attachment_url, :target => "_blank" %>
+            <%= "[#{number_to_human_size(File.size(aa.attachment.current_path))}]" %>
+          </td>
+          <td style="padding:0.5em; border-bottom:1px solid #ccc;">
+            <label>
+              <%= check_box_tag "remove_activity_attachments[]", aa.id %>
+              Remove attachment
+            </label>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
   <div class="form-group">
     <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
       <%= icon('check') %> Save

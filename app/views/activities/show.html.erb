@@ -40,6 +40,19 @@
       <td>Comments</td>
       <td><%= @activity.comments %></td>
     </tr>
+    <% @activity.activity_attachments.each do |aa| %>
+      <tr>
+        <td>Attachment</td>
+        <td>
+          <%= link_to File.basename(aa.attachment_url), aa.attachment_url, :target => "_blank" %>
+          <%= "[#{number_to_human_size(File.size(aa.attachment.current_path))}]" %>
+          <% if attachment_is_image? %>
+            <br/>
+            <%= image_tag(aa.attachment_url, :width => 50) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
     <% if @activity.attachment_url.present? %>
       <tr>
         <td>Attachment</td>
