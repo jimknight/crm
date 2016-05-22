@@ -21,14 +21,12 @@
     <%= icon('chevron-left') %> Back
   <% end %>
 </p>
-
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#activities" aria-controls="activities" role="tab" data-toggle="tab">Activities</a></li>
   <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
   <li role="presentation"><a href="#prospects" aria-controls="prospects" role="tab" data-toggle="tab">Prospects</a></li>
 </ul>
-
 <!-- Tab panes -->
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane active" id="activities">
@@ -40,13 +38,21 @@
       <% end %>
       <% if @profile_activities.count > 1 %>
         <p><%= form_tag @profile, :method => 'get' do %>
-          <%= search_field_tag :search_activities, params[:search_activities], :placeholder => "search activities" %>
-        <% end %></p>
+            <%= search_field_tag :search_activities, params[:search_activities], :placeholder => "search activities" %>
+          <% end %></p>
       <% end %>
       <% @profile_activities.order("activity_date DESC").each do |activity| %>
         <div class="panel panel-default">
           <!-- Default panel contents -->
-          <div class="panel-heading"><%= link_to activity.activity_date.to_date, activity %></div>
+          <div class="panel-heading">
+            <%= link_to activity.activity_date.to_date, activity %>
+            <% if activity && activity.activity_attachments.empty? && activity.attachment_url.present? %>
+              <%= icon('paperclip') %>
+            <% end %>
+            <% activity.activity_attachments.each do %>
+              <%= icon('paperclip') %>
+            <% end %>
+          </div>
           <div class="panel-body">
             <p>
               <%= activity.client.name %>:

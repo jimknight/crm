@@ -130,7 +130,15 @@
       <% @rep_activities.order("activity_date DESC").each do |activity| %>
         <div class="panel panel-default">
           <!-- Default panel contents -->
-          <div class="panel-heading"><%= link_to activity.activity_date.to_date, activity %></div>
+          <div class="panel-heading">
+            <%= link_to activity.activity_date.to_date, activity %>
+            <% if activity && activity.activity_attachments.empty? && activity.attachment_url.present? %>
+              <%= icon('paperclip') %>
+            <% end %>
+            <% activity.activity_attachments.each do %>
+              <%= icon('paperclip') %>
+            <% end %>
+          </div>
           <div class="panel-body">
             <p>
               <%= activity.client.name %>:

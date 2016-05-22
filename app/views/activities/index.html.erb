@@ -5,7 +5,7 @@
     <!-- Default panel contents -->
     <div class="panel-heading">
       <%= link_to activity.activity_date.to_date, activity %>
-      <% if activity && activity.attachment_url.present? %>
+      <% if activity && activity.activity_attachments.empty? && activity.attachment_url.present? %>
         <%= icon('paperclip') %>
       <% end %>
       <% activity.activity_attachments.each do %>
