@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.5.0'
 
 set :application, 'crm'
 set :user, "sgadeploy"
@@ -24,10 +24,10 @@ set :deploy_to, "/home/sgadeploy/crm"
 # see documentation in lib/capistrano/tasks/setup_config.cap
 # for details of operations
 set(:config_files, %w(
-  nginx.conf
-  database.example.yml
-  unicorn.rb
-  unicorn_init.sh
+      nginx.conf
+      database.example.yml
+      unicorn.rb
+      unicorn_init.sh
 ))
 
 # Default value for :scm is :git
@@ -57,21 +57,21 @@ set :keep_releases, 5
 # which config files should be made executable after copying
 # by deploy:setup_config
 set(:executable_config_files, %w(
-  unicorn_init.sh
+      unicorn_init.sh
 ))
 
 # files which need to be symlinked to other parts of the
 # filesystem. For example nginx virtualhosts, log rotation
 # init scripts etc.
 set(:symlinks, [
-  {
-    source: "nginx.conf",
-    link: "/etc/nginx/sites-enabled/#{fetch(:application)}"
-  },
-  {
-    source: "unicorn_init.sh",
-    link: "/etc/init.d/unicorn_#{fetch(:application)}"
-  }
+      {
+        source: "nginx.conf",
+        link: "/etc/nginx/sites-enabled/#{fetch(:application)}"
+      },
+      {
+        source: "unicorn_init.sh",
+        link: "/etc/init.d/unicorn_#{fetch(:application)}"
+      }
 ])
 
 namespace :deploy do
@@ -90,10 +90,10 @@ namespace :deploy do
       upload! "config/nginx.conf", "/etc/nginx/sites-enabled/#{fetch(:application)}", via: :scp
       execute :mkdir, "-p #{current_path}/tmp/pids"
 
-    # template "unicorn.rb.erb", unicorn_config
-    # template "unicorn_init.erb", "/tmp/unicorn_init"
-    # run "chmod +x /tmp/unicorn_init"
-    # run "#{sudo} mv /tmp/unicorn_init /etc/init.d/unicorn_#{application}"
+      # template "unicorn.rb.erb", unicorn_config
+      # template "unicorn_init.erb", "/tmp/unicorn_init"
+      # run "chmod +x /tmp/unicorn_init"
+      # run "#{sudo} mv /tmp/unicorn_init /etc/init.d/unicorn_#{application}"
 
 
       upload! "config/unicorn.rb", "#{current_path}/config/unicorn.rb"
