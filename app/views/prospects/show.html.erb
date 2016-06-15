@@ -81,12 +81,12 @@
 <% if @prospect.eid.nil? %>
   <tr>
     <td>Created</td>
-    <td><%= @prospect.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+    <td><%= @prospect.created_at.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
   </tr>
   <% if @prospect.created_at.to_i != @prospect.updated_at.to_i %>
     <tr>
       <td>Updated</td>
-      <td><%= @prospect.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+      <td><%= @prospect.updated_at.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
     </tr>
   <% end %>
 <% else %>
@@ -97,7 +97,7 @@
   <tr>
     <tr>
       <td>Import Time</td>
-      <td><%= @prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
+      <td><%= @prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
     </tr>
     <tr>
       <tr>

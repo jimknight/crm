@@ -2,7 +2,6 @@
 <% if current_user.admin? %>
   <p><%= link_to 'New Model', new_model_path, :class => "btn btn-primary" %></p>
 <% end %>
-
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -10,12 +9,11 @@
       <th>Last updated</th>
     </tr>
   </thead>
-
   <tbody>
     <% @models.each do |modelx| %>
       <tr>
         <td><%= link_to modelx.name, modelx %></td>
-        <td><%= modelx.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+        <td><%= modelx.updated_at.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
       </tr>
     <% end %>
   </tbody>

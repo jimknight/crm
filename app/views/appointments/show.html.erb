@@ -1,16 +1,32 @@
 <h2>Appointment</h2>
-
 <table class="table">
-  <tr><td>Subject</td><td><%= @appointment.title %></td></tr>
-  <tr><td>Client</td><td><%= link_to @appointment.client.name, @appointment.client %></td></tr>
+  <tr>
+    <td>Subject</td>
+    <td><%= @appointment.title %></td>
+  </tr>
+  <tr>
+    <td>Client</td>
+    <td><%= link_to @appointment.client.name, @appointment.client %></td>
+  </tr>
   <% if !@appointment.contact.nil? %>
-    <tr><td>Contact</td><td><%= link_to @appointment.contact.name, [@appointment.client, @appointment.contact] %></td></tr>
+    <tr>
+      <td>Contact</td>
+      <td><%= link_to @appointment.contact.name, [@appointment.client, @appointment.contact] %></td>
+    </tr>
   <% end %>
-  <tr><td>Start time</td><td><%= @appointment.start_time.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
-  <tr><td>End time</td><td><%= @appointment.end_time.strftime("%m/%d/%Y %I:%M %P") %></td></tr>
-  <tr><td>Comments</td><td><%= @appointment.comments %></td></tr>
+  <tr>
+    <td>Start time</td>
+    <td><%= @appointment.start_time.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
+  </tr>
+  <tr>
+    <td>End time</td>
+    <td><%= @appointment.end_time.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
+  </tr>
+  <tr>
+    <td>Comments</td>
+    <td><%= @appointment.comments %></td>
+  </tr>
 </table>
-
 <p>
   <%= link_to edit_appointment_path(@appointment), :class => "btn btn-primary" do %>
     <%= icon('pencil') %> Edit

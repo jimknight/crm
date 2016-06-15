@@ -20,7 +20,7 @@
         <% end %>
         <%= activity.comments %><br>
         <% if current_user.admin? %>
-          Submitted by <%= activity.user_name %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P") %>
+          Submitted by <%= activity.user_name %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P %Z") %>
         <% end %>
       </p>
     </div>

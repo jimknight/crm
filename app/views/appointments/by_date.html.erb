@@ -1,8 +1,7 @@
 <h2>Your appointments for <%= @search_date.strftime("%B %e, %Y (%A)") %></h2>
-
 <hr>
 <% @appointments.each do |appt| %>
-  <h3><%= link_to appt.client.name, appt %> <%= appt.title %> <%= appt.start_time.strftime("%l:%M %P") %> to <%= appt.end_time.strftime("%l:%M %P") %></h3>
+  <h3><%= link_to appt.client.name, appt %> <%= appt.title %> <%= appt.start_time.strftime("%l:%M %P") %> to <%= appt.end_time.strftime("%l:%M %P %Z") %></h3>
   <% if appt.client.google_maps_address.present? %>
     <p>
       <a href="<%= appt.client.google_maps_address %>">
@@ -26,7 +25,6 @@
   <% end %>
   <hr>
 <% end %>
-
 <p>
   <%= link_to :back, :class => "btn btn-default" do %>
     <%= icon('chevron-left') %> Back

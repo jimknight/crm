@@ -46,12 +46,12 @@
   </tr>
   <tr>
     <td>Created</td>
-    <td><%= @client.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+    <td><%= @client.created_at.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
   </tr>
   <% if @client.created_at.to_i != @client.updated_at.to_i %>
     <tr>
       <td>Updated</td>
-      <td><%= @client.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+      <td><%= @client.updated_at.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
     </tr>
   <% end %>
   <% if !@client.eid.nil? %>
@@ -62,7 +62,7 @@
     <tr>
       <tr>
         <td>Import Time</td>
-        <td><%= @client.import_datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
+        <td><%= @client.import_datetime.strftime("%m/%d/%Y %I:%M %P %Z") %></td>
       </tr>
       <tr>
         <tr>
@@ -147,7 +147,7 @@
               <% end %>
               <%= activity.comments %><br>
               <% if current_user.admin? && params[:user_id].nil? %>
-                Submitted by <%= activity.user_name %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P") %>
+                Submitted by <%= activity.user_name %> on <%= activity.created_at.strftime("%m/%d/%Y %I:%M %P %Z") %>
               <% end %>
             </p>
           </div>
