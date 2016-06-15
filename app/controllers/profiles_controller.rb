@@ -70,14 +70,14 @@ class ProfilesController < ApplicationController
       if password_changed? && password_valid?
         admin = profile_params["admin"] == "1" ? true : false
         @user.update(user_params.merge(:admin => admin))
-        @profile.update(:first_name => profile_params[:first_name], :last_name => profile_params[:last_name])
+        @profile.update(:first_name => profile_params[:first_name], :last_name => profile_params[:last_name], :time_zone => profile_params[:time_zone])
         redirect_to profiles_path, :notice => "Profile and password updated."
       elsif password_changed? && password_invalid?
         render :edit
       else
         admin = profile_params["admin"] == "1" ? true : false
         @user.update(:admin => admin)
-        @profile.update(:first_name => profile_params[:first_name], :last_name => profile_params[:last_name])
+        @profile.update(:first_name => profile_params[:first_name], :last_name => profile_params[:last_name], :time_zone => profile_params[:time_zone])
         redirect_to profiles_path, :notice => "Profile updated."
       end
     else
@@ -134,7 +134,7 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:first_name, :last_name, :user_id, :admin, :role)
+    params.require(:profile).permit(:first_name, :last_name, :user_id, :admin, :role, :time_zone)
   end
 
   def user_params
