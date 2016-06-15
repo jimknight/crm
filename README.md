@@ -8,6 +8,7 @@ rake load_data:models                   # Load all the model data
 
 After deploy, have to do this on the server (for now) - capistrano can be challenging.
 cd /home/sgadeploy/crm/current
+bundle install --without development test
 bundle exec rake assets:precompile RAILS_ENV=production
 whenever -w
 ps -aux | grep unicorn
@@ -16,3 +17,6 @@ kill <whatever the number is>
 
 After rails upgrade, go to /home/sgadeploy/crm/current and run
 bundle install --without development test
+
+Migrations
+bundle exec rake db:migrate RAILS_ENV=production
