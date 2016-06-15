@@ -2,9 +2,6 @@ require "rails_helper"
 
 describe "by_date" do
   it "should link to the appointment not the client" do
-    User.destroy_all
-    Client.destroy_all
-    Appointment.destroy_all
     @client = Client.create!(:name => "SGA")
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @user.clients << @client
@@ -20,9 +17,6 @@ end
 
 describe "new" do
   it "should show the client with city/state in the picker" do
-    User.destroy_all
-    Client.destroy_all
-    Appointment.destroy_all
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
@@ -37,15 +31,14 @@ describe "new" do
 end
 
 describe "create" do
-  it "should alert when user doesn't enter a subject" do
-    User.destroy_all
-    Client.destroy_all
-    Appointment.destroy_all
+  before :each do
     @client = Client.create!(:name => "SGA", :city => "Hillsborough", :state => "NJ")
     @contact = Contact.create!(:name => "Wayne Scarano")
     @client.contacts << @contact
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @user.clients << @client
+  end
+  it "should alert when user doesn't enter a subject" do
     visit new_appointment_path
     fill_in "Email", :with => "user@sga.com"
     fill_in "Password", :with => "ilovesga"
@@ -57,13 +50,20 @@ describe "create" do
     click_button "Save"
     page.should have_content "can't be blank"
   end
+  it "should show the time zone of the user" do
+    visit new_appointment_path
+    fill_in "Email", :with => "user@sga.com"
+    fill_in "Password", :with => "ilovesga"
+    click_button "Sign in"
+    page.should have_content "EDT"
+    @user.profile.update_attribute("time_zone","Hawaii")
+    visit new_appointment_path
+    page.should have_content "HST"
+  end
 end
 
 describe "show" do
   it "should allow the user to delete the appointment" do
-    User.destroy_all
-    Client.destroy_all
-    Appointment.destroy_all
     @client = Client.create!(:name => "SGA")
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @user.clients << @client
@@ -79,9 +79,6 @@ end
 
 describe "edit" do
   it "should allow a user to edit a saved appointment" do
-    User.destroy_all
-    Client.destroy_all
-    Appointment.destroy_all
     @client = Client.create!(:name => "SGA")
     @user = User.create!(:email => "user@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
     @user.clients << @client
