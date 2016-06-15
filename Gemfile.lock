@@ -333,6 +333,7 @@ DEPENDENCIES
   capistrano3-nginx (~> 2.0)
   capybara-webkit
   carrierwave
+  chronic
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise

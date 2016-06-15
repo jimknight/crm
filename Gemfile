@@ -43,7 +43,9 @@ gem 'font-awesome-sass', '~> 4.3.0'
 gem 'devise'
 gem 'devise-bootstrap-views'
 
-gem 'database_cleaner', :group => :test
+group :test do
+  gem 'database_cleaner'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -87,3 +89,4 @@ gem 'jquery-ui-rails'
 gem 'kaminari'
 gem 'exception_notification'
 gem 'factory_girl_rails'
+gem 'chronic'
