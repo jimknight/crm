@@ -79,8 +79,9 @@ class AppointmentsController < ApplicationController
     end
     @appointment = Appointment.new(appointment_params)
     @appointment.user = current_user
-    @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EST").to_datetime
-    @appointment.end_time = ("#{appointment_params[:start_date]} #{appointment_params[:end_time]} EST").to_datetime
+    Chronic.time_class = Time.zone
+    @appointment.start_time = Chronic.parse("#{appointment_params[:start_date]} #{appointment_params[:start_time]}")
+    @appointment.end_time = Chronic.parse("#{appointment_params[:start_date]} #{appointment_params[:end_time]}")
     @appointment.start_date = @appointment.start_time.to_date
     @appointment.end_date = @appointment.start_time.to_date
     # Allow save with no contact
@@ -99,8 +100,9 @@ class AppointmentsController < ApplicationController
 
   def update
     @appointment.update(appointment_params)
-    @appointment.start_time = ("#{appointment_params[:start_date]} #{appointment_params[:start_time]} EST").to_datetime
-    @appointment.end_time = ("#{appointment_params[:start_date]} #{appointment_params[:end_time]} EST").to_datetime
+    Chronic.time_class = Time.zone
+    @appointment.start_time = Chronic.parse("#{appointment_params[:start_date]} #{appointment_params[:start_time]}")
+    @appointment.end_time = Chronic.parse("#{appointment_params[:start_date]} #{appointment_params[:end_time]}")
     @appointment.start_date = @appointment.start_time.to_date
     @appointment.end_date = @appointment.start_time.to_date
     @appointment.save
