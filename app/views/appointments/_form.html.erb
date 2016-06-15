@@ -1,5 +1,4 @@
 <%= simple_form_for(@appointment) do |f| %>
-
   <div class="form-group">
     <%= f.label :client_id %>
     <% if @appointment.client %>
@@ -8,7 +7,6 @@
       <%= f.select :client_id, options_from_collection_for_select(@clients, :id, :name_and_location, @client.id), {:include_blank => true}, {:onChange => "getClientJsonAppt(this.options[this.selectedIndex].value);", :class => "form-control"}  %>
     <% end %>
   </div>
-
   <% if !@client.contacts.nil? %>
     <div class="form-group">
       <%= f.label :contact_id, "Choose a contact" %>
@@ -21,35 +19,26 @@
       <%= text_field_tag "new_contact", "", {:class => "form-control"}  %>
     </div>
   <% end %>
-
   <%= f.input :title, label: 'Subject' %>
   <div class="row">
     <div class="col-md-3">
       <%= f.label "Date" %><br>
       <% if @appointment.new_record? %>
-        <%= f.date_field :start_date, :value => @selected_date %>
+        <%= f.date_field :start_date, :value => @selected_date, :style => "border-radius: 4px;border: 1px solid #b4b4bf;padding:2px;" %>
       <% else %>
-        <%= f.date_field :start_date %>
+        <%= f.date_field :start_date, :style => "border-radius: 4px;border: 1px solid #b4b4bf;padding:2px;" %>
       <% end %>
     </div>
   </div>
   <br>
   <div class="row">
     <div class="col-md-3">
-      <%= f.label :start_time %><br>
-      <% if @appointment.new_record? %>
-        <%= f.time_field :start_time, :step => 900, :value => "10:00:00" %>
-      <% else %>
-        <%= f.time_field :start_time, :step => 900 %>
-      <% end %>
+      <%= f.label :start_time, "* Start time (#{Time.zone.tzinfo.current_period.abbreviation})" %><br>
+      <%= f.text_field :start_time, :placeholder => "10:00 am", :style => "padding:2px;" %>
     </div>
     <div class="col-md-3">
-      <%= f.label :end_time %><br>
-      <% if @appointment.new_record? %>
-        <%= f.time_field :end_time, :step => 900, :value => "11:00:00" %>
-      <% else %>
-        <%= f.time_field :end_time, :step => 900 %>
-      <% end %>
+      <%= f.label :end_time, "* End time (#{Time.zone.tzinfo.current_period.abbreviation})" %><br>
+      <%= f.text_field :end_time, :placeholder => "11:00 am", :style => "padding:2px;" %>
     </div>
   </div>
   <br>
