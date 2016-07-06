@@ -36,4 +36,26 @@ RSpec.describe Client, :type => :model do
     @client.users << @rep
     @client.users.should == [@rep]
   end
+  describe "import from json" do
+    before :each do
+      @valid_json = File.read("#{Rails.root}/spec/support/factories/prospects_valid_sample.json")
+      @invalid_json = File.read("#{Rails.root}/spec/support/factories/prospects_invalid_sample.json")
+    end
+    it "should alert when json invalid" do
+      FactoryGirl.create(:setting)
+      Client.valid_json?(@invalid_json).should == false
+      Client.import_prospects_via_json(@invalid_json)
+      sent_email = ActionMailer::Base.deliveries.last
+      sent_email.subject.should == "The latest prospect import data has invalid JSON"
+      sent_email.to.first.should == "wscarano@sga.com"
+      sent_email.parts.first.body.raw_source.should include("ARDEC")
+    end
+    it "should not alert when valid json and should import the data" do
+      ActionMailer::Base.deliveries = []
+      Client.valid_json?(@valid_json).should == true
+      Client.import_prospects_via_json(@valid_json)
+      ActionMailer::Base.deliveries.should == []
+      Client.find_by_name("ARDEC / US Army").should_not == nil
+    end
+  end
 end

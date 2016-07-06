@@ -2,15 +2,13 @@
   <% if @setting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@prospect.errors.count, "error") %> prohibited these settings from being saved:</h2>
-
       <ul>
-      <% @setting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @setting.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
   <div class="form-group">
     <%= f.label "Notify when new prospect contacts are created (separate multiple with commas)" %>
     <%= f.text_field :notify_on_new_prospect_contact, :placeholder => "e.g. cross@mixers.com,dalmeida@mixers.com", :class => "form-control" %>
@@ -19,7 +17,10 @@
     <%= f.label "Notify when a user requests to delete a client or prospect (separate multiple with commas)" %>
     <%= f.text_field :notify_on_client_delete, :placeholder => "e.g. dalmeida@mixers.com", :class => "form-control" %>
   </div>
-
+  <div class="form-group">
+    <%= f.label "Notify when the prospect import has invalid JSON data" %>
+    <%= f.text_field :notify_on_invalid_json, :placeholder => "e.g. dalmeida@mixers.com", :class => "form-control" %>
+  </div>
   <div class="form-group">
     <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
       <%= icon('check') %> Save

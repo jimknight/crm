@@ -37,4 +37,14 @@ class UserMailer < ActionMailer::Base
     @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
     mail(from: @user.email, to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")
   end
+  def notify_on_invalid_json(invalid_json_text)
+    @settings_doc = Setting.first
+    return if @settings_doc.nil?
+    @send_to = @settings_doc.notify_on_invalid_json
+    return if @send_to == ""
+    @import_url = "http://leads.mixers.com/data/mainLeads.asp"
+    @invalid_json_text = invalid_json_text
+    mail(from: "noreply@crm.rossmixing.com", to: @send_to, subject: "The latest prospect import data has invalid JSON")
+  end
+
 end

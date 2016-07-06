@@ -22,7 +22,7 @@ class SettingsController < ApplicationController
     redirect_to root_path, :notice => "Settings were updated."
   end
 
-private
+  private
   def hide_from_non_admins
     if !current_user.admin?
       redirect_to root_path, :alert => "Not authorized. Only admins may edit the settings."
@@ -30,7 +30,7 @@ private
   end
 
   def setting_params
-    params.require(:setting).permit(:notify_on_new_prospect_contact,:notify_on_client_delete)
+    params.require(:setting).permit(:notify_on_new_prospect_contact,:notify_on_client_delete,:notify_on_invalid_json)
   end
 
 end

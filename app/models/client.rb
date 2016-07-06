@@ -90,4 +90,71 @@ class Client < ActiveRecord::Base
     self.where(client_type:'Prospect').where(status:'Active').includes(:outsiders).where.not(outsiders:{id: nil})
   end
 
+  def self.import_prospects_via_json(json)
+    if valid_json?(json)
+      parsed_response = JSON.parse(json)
+      parsed_response.each do |data|
+        import_eid = data["EID"]
+        import_date = data["Date"]
+        import_type = data["Type"]
+        import_source = data["Source"]
+        import_company = data["Company"].force_encoding('Windows-1252').encode('UTF-8')
+        import_contactname = data["ContactName"].force_encoding('Windows-1252').encode('UTF-8')
+        import_phone = data["Phone"]
+        import_fax = data["Fax"]
+        import_email = data["Email"]
+        import_street = data["Address"][0]["Street"].force_encoding('Windows-1252').encode('UTF-8')
+        import_city = data["Address"][0]["City"].force_encoding('Windows-1252').encode('UTF-8')
+        import_state = data["Address"][0]["State"].force_encoding('Windows-1252').encode('UTF-8')
+        import_country = data["Address"][0]["Country"].force_encoding('Windows-1252').encode('UTF-8')
+        import_zip = data["Address"][0]["ZipCode"]
+        import_formdump = data["FormDump"].force_encoding('Windows-1252').encode('UTF-8')
+        existing_client = Client.find_by_eid(import_eid)
+        import_datetime = DateTime.strptime(import_date + " EST", '%Y-%m-%d %R %Z')
+        if import_company == "1" || import_company == "-1"
+          puts "Skipping EID = #{import_eid} for client #{import_company}. Junk data"
+        elsif import_datetime >= "2015-12-01".to_date
+          if existing_client.nil? && import_company.present?
+            # create a new one - assume EST
+            new_client = Client.create!(
+              :eid => import_eid,
+              :name => import_company,
+              :street1 => import_street,
+              :city => import_city,
+              :state => import_state,
+              :zip => import_zip,
+              :country => import_country,
+              :import_datetime => import_datetime,
+              :prospect_type => import_type,
+              :source => import_source,
+              :form_dump => import_formdump,
+              :client_type => "Prospect",
+              :status => "Active",
+              :fax => import_fax
+            )
+            new_contact = Contact.create!(
+              :name => import_contactname,
+              :work_phone => import_phone,
+              :email => import_email
+            )
+            new_client.contacts << new_contact
+            puts "Imported #{new_client.name}"
+          else
+            puts "Skipping EID = #{import_eid} for client #{import_company}. Already in DB by EID"
+          end
+        else
+          puts "Skipping EID = #{import_eid} for client #{import_company}. Import date of #{import_date} is too old."
+        end
+      end
+    else
+      UserMailer.notify_on_invalid_json(json).deliver_now
+    end
+  end
+
+  def self.valid_json?(json)
+    JSON.parse(json)
+    return true
+  rescue JSON::ParserError
+    return false
+  end
 end

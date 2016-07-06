@@ -7,6 +7,7 @@
 #  created_at                     :datetime
 #  updated_at                     :datetime
 #  notify_on_client_delete        :text
+#  notify_on_invalid_json         :text
 #
 
 class Setting < ActiveRecord::Base
