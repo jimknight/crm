@@ -83,8 +83,8 @@ class ActivitiesController < ApplicationController
           end
         end
         current_user.activities << @activity
-        if activity_params[:models].present?
-          @model = Model.find(activity_params[:models])
+        if params[:activity][:models].present?
+          @model = Model.find(params[:activity][:models])
           @activity.models << @model
         end
         redirect_to activities_path, notice: 'Activity was successfully created.'
