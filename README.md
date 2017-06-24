@@ -20,3 +20,13 @@ bundle install --without development test
 
 Migrations
 bundle exec rake db:migrate RAILS_ENV=production
+
+Replace SSL cert
+From local, put rossmixing.crt certificate on the server somewhere:
+  scp rossmixing.crt sgadeploy@crm.rossmixing.com:~/.
+Go to the server and open the root dir
+  cd
+  sudo service nginx stop
+  sudo mv rossmixing.crt /etc/nginx/ssl
+  sudo service nginx start
+  /etc/init.d/unicorn_crm start
