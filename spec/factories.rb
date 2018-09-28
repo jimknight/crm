@@ -1,5 +1,12 @@
 # This will guess the User class
 FactoryGirl.define do
+  factory :audit_log do
+    user_id 1
+    action "MyString"
+    occurred_at "2018-09-28 13:23:17"
+    email "MyString"
+    controller "MyString"
+  end
 
   factory :client do
     sequence(:name) { |n| "Client ##{n}" }

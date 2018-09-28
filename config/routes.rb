@@ -22,7 +22,11 @@ Rails.application.routes.draw do
   end
 
   # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password
-  devise_for :users, :skip => [:registrations]
+  # devise_for :users, :skip => [:registrations]
+
+  # https://github.com/plataformatec/devise#configuring-controllers
+  devise_for :users, controllers: { sessions: 'users/sessions' }, :skip => [:registrations]
+
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
     patch 'users/:id' => 'devise/registrations#update', :as => 'user_registration'
