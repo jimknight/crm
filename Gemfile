@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.8'
+gem 'rails', '4.2.10'
 # Use postgresql as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.21'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -40,8 +40,8 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
 gem 'font-awesome-sass', '~> 4.3.0'
-gem 'devise'
-gem 'devise-bootstrap-views'
+gem 'devise', '~>4.3.0'
+gem 'devise-bootstrap-views', '~> 0.0.11'
 
 group :test do
   gem 'database_cleaner'
