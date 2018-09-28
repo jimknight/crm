@@ -58,6 +58,19 @@
             Appointments
           <% end %>
         </li>
+        <% if current_user && current_user.admin? %>
+          <% if @tab == "AuditLogs" %>
+            <li class="active">
+          <% else %>
+            <li>
+          <% end %>
+          <%= link_to auditlogs_path do %>
+              <!-- <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> -->
+              <%= icon('list') %>
+            Audit Logs
+          <% end %>
+        </li>
+        <% end %>
         <% if @tab == "Client" %>
           <li class="active">
         <% else %>
@@ -129,7 +142,7 @@
           </li>
         <% end %>
         <li>
-          <%= link_to destroy_user_session_path, :method => :delete do %>
+          <%= link_to destroy_user_session_path(current_user: current_user), :method => :delete do %>
           <!-- <span class="glyphicon glyphicon-log-out"></span> -->
           <%= icon('sign-out') %>
           Logout
