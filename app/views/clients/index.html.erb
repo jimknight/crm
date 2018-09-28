@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>State</th>
       <th>City</th>
+      <th>Zip</th>
       <th>Phone</th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
         <% end %></td>
       <td><%= form_tag clients_path, :method => 'get' do %><%= search_field_tag :search_state, params[:search_state], :placeholder => "search" %><% end %></td>
       <td><%= form_tag clients_path, :method => 'get' do %><%= search_field_tag :search_city, params[:search_city], :placeholder => "search" %><% end %></td>
+      <td><%= form_tag clients_path, :method => 'get' do %><%= search_field_tag :search_zip, params[:search_zip], :placeholder => "search" %><% end %></td>
       <td><%= form_tag clients_path, :method => 'get' do %><%= search_field_tag :search_phone, params[:search_phone], :placeholder => "search" %><% end %></td>
     </tr>
     <% @clients.each do |client| %>
@@ -26,6 +28,7 @@
         <td><%= link_to client.name, client %></td>
         <td><%= client.state %></td>
         <td><%= client.city %></td>
+        <td><%= client.zip %></td>
         <td><%= client.phone %></td>
       </tr>
     <% end %>
