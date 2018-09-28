@@ -1,0 +1,33 @@
+<h2>Audit Logs</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Action</th>
+      <th>User</th>
+      <th>Email</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% @audit_logs.each do |audit_log| %>
+      <tr class="<%= audit_log.pretty_action.parameterize.underscore %>">
+        <td nowrap="nowrap"><%= audit_log.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+        <td nowrap="nowrap"><%= audit_log.pretty_action %></td>
+        <% if audit_log.user_id.nil? %>
+          <td>&nbsp;</td>
+        <% else %>
+          <td nowrap="nowrap"><%= link_to User.find(audit_log.user_id).profile.full_name, profile_path(audit_log.user_id) %></td>
+        <% end %>
+        <td><%= audit_log.email %></td>
+        <td><%= audit_log.message %></td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+
+<div style="background:#F5F5F5;padding:0 10px;border-radius:5px;">
+  <%= paginate @audit_logs %>
+</div>

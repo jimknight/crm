@@ -28,13 +28,20 @@ class AuditLog < ActiveRecord::Base
     save_audit_log(audit_log_params)
   end
 
+  def pretty_action
+    if self.action == "destroy"
+      "Logged out"
+    elsif self.user_id.nil? && !self.message.blank?
+      "Login failure"
+    else
+      "Logged in"
+    end
+  end
+
 private
   def self.save_audit_log(audit_log_params)
     @audit_log = AuditLog.new(audit_log_params)
-    if @audit_log.save
-      puts "Audit Log saved"
-    else
-      puts "Audit Log NOT saved"
+    if !@audit_log.save
       puts @audit_log.errors
     end
   end

@@ -6,6 +6,7 @@ FactoryGirl.define do
     occurred_at "2018-09-28 13:23:17"
     email "MyString"
     controller "MyString"
+    message "My message"
   end
 
   factory :client do

@@ -1956,3 +1956,22 @@ abbr[title], abbr[data-original-title] {
 .ui-helper-hidden-accessible {
   display:none;
 }
+
+tr.logged_in td {
+  background: #15AA4B;
+  color: #efefef;
+  a {
+    color: #efefef;
+  }
+}
+
+tr.logged_out td {
+  a {
+    color: #333;
+  }
+}
+
+tr.login_failure td {
+  background: #ED1C24;
+  color: #efefef;
+}
