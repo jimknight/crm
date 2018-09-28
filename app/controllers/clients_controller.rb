@@ -51,6 +51,8 @@ class ClientsController < ApplicationController
       @clients = @clients.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name, :city)
     elsif params[:search_city].present?
       @clients = @clients.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name, :city)
+    elsif params[:search_zip].present?
+      @clients = @clients.where('lower(zip) LIKE ?', "%#{params[:search_zip].downcase}%").order(:name, :zip)
     elsif params[:search_phone].present?
       @clients = @clients.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name, :city)
     elsif params[:search].present?
