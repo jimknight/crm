@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
   def new
     super do
       begin
-        if !flash.nil? && flash["alert"] != "You need to sign in or have your adminstrator create your account before continuing."
+        if !flash.nil? && flash["alert"] != "You need to sign in or have your adminstrator create your account before continuing." && !flash["alert"].nil?
           AuditLog.create_from_flash(flash, params, resource)
         end
       rescue
@@ -32,7 +32,7 @@ class Users::SessionsController < Devise::SessionsController
         AuditLog.create(params, resource)
       rescue
         puts "ERROR: #{@error_message}"
-      end    
+      end
     end
   end
 
