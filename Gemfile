@@ -90,3 +90,6 @@ gem 'kaminari'
 gem 'exception_notification'
 gem 'factory_girl_rails'
 gem 'chronic'
+
+# https://stackoverflow.com/questions/51980353/autoprefixer-doesn-t-support-node-v0-10-37-error
+gem 'mini_racer'
