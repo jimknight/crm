@@ -30,3 +30,7 @@ Go to the server and open the root dir
   sudo mv rossmixing.crt /etc/nginx/ssl
   sudo service nginx start
   /etc/init.d/unicorn_crm start
+
+Mac dev for tests
+For capybara-webkit need qt 5.5
+https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
