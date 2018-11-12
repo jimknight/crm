@@ -40,7 +40,9 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
 gem 'font-awesome-sass', '~> 4.3.0'
-gem 'devise', '~>4.3.0'
+# https://github.com/plataformatec/devise/issues/4630
+# gem 'devise', '~>4.3.0'
+gem 'devise', git: 'https://github.com/plataformatec/devise' #, ref: '88e9a85'
 gem 'devise-bootstrap-views', '~> 0.0.11'
 
 group :test do
@@ -94,5 +96,7 @@ gem 'chronic'
 # https://stackoverflow.com/questions/51980353/autoprefixer-doesn-t-support-node-v0-10-37-error
 gem 'mini_racer'
 
-# Security issue CVE-2018-16468 
+# Security issue CVE-2018-16468
 gem "loofah", ">= 2.2.3"
+
+gem 'puma'
