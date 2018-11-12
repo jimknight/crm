@@ -93,3 +93,6 @@ gem 'chronic'
 
 # https://stackoverflow.com/questions/51980353/autoprefixer-doesn-t-support-node-v0-10-37-error
 gem 'mini_racer'
+
+# Security issue CVE-2018-16468 
+gem "loofah", ">= 2.2.3"
