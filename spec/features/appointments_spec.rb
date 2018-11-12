@@ -55,7 +55,8 @@ describe "create" do
     fill_in "Email", :with => "user@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
-    page.should have_content "EDT"
+    # Many states use EDT in the summer and EST in the winter
+    page.should have_content /E[D|S]T/
     @user.profile.update_attribute("time_zone","Hawaii")
     visit new_appointment_path
     page.should have_content "HST"
