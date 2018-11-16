@@ -20,5 +20,13 @@
 # Ignore application configuration
 /config/application.yml
 
-# carrierwaave
+# carrierwave
 /public/uploads
+
+# pg data
+/data
+
+# docker secrets
+.env
+.env.prod
+config/secrets.yml
