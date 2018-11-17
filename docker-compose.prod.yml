@@ -1,0 +1,56 @@
+# https://itnext.io/docker-rails-puma-nginx-postgres-999cd8866b18
+
+version: '3'
+volumes:
+  postgres_data: {}
+
+services:
+  app:
+    env_file: ./docker/app/.env
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+
+  db:
+    env_file: ./docker/db/.env
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    depends_on:
+      - app
+    ports:
+      - 8080:80
+
+# https://www.youtube.com/watch?v=dF6VQOZPZBM
+
+# version: '3'
+#
+# services:
+#   db_prod:
+#     env_file: .env.prod
+#     image: postgres:11.1-alpine
+#     volumes:
+#       - ./db/pgsql/prod_data:/var/lib/postgresql/data
+#
+#   web_server_prod:
+#       image: nginx:1.15.6-alpine
+#       ports:
+#         - "8080:80"
+#
+#   app_prod:
+#     env_file: .env.prod
+#     build: .
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       - db_prod
+#       - web_server_prod
