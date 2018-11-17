@@ -26,7 +26,8 @@
 # pg data
 /data
 
-# docker secrets
+# docker
 .env
 .env.prod
 config/secrets.yml
+/db/pgsql/

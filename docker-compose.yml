@@ -1,17 +1,17 @@
 # https://www.youtube.com/watch?v=dF6VQOZPZBM
 
-version: '2'
+version: '3'
 
-volumes:
-  db-data:
-    external: false
+# volumes:
+#   db-data:
+#     external: false
 
 services:
   db:
     env_file: .env
     image: postgres:11.1-alpine
     volumes:
-      - db-data:/usr/local/pgsql/data
+      - ./db/pgsql/data:/var/lib/postgresql/data
 
   app:
     env_file: .env

@@ -9,6 +9,7 @@ RUN apt-get update -yqq \
     nodejs \
     qt5-default \
     libqt5webkit5-dev \
+    postgresql-client \
   && apt-get -q clean \
   && rm -rf /var/lib/apt/lists
 

@@ -34,3 +34,15 @@ Go to the server and open the root dir
 Mac dev for tests
 For capybara-webkit need qt 5.5
 https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
+
+Postgres on server
+psql (PostgreSQL) 9.3.17
+
+Ruby on server
+ruby 2.4.1p111 (2017-03-22 revision 58053) [x86_64-linux]
+
+Docker
+
+docker-compose run app bundle exec rake db:create
+docker-compose run app bundle exec rake db:migrate
+docker-compose run app psql -h db -U postgres crm_development < crm_production.dump
