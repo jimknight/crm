@@ -14,11 +14,11 @@
 <p>
   <% if @profile.user == current_user || current_user.admin? %>
     <%= link_to edit_profile_path(@profile), :class => "btn btn-primary" do %>
-      <%= icon('pencil') %> Edit
+      <i class="fas fa-pencil-alt"></i> Edit
     <% end %>
   <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
-    <%= icon('chevron-left') %> Back
+    <i class="fas fa-chevron-left"></i> Back
   <% end %>
 </p>
 <!-- Nav tabs -->
@@ -47,10 +47,10 @@
           <div class="panel-heading">
             <%= link_to activity.activity_date.to_date, activity %>
             <% if activity && activity.activity_attachments.empty? && activity.attachment_url.present? %>
-              <%= icon('paperclip') %>
+              <i class="fas fa-paperclip"></i>
             <% end %>
             <% activity.activity_attachments.each do %>
-              <%= icon('paperclip') %>
+              <i class="fas fa-paperclip"></i>
             <% end %>
           </div>
           <div class="panel-body">
@@ -83,7 +83,7 @@
             <td>
               <% if current_user == @profile.user || current_user.admin? %>
                 <%= link_to remove_rsm_from_client_path(client,:user_id => @profile.user), :class => "btn btn-default", data: { confirm: "Remove this client from this list? Are you sure?" } do %>
-                  <%= icon('remove') %>
+                  <i class="fas fa-times"></i>
                 <% end %>
               <% end %>
             </td>
@@ -104,7 +104,7 @@
             <td>
               <% if current_user == @profile.user || current_user.admin? %>
                 <%= link_to remove_rsm_from_prospect_path(prospect,:user_id => @profile.user), :class => "btn btn-default", data: { confirm: "Remove this prospect from this list? Are you sure?" } do %>
-                  <%= icon('remove') %>
+                  <i class="fas fa-times"></i>
                 <% end %>
               <% end %>
             </td>

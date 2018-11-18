@@ -31,3 +31,5 @@
 .env.prod
 config/secrets.yml
 /db/pgsql/
+*.dump
+*.pem

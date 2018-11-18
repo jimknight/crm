@@ -29,12 +29,12 @@
 </table>
 <p>
   <%= link_to edit_appointment_path(@appointment), :class => "btn btn-primary" do %>
-    <%= icon('pencil') %> Edit
+    <i class="fas fa-pencil-alt"></i> Edit
   <% end %>
   <%= link_to appointment_path(@appointment), :method => :delete, :data => { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
-    <%= icon('trash') %> Delete
+    <i class="fas fa-trash-alt"></i> Delete
   <% end %>
   <%= link_to :back, :class => "btn btn-default" do %>
-    <%= icon('chevron-left') %> Back
+    <i class="fas fa-chevron-left"></i> Back
   <% end %>
 </p>

@@ -29,7 +29,7 @@
               Already added
             <% else %>
               <%= link_to add_rsm_to_prospect_path(@prospect,:user_id => profile.user), :class => "btn btn-primary" do %>
-                <%= icon('plus') %>
+                <i class="fas fa-plus"></i>
                 Add this RSM to prospect
               <% end %>
             <% end %>
@@ -41,5 +41,5 @@
 </table>
 
 <%= link_to :back, :class => "btn btn-default" do %>
-  <%= icon('chevron-left') %> Cancel
+  <i class="fas fa-chevron-left"></i> Cancel
 <% end %>

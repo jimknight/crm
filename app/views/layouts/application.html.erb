@@ -7,14 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
-    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
   </head>
   <body style="background:white;">
 
@@ -42,8 +39,7 @@
           <li>
         <% end %>
           <%= link_to activities_path do %>
-              <!-- <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> -->
-              <%= icon('briefcase') %>
+            <i class="fas fa-briefcase"></i>
             Activities
           <% end %>
         </li>
@@ -53,8 +49,7 @@
           <li>
         <% end %>
           <%= link_to calendar_path do %>
-              <!-- <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> -->
-              <%= icon('calendar') %>
+            <i class="far fa-calendar-alt"></i>
             Appointments
           <% end %>
         </li>
@@ -65,8 +60,7 @@
             <li>
           <% end %>
           <%= link_to auditlogs_path do %>
-              <!-- <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> -->
-              <%= icon('list') %>
+            <i class="fas fa-list"></i>
             Audit Logs
           <% end %>
         </li>
@@ -77,8 +71,7 @@
           <li>
         <% end %>
           <%= link_to clients_path do %>
-            <!-- <span class="glyphicon glyphicon-user"></span> -->
-            <%= icon('user') %>
+            <i class="fas fa-user"></i>
             Clients
           <% end %>
         </li>
@@ -88,8 +81,7 @@
           <li>
         <% end %>
           <%= link_to prospects_path do %>
-            <!-- <span class="glyphicon glyphicon-user"></span> -->
-            <%= icon('user') %>
+            <i class="fas fa-user"></i>
             Prospects
           <% end %>
         </li>
@@ -99,8 +91,7 @@
           <li>
         <% end %>
           <%= link_to models_path do %>
-            <!-- <span class="glyphicon glyphicon-book"></span> -->
-            <%= icon('book') %>
+            <i class="fas fa-book"></i>
             Models
           <% end %>
         </li>
@@ -110,8 +101,7 @@
           <li>
         <% end %>
         <%= link_to industries_path do %>
-            <!-- <span class="glyphicon glyphicon-th-large"></span> -->
-            <%= icon('reorder') %>
+            <i class="fas fa-bars"></i>
             Industries
           <% end %>
         </li>
@@ -122,8 +112,7 @@
             <li>
           <% end %>
           <%= link_to profiles_path do %>
-            <!-- <span class="glyphicon glyphicon-road"></span> -->
-            <%= icon('road') %>
+            <i class="fas fa-road"></i>
             RSM's
           <% end %>
           </li>
@@ -135,16 +124,14 @@
             <li>
           <% end %>
           <%= link_to new_setting_path do %>
-            <!-- <span class="glyphicon glyphicon-road"></span> -->
-            <%= icon('gear') %>
+            <i class="fas fa-cog"></i>
             Settings
           <% end %>
           </li>
         <% end %>
         <li>
           <%= link_to destroy_user_session_path(current_user: current_user), :method => :delete do %>
-          <!-- <span class="glyphicon glyphicon-log-out"></span> -->
-          <%= icon('sign-out') %>
+          <i class="fas fa-sign-out-alt"></i>
           Logout
           <% end %>
         </li>
