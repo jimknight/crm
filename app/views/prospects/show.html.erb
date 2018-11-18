@@ -2,35 +2,35 @@
 <p>
   <% if current_user.admin? %>
     <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
-      <%= icon('pencil') %> Edit
+      <i class="fas fa-pencil-alt"></i> Edit
   <% end %>
     <%= link_to new_prospect_contact_path(@prospect), :class => "btn btn-primary" do %>
-      <%= icon('plus') %> Add Contact
+      <i class="fas fa-plus"></i> Add Contact
   <% end %>
     <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
-      <%= icon('user') %> Assign to RSM
+      <i class="fas fa-user"></i> Assign to RSM
   <% end %>
     <%= link_to new_prospect_outsider_path(@prospect), :class => "btn btn-primary" do %>
-      <%= icon('envelope') %> Assign to External
+      <i class="fas fa-envelope"></i> Assign to External
   <% end %>
     <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
-      <%= icon('share') %> Convert to Client
+      <i class="fas fa-share"></i> Convert to Client
   <% end %>
     <%= link_to prospect_path(@prospect), :method => :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
-      <%= icon('trash') %> Delete
+      <i class="fas fa-trash-alt"></i> Delete
   <% end %>
     <%= link_to :back, :class => "btn btn-default" do %>
-      <%= icon('chevron-left') %> Back
+      <i class="fas fa-chevron-left"></i> Back
   <% end %>
   <% else %>
     <%= link_to edit_prospect_path(@prospect), :class => "btn btn-primary" do %>
-      <%= icon('pencil') %> Edit
+      <i class="fas fa-pencil-alt"></i> Edit
   <% end %>
     <%= link_to convert_prospect_to_client_path(@prospect), :class => "btn btn-primary" do %>
-      <%= icon('share') %> Convert to Client
+      <i class="fas fa-share"></i> Convert to Client
   <% end %>
     <%= link_to :back, :class => "btn btn-default" do %>
-      <%= icon('chevron-left') %> Back
+      <i class="fas fa-chevron-left"></i> Back
   <% end %>
   <% end %>
 </p>

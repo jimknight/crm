@@ -82,31 +82,31 @@
     <p>
       <% if @client.status != "Archived" %>
         <%= link_to edit_client_path(@client), :class => "btn btn-primary" do %>
-          <%= icon('pencil') %> Edit
+          <i class="fas fa-pencil-alt"></i> Edit
     <% end %>
         <%= link_to new_activity_path(:client => @client), :class => "btn btn-primary" do %>
-          <%= icon('plus') %> Add Activity
+          <i class="fas fa-plus"></i> Add Activity
     <% end %>
         <%= link_to new_client_contact_path(@client), :class => "btn btn-primary" do %>
-          <%= icon('plus') %> Add Contact
+          <i class="fas fa-plus"></i> Add Contact
     <% end %>
         <%= link_to add_rsm_to_client_path(@client), :class => "btn btn-primary" do %>
-          <%= icon('plus') %> Add RSM
+          <i class="fas fa-plus"></i> Add RSM
     <% end %>
         <%= link_to archive_client_path(@client), :class => "btn btn-primary" do %>
-          <%= icon('archive') %> Archive
+          <i class="fas fa-archive"></i> Archive
     <% end %>
         <%= link_to client_path(@client), :method => :delete, :data => { confirm: 'Are you sure?' }, :class => "btn btn-primary" do %>
-          <%= icon('trash') %> Delete
+          <i class="fas fa-trash-alt"></i> Delete
     <% end %>
       <% end %>
       <% if @client.status == "Archived" %>
         <%= link_to un_archive_client_path(@client), :class => "btn btn-primary" do %>
-          <%= icon('archive') %> UnArchive
+          <i class="fas fa-archive"></i> UnArchive
     <% end %>
       <% end %>
       <%= link_to :back, :class => "btn btn-default" do %>
-        <%= icon('chevron-left') %> Back
+        <i class="fas fa-chevron-left"></i> Back
   <% end %>
     </p>
     <% if @client.contacts.present? %>
@@ -133,10 +133,10 @@
           <div class="panel-heading">
             <%= link_to activity.activity_date.to_date, activity %>
             <% if activity && activity.activity_attachments.empty? && activity.attachment_url.present? %>
-              <%= icon('paperclip') %>
+              <i class="fas fa-paperclip"></i>
             <% end %>
             <% activity.activity_attachments.each do %>
-              <%= icon('paperclip') %>
+              <i class="fas fa-paperclip"></i>
             <% end %>
           </div>
           <div class="panel-body">

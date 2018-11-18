@@ -39,7 +39,6 @@ gem 'annotate', '~> 2.6.5'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
-gem 'font-awesome-sass', '~> 4.3.0'
 # https://github.com/plataformatec/devise/issues/4630
 # gem 'devise', '~>4.3.0'
 gem 'devise', git: 'https://github.com/plataformatec/devise' #, ref: '88e9a85'

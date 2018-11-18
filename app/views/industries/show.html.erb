@@ -17,10 +17,10 @@
 <p>
   <% if current_user.admin? %>
     <%= link_to edit_industry_path(@industry), :class => "btn btn-primary" do %>
-      <%= icon('pencil') %> Edit
+      <i class="fas fa-pencil-alt"></i> Edit
     <% end %>
   <% end %>
   <%= link_to industries_path, :class => "btn btn-default" do %>
-    <%= icon('chevron-left') %> Back
+    <i class="fas fa-chevron-left"></i> Back
   <% end %>
 </p>
