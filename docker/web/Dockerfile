@@ -16,6 +16,9 @@ RUN mkdir log
 # copy over static assets
 COPY public public/
 
+# copy SSL stuff
+COPY docker/ssl ssl/
+
 # Copy Nginx config template
 COPY docker/web/nginx.conf /tmp/docker.nginx
 
