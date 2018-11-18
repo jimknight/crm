@@ -52,3 +52,4 @@ dcprod = docker-compose -f docker-compose.prod.yml
 dcprod run app bundle exec rake db:create
 dcprod run app bundle exec rake db:migrate
 bundle exec rake assets:precompile
+dcprod run app psql -h db -U postgres crm_production < crm_production.dump
