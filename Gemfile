@@ -30,7 +30,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'launchy'
-  gem "capybara-webkit"
+  # gem "capybara-webkit"
   gem 'faker'
 end
 
