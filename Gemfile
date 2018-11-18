@@ -99,3 +99,6 @@ gem 'mini_racer'
 gem "loofah", ">= 2.2.3"
 
 gem 'puma'
+
+# Security issue CVE-2018-16471
+gem "rack", ">= 1.6.11"
