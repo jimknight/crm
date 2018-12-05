@@ -54,3 +54,23 @@
 * dcprod run app bundle exec rake db:migrate
 * bundle exec rake assets:precompile
 * dcprod run app psql -h db -U postgres crm_production < crm_production.dump
+
+### Set up the ec2 instance
+* sudo yum install docker
+* sudo yum install git
+* sudo systemctl start docker
+* sudo systemctl enable docker
+** Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+
+#### docker-compose
+* https://docs.docker.com/compose/install/#install-compose
+* sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o
+* sudo chmod +x /usr/local/bin/docker-compose
+* docker-compose --version
+* sudo usermod -aG docker ${USER}
+
+# Login
+ssh -i "crmrossmixingcom.pem" ec2-user@34.238.211.171
+
+# Auto restart on boot
+@reboot (sleep 30s ; cd /home/ec2-user/crm ; /usr/local/bin/docker-compose -f docker-compose.prod.yml up -d )&
