@@ -43,7 +43,6 @@
 * ruby 2.4.1p111 (2017-03-22 revision 58053) [x86_64-linux]
 
 ### Docker
-
 * docker-compose run app bundle exec rake db:create
 * docker-compose run app bundle exec rake db:migrate
 * docker-compose run app psql -h db -U postgres crm_development < crm_production.dump
@@ -69,8 +68,20 @@
 * docker-compose --version
 * sudo usermod -aG docker ${USER}
 
-# Login
+### Login
 ssh -i "crmrossmixingcom.pem" ec2-user@34.238.211.171
 
-# Auto restart on boot
+### Auto restart on boot
 @reboot (sleep 30s ; cd /home/ec2-user/crm ; /usr/local/bin/docker-compose -f docker-compose.prod.yml up -d )&
+
+### Rails console in production
+dcprod run app rails console production
+
+### Postgres console in production
+dcprod run app psql -h db -U postgres crm_production
+
+### Backup and restore
+* pg_dump -h localhost -U postgres crm_production | gzip -c > /home/sgadeploy/backups/crm.2018-12-7.dump.gz
+* dcprod run app dropdb -U postgres -h db crm_production
+* dcprod run app createdb -U postgres -h db -T template0 crm_production
+* dcprod run app "cat ./crm.2018-12-7.dump.gz | gunzip | psql -h db -U postgres crm_production"
