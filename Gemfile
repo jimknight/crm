@@ -102,3 +102,6 @@ gem 'puma'
 
 # Security issue CVE-2018-16471
 gem "rack", ">= 1.6.11"
+
+# Security issue CVE-2018-16476
+# bundle update activejob
