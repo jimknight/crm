@@ -81,7 +81,8 @@ dcprod run app rails console production
 dcprod run app psql -h db -U postgres crm_production
 
 ### Backup and restore
-* pg_dump -h localhost -U postgres crm_production | gzip -c > /home/sgadeploy/backups/crm.2018-12-7.dump.gz
+* pg_dump -h localhost -U postgres crm_production | gzip -c > /home/sgadeploy/backups/crm.2018-12-08.dump.gz
 * dcprod run app dropdb -U postgres -h db crm_production
 * dcprod run app createdb -U postgres -h db -T template0 crm_production
-* dcprod run app "cat ./crm.2018-12-7.dump.gz | gunzip | psql -h db -U postgres crm_production"
+* dcprod run app bash
+* cat ./crm.2018-12-08.dump.gz | gunzip | psql -h db -U postgres crm_production
