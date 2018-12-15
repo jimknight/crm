@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: 'noreply@mixers.com'
+  default from: 'noreply@sga.com'
 
   def notify_new_prospect_contact(contact,current_user)
     @user = current_user
@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
     @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
     mail(from: "noreply@sga.com", to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")
   end
-  
+
   def notify_outsider_of_prospect(prospect,outsider,current_user)
     @user = current_user
     @prospect = prospect
@@ -40,7 +40,7 @@ class UserMailer < ActionMailer::Base
     @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
     mail(from: "noreply@sga.com", to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")
   end
-  
+
   def notify_on_invalid_json(invalid_json_text)
     @settings_doc = Setting.first
     return if @settings_doc.nil?
@@ -50,7 +50,7 @@ class UserMailer < ActionMailer::Base
     @invalid_json_text = invalid_json_text
     mail(from: "noreply@sga.com", to: @send_to, subject: "The latest prospect import data has invalid JSON")
   end
-  
+
   def test_email_to_jim()
     mail(from: "noreply@sga.com", to: "jim@lavatech.com", subject: "Test email")
   end

@@ -89,3 +89,6 @@ dcprod run app psql -h db -U postgres crm_production
 
 ### Old IP
 * 72.28.113.176
+
+### Test outbound email to jim
+UserMailer.test_email_to_jim().deliver_now()
