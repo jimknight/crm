@@ -46,5 +46,9 @@ class UserMailer < ActionMailer::Base
     @invalid_json_text = invalid_json_text
     mail(from: "noreply@crm.rossmixing.com", to: @send_to, subject: "The latest prospect import data has invalid JSON")
   end
-
+  def test_email_to_jim()
+    mail(from: "noreply@crm.rossmixing.com", to: "jim@lavatech.com", subject: "Test email")
+  end
 end
+
+# UserMailer.test_email_to_jim().deliver_now()
