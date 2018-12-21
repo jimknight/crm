@@ -2,6 +2,7 @@
 
 version: '3'
 volumes:
+  uploads_data: {}
   postgres_data: {}
 
 services:
@@ -10,7 +11,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
+    volumes:
+      - uploads_data:/var/www/crm/public/uploads
     ports:
+      - 25
       - 3000:3000
     depends_on:
       - db
@@ -25,6 +29,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/web/Dockerfile
+    volumes:
+      - uploads_data:/var/www/crm/public/uploads
     depends_on:
       - app
     ports:
