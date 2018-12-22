@@ -34,4 +34,11 @@ RUN bundle install --without development test
 # Adding project files
 COPY . .
 
+# Cron/Whenever
+RUN mkdir $RAILS_ROOT/log
+RUN touch $RAILS_ROOT/log/cron.log
+RUN bundle exec whenever --update-crontab
+RUN service cron start
+
+# Start rails
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
