@@ -10,6 +10,8 @@ RUN apt-get update -yqq \
     qt5-default \
     libqt5webkit5-dev \
     postgresql-client \
+    cron \
+    vim-gocomplete \
   && apt-get -q clean \
   && rm -rf /var/lib/apt/lists
 
@@ -27,7 +29,7 @@ ENV RACK_ENV='production'
 # Adding gems
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-RUN bundle install
+RUN bundle install --without development test
 
 # Adding project files
 COPY . .
