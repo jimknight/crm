@@ -36,6 +36,16 @@ RSpec.describe Client, :type => :model do
     @client.users << @rep
     @client.users.should == [@rep]
   end
+  describe "as_csv" do
+    it "should bring in the data for contacts associated" do
+      @client = Client.create!(:name => "SGA")
+      @contact1 = Contact.new(name: "Wayne Scarano", email: "wscarano@sga.com")
+      @contact2 = Contact.new(name: "Jim Knight", email: "jim@sga.com")
+      @client.contacts = [@contact1, @contact2]
+      puts Client.all.as_csv
+      Client.all.as_csv.should =~ /jim@sga.com,wscarano@sga.com/
+    end
+  end
   describe "import from json" do
     before :each do
       @valid_json = File.read("#{Rails.root}/spec/support/factories/prospects_valid_sample.json")

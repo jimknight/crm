@@ -138,9 +138,11 @@ sudo cp -r ~/crm_uploads_from_before_aws/activity_attachment/attachment /var/lib
 require 'csv'
 def self.as_csv
   CSV.generate do |csv|
-    csv << column_names
+    x = column_names + ["contacts_email"]
+    csv << x
     all.each do |item|
-      csv << item.attributes.values_at(*column_names)
+      y = item.attributes.values_at(*column_names) +  [item.contacts.pluck("email").join(",")]
+      csv << y
     end
   end
 end
