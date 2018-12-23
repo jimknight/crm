@@ -143,11 +143,8 @@ class Client < ActiveRecord::Base
               :status => "Active",
               :fax => import_fax
             )
-            new_contact = Contact.create!(
-              :name => import_contactname,
-              :work_phone => import_phone,
-              :email => import_email
-            )
+            contact_params = {name: import_contactname, work_phone: import_phone, email: import_email}
+            new_contact = Contact.create_from_import(contact_params)
             new_client.contacts << new_contact
             puts "Imported #{new_client.name}"
           else
