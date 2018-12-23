@@ -80,10 +80,10 @@ class Client < ActiveRecord::Base
 
   def self.as_csv
     CSV.generate do |csv|
-      x = column_names + ["contacts_email"]
+      x = column_names + ["contacts_email", "users_email"]
       csv << x
       all.each do |item|
-        y = item.attributes.values_at(*column_names) +  [item.contacts.pluck("email").join(",")]
+        y = item.attributes.values_at(*column_names) + [item.contacts.pluck("email").join(",")] + [item.users.pluck("email").join(",")]
         csv << y
       end
     end

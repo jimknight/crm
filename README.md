@@ -138,21 +138,23 @@ sudo cp -r ~/crm_uploads_from_before_aws/activity_attachment/attachment /var/lib
 require 'csv'
 def self.as_csv
   CSV.generate do |csv|
-    x = column_names + ["contacts_email"]
+    x = column_names + ["contacts_email", "users_email"]
     csv << x
     all.each do |item|
-      y = item.attributes.values_at(*column_names) +  [item.contacts.pluck("email").join(",")]
+      y = item.attributes.values_at(*column_names) + [item.contacts.pluck("email").join(",")] + [item.users.pluck("email").join(",")]
       csv << y
     end
   end
 end
-@clients = Client.order(:created_at)
+this_month = Date.new(2018,12,1)
+@clients = Client.where("created_at >= ?", this_month).order(:created_at)
 File.open("clients.csv", "w+") do |f|
   f << @clients.as_csv
 end
 
 ### Get the missing contacts
-@contacts = Contact.order(:created_at)
+this_month = Date.new(2018,12,1)
+@contacts = Contact.where("created_at >= ?", this_month).order(:created_at)
 File.open("contacts.csv", "w+") do |f|
   f << @contacts.as_csv
 end

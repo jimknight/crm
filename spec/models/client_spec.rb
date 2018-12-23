@@ -39,6 +39,8 @@ RSpec.describe Client, :type => :model do
   describe "as_csv" do
     it "should bring in the data for contacts associated" do
       @client = Client.create!(:name => "SGA")
+      @rep = User.create(:email => "rep@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga")
+      @client.users << @rep
       @contact1 = Contact.new(name: "Wayne Scarano", email: "wscarano@sga.com")
       @contact2 = Contact.new(name: "Jim Knight", email: "jim@sga.com")
       @client.contacts = [@contact1, @contact2]

@@ -104,31 +104,47 @@ namespace :load_data do
   task :clients_from_csv => :environment do
     file_path = "clients.csv"
     CSV.foreach(file_path, :headers => true) do |row|
-      id = row["id"]
-      name = row["name"]
-      street1 = row["street1"]
-      street2 = row["street2"]
-      city = row["city"]
-      state = row["state"]
-      zip = row["zip"]
-      phone = row["phone"]
-      industry = row["industry"]
-      created_at = row["created_at"]
-      updated_at = row["updated_at"]
-      fax = row["fax"]
-      street3 = row["street3"]
-      client_type = row["client_type"]
-      status = row["status"]
-      eid = row["eid"]
-      prospect_type = row["prospect_type"]
-      source = row["source"]
-      form_dump = row["form_dump"]
-      import_datetime = row["import_datetime"]
-      comments = row["comments"]
-      country = row["country"]
-      puts "EID = #{eid}"
-        existing_client = Client.find_by_eid(eid)
+      puts "EID = #{row["eid"]}"
+        existing_client = Client.find_by_eid(row["eid"])
         if existing_client.nil?
+          new_client = Client.create!(
+            :client_type => row["client_type"],
+            :comments => row["comments"],
+            :industry => row["industry"],
+            :eid => row["eid"],
+            :name => row["name"],
+            :phone => row["phone"],
+            :street1 => row["street1"],
+            :street2 => row["street2"],
+            :street3 => row["street3"],
+            :city => row["city"],
+            :state => row["state"],
+            :zip => row["zip"],
+            :country => row["country"],
+            :import_datetime => row["import_datetime"],
+            :prospect_type => row["prospect_type"],
+            :source => row["source"],
+            :form_dump => row["form_dump"],
+            :status => row["status"],
+            :fax => row["fax"]
+          )
+          puts "Imported #{new_client.name}"
+          row["contacts_email"].split(",").each do |contact_email|
+            contact = Contact.find_by(email: contact_email)
+            if contact.present?
+              puts "Found contact #{contact_email} for client #{new_client.name}"
+              new_client.contacts << contact
+            end
+          end
+          row["users_email"].split(",").each do |user_email|
+            user = User.find_by(email: user_email)
+            if user.present?
+              puts "Found user #{user_email} for client #{new_client.name}"
+              new_client.users << user
+            end
+          end
+        else
+          puts "Skipping EID = #{row["eid"]} for client #{row["name"]}. Already in DB by EID"
         end
     end
   end
@@ -155,11 +171,3 @@ namespace :load_data do
     end
   end
 end
-
-#
-#
-#
-
-# id	name	street1	street2	city	state	zip	phone	industry
-# created_at	updated_at	fax	street3	client_type	status	eid	prospect_type	source
-# form_dump	import_datetime	comments	country
