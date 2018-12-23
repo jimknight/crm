@@ -92,3 +92,65 @@ dcprod run app psql -h db -U postgres crm_production
 
 ### Test outbound email to jim
 UserMailer.test_email_to_jim().deliver_now()
+
+### View the docker volumes
+* There is one for the postgres data and one for the uploads data
+
+[ec2-user@ip-10-0-0-245 public]$ docker volume ls
+DRIVER              VOLUME NAME
+local               crm_postgres_data
+local               crm_uploads_data
+
+[ec2-user@ip-10-0-0-245 public]$ docker volume inspect crm_uploads_data
+[
+    {
+        "CreatedAt": "2018-12-21T01:59:02Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.project": "crm",
+            "com.docker.compose.version": "1.23.1",
+            "com.docker.compose.volume": "uploads_data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/crm_uploads_data/_data",
+        "Name": "crm_uploads_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+Need sudo to get access to it
+[ec2-user@ip-10-0-0-245 public]$ sudo ls /var/lib/docker/volumes/crm_uploads_data/_data -lsa
+total 0
+0 drwxrwxr-x 4 root root 44 Dec 21 01:59 .
+0 drwxr-xr-x 3 root root 19 Dec 21 01:59 ..
+0 drwxr-xr-x 3 root root 24 Dec 21 01:59 activity_attachment
+0 drwxr-xr-x 2 root root  6 Dec 21 18:35 tmp
+
+Here's where the files are right now
+[ec2-user@ip-10-0-0-245 public]$ sudo ls /var/lib/docker/volumes/crm_uploads_data/_data/activity_attachment/attachment
+4198  4199  4200  4202	4203  4204  4205  4206	4207  4208  4209
+
+# Copy from my other location
+sudo cp -r ~/crm_uploads_from_before_aws/activity_attachment/attachment /var/lib/docker/volumes/crm_uploads_data/_data/activity_attachment/
+
+### Get the missing clients
+* https://richonrails.com/articles/exporting-to-csv-using-ruby-on-rails-3-and-ruby-1-9
+require 'csv'
+def self.as_csv
+  CSV.generate do |csv|
+    csv << column_names
+    all.each do |item|
+      csv << item.attributes.values_at(*column_names)
+    end
+  end
+end
+@clients = Client.order(:created_at)
+File.open("clients.csv", "w+") do |f|
+  f << @clients.as_csv
+end
+
+### Get the missing contacts
+@contacts = Contact.order(:created_at)
+File.open("contacts.csv", "w+") do |f|
+  f << @contacts.as_csv
+end

@@ -99,4 +99,67 @@ namespace :load_data do
       end
     end
   end
+
+  desc "Backfill clients loaded from old system and saved as csv"
+  task :clients_from_csv => :environment do
+    file_path = "clients.csv"
+    CSV.foreach(file_path, :headers => true) do |row|
+      id = row["id"]
+      name = row["name"]
+      street1 = row["street1"]
+      street2 = row["street2"]
+      city = row["city"]
+      state = row["state"]
+      zip = row["zip"]
+      phone = row["phone"]
+      industry = row["industry"]
+      created_at = row["created_at"]
+      updated_at = row["updated_at"]
+      fax = row["fax"]
+      street3 = row["street3"]
+      client_type = row["client_type"]
+      status = row["status"]
+      eid = row["eid"]
+      prospect_type = row["prospect_type"]
+      source = row["source"]
+      form_dump = row["form_dump"]
+      import_datetime = row["import_datetime"]
+      comments = row["comments"]
+      country = row["country"]
+      puts "EID = #{eid}"
+        existing_client = Client.find_by_eid(eid)
+        if existing_client.nil?
+        end
+    end
+  end
+
+  desc "Backfill contacts loaded from old system and saved as csv"
+  task :contacts_from_csv => :environment do
+    file_path = "contacts.csv"
+    CSV.foreach(file_path, :headers => true) do |row|
+      id = row["id"]
+      name = row["name"]
+      title = row["title"]
+      email = row["email"]
+      work_phone = row["work_phone"]
+      mobile_phone = row["mobile_phone"]
+      client_id = row["client_id"]
+      created_at = row["created_at"]
+      updated_at = row["updated_at"]
+      contact_description = row["contact_description"]
+      work_phone_extension = row["work_phone_extension"]
+      comments = row["comments"]
+      contact_params = {name: name, title: title, email: email, work_phone: work_phone, mobile_phone: mobile_phone, contact_description: contact_description, work_phone_extension: work_phone_extension}
+      puts "Importing name: #{name} with email: #{email}"
+      Contact.create_from_import(contact_params)
+    end
+  end
 end
+
+#
+#
+#
+
+# id	name	street1	street2	city	state	zip	phone	industry
+# created_at	updated_at	fax	street3	client_type	status	eid	prospect_type	source
+# form_dump	import_datetime	comments	country
