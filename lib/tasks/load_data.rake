@@ -100,6 +100,77 @@ namespace :load_data do
     end
   end
 
+  desc "Backfill activities loaded from old system and saved as csv"
+  task :activities_from_csv => :environment do
+    file_path = "activities.csv"
+    CSV.foreach(file_path, :headers => true) do |row|
+      puts "Processing activity #{row["id"]}"
+
+      clients_eid = row["clients_eid"].nil? ? row["clients_eid"] : row["clients_eid"].gsub("\t","").strip
+      clients_name = row["clients_name"].nil? ? row["clients_name"] : row["clients_name"].gsub("\t","").strip
+      if clients_eid.present?
+        client = Client.find_by(eid: clients_eid)
+      else
+        client = Client.find_by(name: clients_name)
+      end
+      if client.nil?
+        puts "No client with name = #{clients_name} or eid = #{clients_eid} found. NO ACTIVITY CREATED!!!! BAD!!!"
+      else
+        puts "Client #{clients_name} found"
+        activity = Activity.create_from_import(
+          activity_date: Date.parse(row["activity_date"]),
+          client_id: client.id,
+          city: row["city"],
+          state: row["state"],
+          industry: row["industry"],
+          comments: row["comments"]
+        )
+
+        contact_email = row["contact_email"].nil? ? row["contact_email"] : row["contact_email"].gsub("\t","").strip
+        if contact_email.nil?
+          puts "No contact email on this activity"
+        else
+          contact = Contact.find_by(email: contact_email)
+          if contact.nil?
+            puts "No contact with email = #{contact_email} found"
+          else
+            puts "Contact #{contact_email} found"
+            activity.contact = contact
+            activity.save!
+          end
+        end
+
+        users_email = row["users_email"].nil? ? row["users_email"] : row["users_email"].gsub("\t","").strip
+        if users_email.nil?
+          puts "No user email on this activity"
+        else
+          user = User.find_by(email: users_email)
+          if user.nil?
+            puts "No user with email = #{users_email} found"
+          else
+            puts "User #{users_email} found"
+            activity.user = user
+            activity.save!
+          end
+        end
+
+        models_name = row["models_name"].nil? ? row["models_name"] : row["models_name"].gsub("\t","").strip
+        if models_name.present?
+          models_name.split(",").each do |mn|
+            model = Model.find_by(name: mn)
+            if model.nil?
+              puts "No model found with name = #{mn}"
+            else
+              puts "Model #{mn} found"
+              activity.models << model
+            end
+          end
+        end
+
+      end
+    end
+  end
+
   desc "Backfill clients loaded from old system and saved as csv"
   task :clients_from_csv => :environment do
     file_path = "clients.csv"
