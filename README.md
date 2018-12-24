@@ -158,3 +158,32 @@ this_month = Date.new(2018,12,1)
 File.open("contacts.csv", "w+") do |f|
   f << @contacts.as_csv
 end
+
+### Get the missing activities
+
+def self.create_from_import(activity_params)
+  match_params = {activity_date: activity_params[:activity_date].in_time_zone("Eastern Time (US & Canada)"), client_id: activity_params[:client_id]}
+  existing_activity = Activity.find_by(match_params)
+  if existing_activity.nil?
+    Activity.create(activity_params)
+  else
+    existing_activity
+  end
+end
+
+def self.as_csv
+  CSV.generate do |csv|
+    x = column_names + ["contact_email", "users_email", "clients_name", "clients_eid", "models_name", "activity_attachments"]
+    csv << x
+    all.each do |item|
+      y = item.attributes.values_at(*column_names) + [item.contact.nil? ? "" : item.contact.email] + [item.user.nil? ? "" : item.user.email] + [item.client.nil? ? "" : item.client.name] + [item.client.nil? ? "" : item.client.eid] + [item.models.pluck("name").join(",")] + [item.activity_attachments.pluck("attachment").join(",")]
+      csv << y
+    end
+  end
+end
+
+this_month = Date.new(2018,12,1)
+@activities = Activity.where("created_at >= ?", this_month).order(:created_at)
+File.open("activities.csv", "w+") do |f|
+  f << @activities.as_csv
+end
