@@ -33,3 +33,7 @@ config/secrets.yml
 /db/pgsql/
 *.dump
 *.pem
+
+# Data files
+*.csv
+*.gz
