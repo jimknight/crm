@@ -175,7 +175,11 @@ namespace :load_data do
   task :clients_from_csv => :environment do
     file_path = "clients.csv"
     CSV.foreach(file_path, :headers => true) do |row|
-      puts "EID = #{row["eid"]}"
+      puts "Processing #{row["name"]}"
+      if row["eid"].nil?
+        puts "No eid found so just create the client #{row["name"]}"
+      else
+        puts "EID = #{row["eid"]}"
         existing_client = Client.find_by_eid(row["eid"])
         if existing_client.nil?
           new_client = Client.create!(
@@ -217,6 +221,7 @@ namespace :load_data do
         else
           puts "Skipping EID = #{row["eid"]} for client #{row["name"]}. Already in DB by EID"
         end
+      end
     end
   end
 
