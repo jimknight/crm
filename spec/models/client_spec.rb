@@ -70,4 +70,14 @@ RSpec.describe Client, :type => :model do
       Client.find_by_name("ARDEC / US Army").should_not == nil
     end
   end
+  describe "create" do
+    it "should remove any spaces off the end of the client name when saving or creating" do
+      name_without_spaces = "SGA"
+      name_with_spaces = "SGA "
+      client1 = Client.create(name: name_without_spaces)
+      client2 = Client.create(name: name_with_spaces)
+      client1.name.should == client2.name
+      client1.client_type.should == "Client"
+    end
+  end
 end

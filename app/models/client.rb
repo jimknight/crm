@@ -28,7 +28,7 @@
 
 class Client < ActiveRecord::Base
 
-  before_save :default_values
+  before_save :default_values, :trim_spaces_from_name
   has_many :activities, dependent: :destroy
   has_many :contacts, dependent: :destroy
   has_and_belongs_to_many :users
@@ -76,6 +76,10 @@ class Client < ActiveRecord::Base
   def default_values
     self.client_type ||= 'Client'
     self.status ||= 'Active'
+  end
+
+  def trim_spaces_from_name
+    self.name = self.name.strip
   end
 
   def self.as_csv
