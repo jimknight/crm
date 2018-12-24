@@ -178,6 +178,42 @@ namespace :load_data do
       puts "Processing #{row["name"]}"
       if row["eid"].nil?
         puts "No eid found so just create the client #{row["name"]}"
+        new_client = Client.create!(
+          :client_type => row["client_type"],
+          :comments => row["comments"],
+          :industry => row["industry"],
+          :eid => row["eid"],
+          :name => row["name"],
+          :phone => row["phone"],
+          :street1 => row["street1"],
+          :street2 => row["street2"],
+          :street3 => row["street3"],
+          :city => row["city"],
+          :state => row["state"],
+          :zip => row["zip"],
+          :country => row["country"],
+          :import_datetime => row["import_datetime"],
+          :prospect_type => row["prospect_type"],
+          :source => row["source"],
+          :form_dump => row["form_dump"],
+          :status => row["status"],
+          :fax => row["fax"]
+        )
+        puts "Imported #{new_client.name}"
+        row["contacts_email"].split(",").each do |contact_email|
+          contact = Contact.find_by(email: contact_email)
+          if contact.present?
+            puts "Found contact #{contact_email} for client #{new_client.name}"
+            new_client.contacts << contact
+          end
+        end
+        row["users_email"].split(",").each do |user_email|
+          user = User.find_by(email: user_email)
+          if user.present?
+            puts "Found user #{user_email} for client #{new_client.name}"
+            new_client.users << user
+          end
+        end
       else
         puts "EID = #{row["eid"]}"
         existing_client = Client.find_by_eid(row["eid"])
