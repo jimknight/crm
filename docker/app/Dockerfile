@@ -9,11 +9,16 @@ RUN apt-get update -yqq \
     nodejs \
     qt5-default \
     libqt5webkit5-dev \
-    postgresql-client \
     cron \
     vim-gocomplete \
   && apt-get -q clean \
   && rm -rf /var/lib/apt/lists
+
+# Postgres
+RUN wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+RUN apt-get update
+RUN apt-get install postgresql postgresql-contrib -y
 
 # Set an environment variable where the Rails app is installed to inside of Docker image
 ENV RAILS_ROOT /var/www/crm
