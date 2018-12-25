@@ -5,6 +5,7 @@ volumes:
   uploads_data: {}
   postgres_data: {}
   backups: {}
+  log: {}
 
 services:
   app:
@@ -13,8 +14,9 @@ services:
       context: .
       dockerfile: ./docker/app/Dockerfile
     volumes:
-      - uploads_data:/var/www/crm/public/uploads
       - backups:/var/www/crm/backups
+      - uploads_data:/var/www/crm/public/uploads
+      - log:/var/www/crm/log
     ports:
       - 25
       - 3000:3000
