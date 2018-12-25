@@ -195,3 +195,20 @@ end
 * apt-get update
 * apt-get install postgresql postgresql-contrib -y
 * pg_dump -h db -U postgres crm_production | gzip -c > crm.2018-12-25.dump.gz
+
+### Find missing activity attachments
+Activity.all.each do |activity|
+  if activity.activity_attachments.present?
+    activity.activity_attachments.each do |aa|
+      file_path = aa.attachment.file.file
+      if !File.exist?(file_path)
+        puts "================================="
+        puts "#{file_path} missing!"
+        puts "ID = #{activity.id}"
+        puts "User id = #{activity.user_id} which is #{activity.user.email}"
+        puts "Activity date = #{activity.activity_date}"
+        puts "Client = #{activity.client.name}"
+      end
+    end
+  end
+end
