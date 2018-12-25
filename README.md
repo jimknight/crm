@@ -187,3 +187,11 @@ this_month = Date.new(2018,12,1)
 File.open("activities.csv", "w+") do |f|
   f << @activities.as_csv
 end
+
+### How to install Postgress 11 on Debian
+* https://tecadmin.net/install-postgresql-on-debian-9-stretch/
+* wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
+* sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+* apt-get update
+* apt-get install postgresql postgresql-contrib -y
+* pg_dump -h db -U postgres crm_production | gzip -c > crm.2018-12-25.dump.gz
