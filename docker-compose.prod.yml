@@ -4,6 +4,7 @@ version: '3'
 volumes:
   uploads_data: {}
   postgres_data: {}
+  backups: {}
 
 services:
   app:
@@ -13,6 +14,7 @@ services:
       dockerfile: ./docker/app/Dockerfile
     volumes:
       - uploads_data:/var/www/crm/public/uploads
+      - backups:/var/www/crm/backups
     ports:
       - 25
       - 3000:3000

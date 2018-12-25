@@ -23,7 +23,6 @@ every 1.hours do
   rake "load_data:prospects", :output => {:error => 'log/cron_load_data_prospects_error.log', :standard => 'log/cron_load_data_prospects.log'}
 end
 
-# TODO - get this working later but to another destination volume
-# every 1.day, :at => '11:30 pm' do
-#   rake "db:backup", :output => {:error => 'log/cron_db_backup_error.log', :standard => 'log/cron_db_backup.log'}
-# end
+every 1.day, :at => '11:30 pm' do
+  rake "db:backup", :output => {:error => 'log/cron_db_backup_error.log', :standard => 'log/cron_db_backup.log'}
+end
