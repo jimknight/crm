@@ -212,3 +212,15 @@ Activity.all.each do |activity|
     end
   end
 end
+
+
+### Setup cron at the server level
+
+[ec2-user@ip-10-0-0-245 crm]$ crontab -l
+@reboot (sleep 30s ; cd /home/ec2-user/crm ; /usr/local/bin/docker-compose -f docker-compose.prod.yml up -d )&
+
+# Import prospects hourly
+0 * * * * docker-compose -f /home/ec2-user/crm/docker-compose.prod.yml run --rm app bundle exec rake load_data:prospects
+
+# Make a database backup daily
+30 23 * * * docker-compose -f /home/ec2-user/crm/docker-compose.prod.yml run --rm app bundle exec rake db:backup
