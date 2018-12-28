@@ -220,7 +220,7 @@ end
 @reboot (sleep 30s ; cd /home/ec2-user/crm ; /usr/local/bin/docker-compose -f docker-compose.prod.yml up -d )&
 
 # Import prospects hourly
-0 * * * * docker-compose -f /home/ec2-user/crm/docker-compose.prod.yml run --rm app bundle exec rake load_data:prospects
+0 * * * * /usr/local/bin/docker-compose -f /home/ec2-user/crm/docker-compose.prod.yml run --rm app bundle exec rake load_data:prospects
 
 # Make a database backup daily
-30 23 * * * docker-compose -f /home/ec2-user/crm/docker-compose.prod.yml run --rm app bundle exec rake db:backup
+30 23 * * * /usr/local/bin/docker-compose -f /home/ec2-user/crm/docker-compose.prod.yml run --rm app bundle exec rake db:backup
