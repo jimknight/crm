@@ -18,8 +18,8 @@ services:
       - uploads_data:/var/www/crm/public/uploads
       - log:/var/www/crm/log
     ports:
-      - 25
-      - 3000:3000
+      - "25:25"
+      - "3000:3000"
     depends_on:
       - db
 
@@ -38,5 +38,5 @@ services:
     depends_on:
       - app
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
