@@ -18,6 +18,7 @@ services:
       - uploads_data:/var/www/crm/public/uploads
       - log:/var/www/crm/log
     ports:
+      - "25:25"
       - "3000:3000"
     depends_on:
       - db
