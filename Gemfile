@@ -37,7 +37,7 @@ end
 
 gem 'annotate', '~> 2.6.5'
 
-gem 'bootstrap-sass', '~> 3.3.1'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'autoprefixer-rails'
 
 # https://github.com/plataformatec/devise/issues/4630

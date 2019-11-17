@@ -75,9 +75,9 @@ GEM
     autoprefixer-rails (9.7.1)
       execjs
     bcrypt (3.1.13)
-    bootstrap-sass (3.3.5)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     bourbon (6.0.0)
       thor (~> 0.19)
     builder (3.2.3)
@@ -143,6 +143,7 @@ GEM
     faker (2.2.1)
       i18n (>= 0.8)
     fastercsv (1.5.5)
+    ffi (1.11.2)
     figaro (1.1.1)
       thor (~> 0.14)
     formtastic (3.1.5)
@@ -290,6 +291,8 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    sassc (2.2.1)
+      ffi (~> 1.9)
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -333,7 +336,7 @@ DEPENDENCIES
   annotate (~> 2.6.5)
   area
   autoprefixer-rails
-  bootstrap-sass (~> 3.3.1)
+  bootstrap-sass (~> 3.4.1)
   business_time
   capistrano (~> 3.1)
   capistrano-bundler
