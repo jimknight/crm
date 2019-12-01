@@ -18,9 +18,9 @@ class ProspectsController < ApplicationController
     else
       @unassigned_prospects = @unassigned_prospects.order(:import_datetime)
     end
-    @assigned_prospects_to_rsms = Client.assigned_prospects_to_rsms.order(:name)
+    @assigned_prospects_to_rsms = Client.assigned_prospects_to_rsms.order(:import_datetime)
     @assigned_prospects_to_outsiders = Client.assigned_prospects_to_outsiders.order(:name)
-    @assigned_prospects_to_current_rsm = current_user.clients.assigned_prospects_to_rsms.order(:name)
+    @assigned_prospects_to_current_rsm = current_user.clients.assigned_prospects_to_rsms.order(:import_datetime)
   end
 
   def new
