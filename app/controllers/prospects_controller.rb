@@ -4,23 +4,84 @@ class ProspectsController < ApplicationController
   autocomplete :outsider, :email, :full => true
 
   def index
-    @unassigned_prospects = Client.unassigned_prospects
-    if params[:search_state].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
-    elsif params[:search_name].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name, :city)
-    elsif params[:search_city].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name, :city)
-    elsif params[:search_phone].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name, :city)
-    elsif params[:search].present?
-      @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search].downcase}%").order(:name, :city)
+    if current_user.admin?
+      redirect_to prospects_unassigned_path
     else
-      @unassigned_prospects = @unassigned_prospects.order(:import_datetime)
+      redirect_to prospects_assignedcurrentrsm_path
     end
-    @assigned_prospects_to_rsms = Client.assigned_prospects_to_rsms.order(:import_datetime)
-    @assigned_prospects_to_outsiders = Client.assigned_prospects_to_outsiders.order(:name)
-    @assigned_prospects_to_current_rsm = current_user.clients.assigned_prospects_to_rsms.order(:import_datetime)
+  end
+
+# Add if not admin go to the other one
+  def unassigned
+    if current_user.admin?
+      @unassigned_prospects = Client.unassigned_prospects.order(:import_datetime)
+      if params[:search_city].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name)
+      elsif params[:search_state].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name)
+      elsif params[:search_name].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name)
+      elsif params[:search_phone].present?
+        @unassigned_prospects = @unassigned_prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name)
+      else
+        @unassigned_prospects = @unassigned_prospects.order(:import_datetime)
+      end
+    else
+      redirect_to prospects_assignedcurrentrsm_path
+    end
+  end
+
+  def assignedoutsider
+    if current_user.admin?
+      @prospects = Client.assigned_prospects_to_outsiders.order(:name)
+      if params[:search_city].present?
+        @prospects = @prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name)
+      elsif params[:search_state].present?
+        @prospects = @prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name)
+      elsif params[:search_name].present?
+        @prospects = @prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name)
+      elsif params[:search_phone].present?
+        @prospects = @prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name)
+      else
+        @prospects = @prospects.order(:import_datetime)
+      end
+    else
+      redirect_to prospects_assignedcurrentrsm_path
+    end
+  end
+
+  def assignedcurrentrsm
+    @prospects = current_user.clients.assigned_prospects_to_rsms.order(:import_datetime)
+    if params[:search_city].present?
+      @prospects = @prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name)
+    elsif params[:search_state].present?
+      @prospects = @prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name)
+    elsif params[:search_name].present?
+      @prospects = @prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name)
+    elsif params[:search_phone].present?
+      @prospects = @prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name)
+    else
+      @prospects = @prospects.order(:import_datetime)
+    end
+  end
+
+  def assignedrsm
+    if current_user.admin?
+        @prospects = Client.assigned_prospects_to_rsms.order(:import_datetime)
+      if params[:search_city].present?
+        @prospects = @prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name)
+      elsif params[:search_state].present?
+        @prospects = @prospects.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name)
+      elsif params[:search_name].present?
+        @prospects = @prospects.where('lower(name) LIKE ?', "%#{params[:search_name].downcase}%").order(:name)
+      elsif params[:search_phone].present?
+        @prospects = @prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name)
+      else
+        @prospects = @prospects.order(:import_datetime)
+      end
+    else
+      redirect_to prospects_assignedcurrentrsm_path
+    end
   end
 
   def new
