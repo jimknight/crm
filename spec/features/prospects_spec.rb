@@ -128,13 +128,14 @@ describe "index" do
     @prospect_assigned_to_another_rsm.users << @rsm1
     @prospect_assigned_to_this_rsm = Client.create!(:name => "LavaTech",:client_type => "Prospect")
     @prospect_assigned_to_this_rsm.users << @rsm2
-    visit prospects_path
+    visit prospects_assignedrsm_path
     fill_in "Email", :with => "admin@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
     page.should have_link "Acme"
-    page.should have_link "SGA"
     page.should have_link "LavaTech"
+    visit prospects_unassigned_path
+    page.should have_link "SGA"
     click_link "Logout"
     visit prospects_path
     fill_in "Email", :with => "rsm1@sga.com"
@@ -192,12 +193,14 @@ describe "index" do
     @prospect1 = Client.create!(:name => "SGA",:client_type => "Prospect",:city => "Hillsborough",:state => "NJ",:country => "US")
     @prospect2 = Client.create!(:name => "LavaTech",:client_type => "Prospect",:city => "Leesburg",:state => "VA")
     @admin = User.create!(:email => "admin@sga.com", :password => "ilovesga", :password_confirmation => "ilovesga", :admin => true)
-    visit prospects_path
+    visit prospects_unassigned_path
     fill_in "Email", :with => "admin@sga.com"
     fill_in "Password", :with => "ilovesga"
     click_button "Sign in"
-    page.should have_content "Hillsborough, NJ (US)"
-    page.should have_content "Leesburg, VA"
+    page.should have_content "Hillsborough"
+    page.should have_content "NJ"
+    page.should have_content "Leesburg"
+    page.should have_content "VA"
   end
 end
 

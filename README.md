@@ -1,5 +1,9 @@
 # CRM Mobile
 
+## v1.1 todo
+
+* Get production data
+
 ### Install Procedures
 
 * rake load_data:clients                  # Load all the clients
@@ -79,6 +83,7 @@ dcprod run app psql -h db -U postgres crm_production
 * dcprod run app createdb -U postgres -h db -T template0 crm_production
 * dcprod run app bash
 * cat ./crm.2018-12-08.dump.gz | gunzip | psql -h db -U postgres crm_production
+* /var/lib/docker/volumes/crm_backups/_data
 
 ### Old IP
 * 72.28.113.176
