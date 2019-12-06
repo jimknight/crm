@@ -1,0 +1,50 @@
+<h2>Prospects</h2>
+<% if current_user.admin? || current_user.marketing? %>
+  <p><%= link_to 'New Prospect', new_prospect_path, :class => "btn btn-primary" %></p>
+<% end %>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#" onclick="javascript:window.location.href='/prospects/unassigned'">Unassigned</a></li>
+  <li><a href="#" onclick="javascript:window.location.href='/prospects/assignedrsm'">Assigned to RSMs</a></li>
+  <li><a href="#" onclick="javascript:window.location.href='/prospects/assignedoutsider'">Assigned to External Users</a></li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="unassigned">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>State</th>
+          <th>City</th>
+          <th>Phone</th>
+          <th>Imported</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= form_tag prospects_unassigned_path, :method => 'get' do %>
+            <%= search_field_tag :search_name, params[:search_name], :placeholder => "search" %>
+            <% end %></td>
+          <td><%= form_tag prospects_unassigned_path, :method => 'get' do %><%= search_field_tag :search_state, params[:search_state], :placeholder => "search" %><% end %></td>
+          <td><%= form_tag prospects_unassigned_path, :method => 'get' do %><%= search_field_tag :search_city, params[:search_city], :placeholder => "search" %><% end %></td>
+          <td><%= form_tag prospects_unassigned_path, :method => 'get' do %><%= search_field_tag :search_phone, params[:search_phone], :placeholder => "search" %><% end %></td>
+          <td>&nbsp;</td>
+        </tr>
+        <% @unassigned_prospects.each do |prospect| %>
+          <tr>
+            <td><%= link_to prospect.name, prospect_path(prospect) %></td>
+            <td><%= prospect.state %></td>
+            <td><%= prospect.city %></td>
+            <td><%= prospect.phone %></td>
+            <td nowrap="nowrap">
+              <% if !prospect.import_datetime.nil? %>
+                <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P %Z") %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

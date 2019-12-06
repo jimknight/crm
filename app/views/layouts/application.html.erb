@@ -80,9 +80,16 @@
         <% else %>
           <li>
         <% end %>
-          <%= link_to prospects_path do %>
-            <i class="fas fa-user"></i>
-            Prospects
+          <% if current_user && current_user.admin? %>
+            <%= link_to prospects_unassigned_path do %>
+              <i class="fas fa-user"></i>
+              Prospects
+            <% end %>
+          <% else %>
+            <%= link_to prospects_assignedcurrentrsm_path do %>
+              <i class="fas fa-user"></i>
+              Prospects
+            <% end %>
           <% end %>
         </li>
         <% if @tab == "Models" %>

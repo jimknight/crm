@@ -44,6 +44,10 @@ Rails.application.routes.draw do
     resources :contacts
   end
   resources :outsiders
+  get 'prospects/unassigned' => 'prospects#unassigned'
+  get 'prospects/assignedoutsider' => 'prospects#assignedoutsider'
+  get 'prospects/assignedrsm' => 'prospects#assignedrsm'
+  get 'prospects/assignedcurrentrsm' => 'prospects#assignedcurrentrsm'  
   resources :prospects do
     get :autocomplete_outsider_email, :on => :collection
     resources :contacts
