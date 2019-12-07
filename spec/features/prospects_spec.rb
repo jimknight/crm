@@ -265,7 +265,7 @@ describe "show" do
     page.should_not have_content "admin@sga.com"
     page.should have_content "1 RSM"
     sent_email = ActionMailer::Base.deliveries.last
-    sent_email.subject.should == "New Lead: LavaTech"
+    sent_email.subject.should == "Inquiry at Mixers.com from LavaTech"
     sent_email.text_part.body.to_s.should have_content "Sent from SGA"
     sent_email.html_part.body.to_s.should have_content "Sent from SGA"
   end
