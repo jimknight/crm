@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
     return if @send_to == ""
     @city = @client.city.present? ? ", #{@client.city}" : ""
     @url = prospect_url(@client)
-    mail(from: "noreply@sga.com", to: @send_to, subject: "New Lead: #{@client.name}#{@city}, #{contact.name}")
+    mail(from: "noreply@sga.com", to: @send_to, subject: "Inquiry at Mixers.com from #{contact.name}")
   end
 
   def notify_on_client_delete(client,recipients,current_user)
@@ -29,7 +29,7 @@ class UserMailer < ActionMailer::Base
     @send_to = recipients
     @url = prospect_url(@prospect)
     @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
-    mail(from: "noreply@sga.com", to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")
+    mail(from: "noreply@sga.com", to: @send_to, subject: "Inquiry at Mixers.com from #{@prospect.name}")
   end
 
   def notify_outsider_of_prospect(prospect,outsider,current_user)
@@ -38,7 +38,7 @@ class UserMailer < ActionMailer::Base
     @send_to = outsider.email
     @url = prospect_url(@prospect)
     @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
-    mail(from: "noreply@sga.com", to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")
+    mail(from: "noreply@sga.com", to: @send_to, subject: "Inquiry at Mixers.com from #{@prospect.name}")
   end
 
   def notify_on_invalid_json(invalid_json_text)
