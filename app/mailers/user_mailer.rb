@@ -23,10 +23,10 @@ class UserMailer < ActionMailer::Base
     mail(from: "noreply@sga.com", to: @send_to, subject: "Deletion requested for: #{@client.name}#{@city}")
   end
 
-  def notify_rsm_new_prospect_contact_assignment(prospect,rsm,current_user)
+  def notify_rsm_new_prospect_contact_assignment(prospect,recipients,current_user)
     @user = current_user
     @prospect = prospect
-    @send_to = rsm.email
+    @send_to = recipients
     @url = prospect_url(@prospect)
     @city = @prospect.city.present? ? ", #{@prospect.city}" : ""
     mail(from: "noreply@sga.com", to: @send_to, subject: "New Lead: #{@prospect.name}#{@city}")

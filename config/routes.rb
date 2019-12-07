@@ -47,11 +47,12 @@ Rails.application.routes.draw do
   get 'prospects/unassigned' => 'prospects#unassigned'
   get 'prospects/assignedoutsider' => 'prospects#assignedoutsider'
   get 'prospects/assignedrsm' => 'prospects#assignedrsm'
-  get 'prospects/assignedcurrentrsm' => 'prospects#assignedcurrentrsm'  
+  get 'prospects/assignedcurrentrsm' => 'prospects#assignedcurrentrsm'
   resources :prospects do
     get :autocomplete_outsider_email, :on => :collection
     resources :contacts
     resources :outsiders
+    resources :rsms
   end
 
   get 'prospects/convert_to_client/:id' => 'prospects#convert_to_client', :as => 'convert_prospect_to_client'
@@ -62,7 +63,6 @@ Rails.application.routes.draw do
   root 'activities#index'
   get 'clients/:id/add-rsm-to-client' => 'clients#add_rsm_to_client', :as => 'add_rsm_to_client'
   get 'clients/:id/remove_rsm_from_client' => 'clients#remove_rsm_from_client', :as => 'remove_rsm_from_client'
-  get 'prospects/:id/add-rsm-to-prospect' => 'prospects#add_rsm_to_prospect', :as => 'add_rsm_to_prospect'
   get 'prospects/:id/remove_rsm_from_prospect' => 'prospects#remove_rsm_from_prospect', :as => 'remove_rsm_from_prospect'
   get '/auditlogs' => 'audit_logs#index'
 
