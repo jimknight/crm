@@ -155,18 +155,6 @@ class ProspectsController < ApplicationController
     redirect_to client_path(@prospect), notice: "Converted this prospect to an active client"
   end
 
-  def add_rsm_to_prospect
-    @prospect = Client.find(params[:id])
-    if params[:user_id].nil?
-      @profiles = Profile.all.order(:first_name,:last_name)
-    else
-      @rsm = User.find(params[:user_id])
-      @prospect.users << @rsm
-      UserMailer.notify_rsm_new_prospect_contact_assignment(@prospect,@rsm,current_user).deliver_now # email alert
-      redirect_to prospect_path(@prospect), notice: "#{@rsm.user_name} was added to this prospect."
-    end
-  end
-
   def remove_rsm_from_prospect
     @prospect = Client.find(params[:id])
     @user = User.find(params[:user_id])

@@ -7,8 +7,8 @@
     <%= link_to new_prospect_contact_path(@prospect), :class => "btn btn-primary" do %>
       <i class="fas fa-plus"></i> Add Contact
   <% end %>
-    <%= link_to add_rsm_to_prospect_path(@prospect), :class => "btn btn-primary" do %>
-      <i class="fas fa-user"></i> Assign to RSM
+    <%= link_to new_prospect_rsm_path(@prospect), :class => "btn btn-primary" do %>
+      <i class="fas fa-user"></i> Assign to RSM(s)
   <% end %>
     <%= link_to new_prospect_outsider_path(@prospect), :class => "btn btn-primary" do %>
       <i class="fas fa-envelope"></i> Assign to External
