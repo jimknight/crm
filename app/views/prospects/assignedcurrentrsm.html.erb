@@ -31,7 +31,7 @@
         <td><%= prospect.phone %></td>
         <td nowrap="nowrap">
           <% if !prospect.import_datetime.nil? %>
-            <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P %Z") %>
+            <%= prospect.import_datetime.strftime("%m/%d/%Y %I:%M %P") %>
           <% end %>
         </td>
       </tr>

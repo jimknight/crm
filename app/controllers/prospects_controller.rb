@@ -14,7 +14,7 @@ class ProspectsController < ApplicationController
 # Add if not admin go to the other one
   def unassigned
     if current_user.admin?
-      @unassigned_prospects = Client.unassigned_prospects.order(:import_datetime)
+      @unassigned_prospects = Client.unassigned_prospects.order('import_datetime DESC')
       if params[:search_city].present?
         @unassigned_prospects = @unassigned_prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name)
       elsif params[:search_state].present?
@@ -24,7 +24,7 @@ class ProspectsController < ApplicationController
       elsif params[:search_phone].present?
         @unassigned_prospects = @unassigned_prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name)
       else
-        @unassigned_prospects = @unassigned_prospects.order(:import_datetime)
+        @unassigned_prospects = @unassigned_prospects.order('import_datetime DESC')
       end
     else
       redirect_to prospects_assignedcurrentrsm_path
@@ -33,7 +33,7 @@ class ProspectsController < ApplicationController
 
   def assignedoutsider
     if current_user.admin?
-      @prospects = Client.assigned_prospects_to_outsiders.order(:name)
+      @prospects = Client.assigned_prospects_to_outsiders.order('import_datetime DESC')
       if params[:search_city].present?
         @prospects = @prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name)
       elsif params[:search_state].present?
@@ -43,7 +43,7 @@ class ProspectsController < ApplicationController
       elsif params[:search_phone].present?
         @prospects = @prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name)
       else
-        @prospects = @prospects.order(:import_datetime)
+        @prospects = @prospects.order('import_datetime DESC')
       end
     else
       redirect_to prospects_assignedcurrentrsm_path
@@ -51,7 +51,7 @@ class ProspectsController < ApplicationController
   end
 
   def assignedcurrentrsm
-    @prospects = current_user.clients.assigned_prospects_to_rsms.order(:import_datetime)
+    @prospects = current_user.clients.assigned_prospects_to_rsms.order('import_datetime DESC')
     if params[:search_city].present?
       @prospects = @prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name)
     elsif params[:search_state].present?
@@ -61,13 +61,13 @@ class ProspectsController < ApplicationController
     elsif params[:search_phone].present?
       @prospects = @prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name)
     else
-      @prospects = @prospects.order(:import_datetime)
+      @prospects = @prospects.order('import_datetime DESC')
     end
   end
 
   def assignedrsm
     if current_user.admin?
-        @prospects = Client.assigned_prospects_to_rsms.order(:import_datetime)
+        @prospects = Client.assigned_prospects_to_rsms.order('import_datetime DESC')
       if params[:search_city].present?
         @prospects = @prospects.where('lower(city) LIKE ?', "%#{params[:search_city].downcase}%").order(:name)
       elsif params[:search_state].present?
@@ -77,7 +77,7 @@ class ProspectsController < ApplicationController
       elsif params[:search_phone].present?
         @prospects = @prospects.where('lower(phone) LIKE ?', "%#{params[:search_phone].downcase}%").order(:name)
       else
-        @prospects = @prospects.order(:import_datetime)
+        @prospects = @prospects.order('import_datetime DESC')
       end
     else
       redirect_to prospects_assignedcurrentrsm_path
