@@ -222,3 +222,6 @@ end
 
 # Make a database backup daily
 30 23 * * * /usr/local/bin/docker-compose -f /home/ec2-user/crm/docker-compose.prod.yml run --rm app bundle exec rake db:backup
+
+# Read production logs
+sudo tail -f /var/lib/docker/volumes/crm_log/_data/production.log
