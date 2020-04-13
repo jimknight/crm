@@ -51,6 +51,16 @@ class UserMailer < ActionMailer::Base
     mail(from: "noreply@sga.com", to: @send_to, subject: "The latest prospect import data has invalid JSON")
   end
 
+  def notify_on_encoding_error_during_import(invalid_json_text)
+    @settings_doc = Setting.first
+    return if @settings_doc.nil?
+    @send_to = @settings_doc.notify_on_invalid_json
+    return if @send_to == ""
+    @import_url = "http://leads.mixers.com/data/mainLeads.asp"
+    @invalid_json_text = invalid_json_text
+    mail(from: "noreply@sga.com", to: @send_to, subject: "The latest prospect import data caused a Encoding::UndefinedConversionError")
+  end
+
   def test_email_to_jim()
     mail(from: "noreply@sga.com", to: "jim@lavatech.com", subject: "Test email")
   end

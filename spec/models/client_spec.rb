@@ -52,6 +52,7 @@ RSpec.describe Client, :type => :model do
     before :each do
       @valid_json = File.read("#{Rails.root}/spec/support/factories/prospects_valid_sample.json")
       @invalid_json = File.read("#{Rails.root}/spec/support/factories/prospects_invalid_sample.json")
+      @russian_json = File.read("#{Rails.root}/spec/support/factories/prospects_russian.json")
     end
     it "should alert when json invalid" do
       FactoryGirl.create(:setting)
@@ -61,6 +62,13 @@ RSpec.describe Client, :type => :model do
       sent_email.subject.should == "The latest prospect import data has invalid JSON"
       sent_email.to.first.should == "wscarano@sga.com"
       sent_email.parts.first.body.raw_source.should include("ARDEC")
+    end
+    it "should alert when fails on json" do
+      FactoryGirl.create(:setting)
+      Client.import_prospects_via_json(@russian_json)
+      sent_email = ActionMailer::Base.deliveries.last
+      sent_email.subject.should == "The latest prospect import data caused a Encoding::UndefinedConversionError"
+      sent_email.to.first.should == "wscarano@sga.com"
     end
     it "should not alert when valid json and should import the data" do
       ActionMailer::Base.deliveries = []

@@ -157,6 +157,9 @@ class Client < ActiveRecord::Base
         else
           puts "Skipping EID = #{import_eid} for client #{import_company}. Import date of #{import_date} is too old."
         end
+        rescue Encoding::UndefinedConversionError
+          UserMailer.notify_on_encoding_error_during_import(json).deliver_now
+          next
       end
     else
       UserMailer.notify_on_invalid_json(json).deliver_now
