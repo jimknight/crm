@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180928172317) do
+ActiveRecord::Schema.define(version: 20200417190235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(version: 20180928172317) do
     t.text     "comments"
     t.string   "country"
   end
+
+  add_index "clients", ["eid"], name: "index_clients_on_eid", using: :btree
 
   create_table "clients_outsiders", id: false, force: :cascade do |t|
     t.integer "client_id",   null: false
