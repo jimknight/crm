@@ -41,7 +41,7 @@ class ClientsController < ApplicationController
 
   def index
     if current_user.admin?
-      @clients = Client.where(status: 'Active').where.not(client_type: 'Prospect')
+      @clients = Client.where(status: 'Active').where.not(client_type: 'Prospect').page params[:page]
     else
       @clients = current_user.clients.where(status: 'Active').where.not(client_type: 'Prospect')
     end

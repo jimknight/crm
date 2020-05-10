@@ -48,6 +48,7 @@
 * dcprod = docker-compose -f docker-compose.prod.yml
 * dcprod run app bundle exec rake db:create
 * dcprod run app bundle exec rake db:migrate
+* dcprod run app bundle exec rake db:migrate:up VERSION=20200417190235
 * bundle exec rake assets:precompile
 * dcprod run app psql -h db -U postgres crm_production < crm_production.dump
 
@@ -72,10 +73,13 @@ ssh -i "crmrossmixingcom.pem" ec2-user@34.238.211.171
 @reboot (sleep 30s ; cd /home/ec2-user/crm ; /usr/local/bin/docker-compose -f docker-compose.prod.yml up -d )&
 
 ### Rails console in production
-dcprod run app rails console production
+* dcprod run app rails console production
 
 ### Postgres console in production
-dcprod run app psql -h db -U postgres crm_production
+* dcprod run app psql -h db -U postgres crm_production
+
+### Testing bug with pagination
+* Need to comment out the pagination in the erb in audit log and clients to pass tests
 
 ### Backup and restore
 * pg_dump -h localhost -U postgres crm_production | gzip -c > /home/sgadeploy/backups/crm.2018-12-08.dump.gz
