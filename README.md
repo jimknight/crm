@@ -3,6 +3,7 @@
 ## v1.1 todo
 
 * Get production data
+* Get ruby version from the other computer
 
 ### Install Procedures
 
@@ -28,6 +29,7 @@
 ### Replace SSL cert
 #### From local, put rossmixing.crt certificate on the server somewhere:
 * scp rossmixing.crt sgadeploy@crm.rossmixing.com:~/.
+* scp -i "crmrossmixingcom.pem" docker/ssl/rossmixing.crt ec2-user@34.238.211.171:/home/ec2-user/crm/docker/ssl/.
 
 ### Mac dev for tests
 * For capybara-webkit need qt 5.5
