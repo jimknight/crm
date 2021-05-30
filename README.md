@@ -28,6 +28,9 @@
 
 ### Replace SSL cert
 #### From local, put rossmixing.crt certificate on the server somewhere:
+* https://www.ssls.com/knowledgebase/how-to-install-an-ssl-certificate-on-a-nginx-server/ (otherwise missing intermediate)
+* We combined the 2 certs domain and bundle into rossmixing.crt
+* https://blog.ivanristic.com/2013/08/configuring-apache-nginx-and-openssl-for-forward-secrecy.html
 * scp rossmixing.crt sgadeploy@crm.rossmixing.com:~/.
 * scp -i "crmrossmixingcom.pem" docker/ssl/rossmixing.crt ec2-user@34.238.211.171:/home/ec2-user/crm/docker/ssl/.
 
