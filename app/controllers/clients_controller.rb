@@ -43,7 +43,7 @@ class ClientsController < ApplicationController
     if current_user.admin?
       @clients = Client.where(status: 'Active').where.not(client_type: 'Prospect').page params[:page]
     else
-      @clients = current_user.clients.where(status: 'Active').where.not(client_type: 'Prospect')
+      @clients = current_user.clients.where(status: 'Active').where.not(client_type: 'Prospect').page params[:page]
     end
     if params[:search_state].present?
       @clients = @clients.where('lower(state) LIKE ?', "%#{params[:search_state].downcase}%").order(:name, :city)
