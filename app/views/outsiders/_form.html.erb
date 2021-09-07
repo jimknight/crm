@@ -3,12 +3,12 @@
 
   <div class="form-inputs">
     <% if Outsider.count == 0 %>
-      <%= f.input :email, :placeholder => "externaluser@company.com" %>
+      <%= f.input :email, :as => :email, :placeholder => "externaluser@company.com" %>
     <% else %>
-      <%= f.input :email, :input_html => { :class => "form-control" }, :url => autocomplete_outsider_email_prospects_path, :as => :autocomplete, :placeholder => "externaluser@company.com" %>
+      <%= f.input :email, :as => :email, :input_html => { :class => "form-control" }, :url => autocomplete_outsider_email_prospects_path, :as => :autocomplete, :placeholder => "externaluser@company.com" %>
     <% end %>
-    <%= f.input :first_name, :placeholder => "optional" %>
-    <%= f.input :last_name, :placeholder => "optional" %>
+    <%= f.input :first_name, :as => :text, :placeholder => "optional" %>
+    <%= f.input :last_name, :as => :text, :placeholder => "optional" %>
     <%= f.input :client, :as => :hidden, :input_html => { :value => @prospect.id } %>
   </div>
 

@@ -19,7 +19,7 @@
       <%= text_field_tag "new_contact", "", {:class => "form-control"}  %>
     </div>
   <% end %>
-  <%= f.input :title, label: 'Subject' %>
+  <%= f.input :title, as: :text, label: 'Subject' %>
   <div class="row">
     <div class="col-md-3">
       <%= f.label "Date" %><br>
@@ -46,7 +46,7 @@
     </div>
   </div>
   <br>
-  <%= f.input :comments %>
+  <%= f.input :comments, as: :text %>
   <%= button_tag(type: 'submit', :class => "btn btn-primary") do %>
     <i class="fas fa-check"></i> Save
   <% end %>
