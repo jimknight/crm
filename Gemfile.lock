@@ -174,7 +174,7 @@ GEM
       turbolinks
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (1.8.6)
+    json (2.5.1)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -264,7 +264,7 @@ GEM
       activesupport (>= 3.0, < 5.2)
       i18n
     rbtree (0.4.4)
-    rdoc (4.3.0)
+    rdoc (6.3.2)
     regexp_parser (2.1.1)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
@@ -298,9 +298,8 @@ GEM
       sprockets-rails (~> 2.0)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sdoc (0.4.2)
-      json (~> 1.7, >= 1.7.7)
-      rdoc (~> 4.0)
+    sdoc (2.2.0)
+      rdoc (>= 5.0)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -372,6 +371,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
+  json (>= 2.3.0)
   kaminari
   launchy
   letter_opener
@@ -389,7 +389,7 @@ DEPENDENCIES
   roo (~> 2.0.0)
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.3)
-  sdoc (~> 0.4.0)
+  sdoc
   selenium-webdriver
   simple_form
   sprockets (= 2.12.5)
