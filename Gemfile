@@ -104,3 +104,6 @@ gem "rack", ">= 1.6.11"
 
 # Security issue CVE-2018-16476
 # gem "activejob", ">= 4.2.11"
+
+# Security issue CVE-2020-8130
+gem "rake", ">= 12.3.3"
