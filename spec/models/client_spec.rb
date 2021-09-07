@@ -45,7 +45,7 @@ RSpec.describe Client, :type => :model do
       @contact2 = Contact.new(name: "Jim Knight", email: "jim@sga.com")
       @client.contacts = [@contact1, @contact2]
       puts Client.all.as_csv
-      Client.all.as_csv.should =~ /jim@sga.com,wscarano@sga.com/
+      Client.all.as_csv.should =~ /wscarano@sga.com,jim@sga.com/
     end
   end
   describe "import from json" do
