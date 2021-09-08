@@ -26,7 +26,8 @@ gem 'jbuilder', '~> 2.0'
 
 group :development, :test do
   gem 'pry'
-  gem 'rspec-rails', '~> 3.0.0'
+  # gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails'
   gem 'launchy'
   # gem "capybara-webkit"
   gem 'capybara'
