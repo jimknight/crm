@@ -39,3 +39,4 @@ config/secrets.yml
 # Data files
 *.csv
 *.gz
+.vscode/
