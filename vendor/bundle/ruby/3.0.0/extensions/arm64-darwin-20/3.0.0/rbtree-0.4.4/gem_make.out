@@ -1,0 +1,137 @@
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/3.0.0/gems/rbtree-0.4.4
+/Users/jimknight/.asdf/installs/ruby/3.0.2/bin/ruby -I /Users/jimknight/.asdf/installs/ruby/3.0.2/lib/ruby/3.0.0 -r ./siteconf20210905-34803-isidwt.rb extconf.rb
+checking for rb_exec_recursive() in ruby.h... yes
+checking for rb_exec_recursive_paired() in ruby.h... yes
+checking for rb_proc_lambda_p() in ruby.h... yes
+checking for rb_ary_resize() in ruby.h... yes
+checking for rb_obj_hide() in ruby.h... yes
+checking for rb_safe_level() in ruby.h... no
+creating Makefile
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/3.0.0/gems/rbtree-0.4.4
+make DESTDIR\= clean
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/3.0.0/gems/rbtree-0.4.4
+make DESTDIR\=
+compiling dict.c
+compiling rbtree.c
+rbtree.c:137:14: warning: incompatible pointer to integer conversion passing 'const void *' to parameter of type 'VALUE' (aka 'unsigned long') [-Wint-conversion]
+    if (TYPE(key1) == T_STRING && TYPE(key2) == T_STRING)
+             ^~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/value_type.h:105:52: note: expanded from macro 'TYPE'
+#define TYPE(_)           RBIMPL_CAST((int)rb_type(_))
+                                                   ^
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/cast.h:33:29: note: expanded from macro 'RBIMPL_CAST'
+# define RBIMPL_CAST(expr) (expr)
+                            ^~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/value_type.h:178:15: note: passing argument to parameter 'obj' here
+rb_type(VALUE obj)
+              ^
+rbtree.c:137:40: warning: incompatible pointer to integer conversion passing 'const void *' to parameter of type 'VALUE' (aka 'unsigned long') [-Wint-conversion]
+    if (TYPE(key1) == T_STRING && TYPE(key2) == T_STRING)
+                                       ^~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/value_type.h:105:52: note: expanded from macro 'TYPE'
+#define TYPE(_)           RBIMPL_CAST((int)rb_type(_))
+                                                   ^
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/cast.h:33:29: note: expanded from macro 'RBIMPL_CAST'
+# define RBIMPL_CAST(expr) (expr)
+                            ^~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/value_type.h:178:15: note: passing argument to parameter 'obj' here
+rb_type(VALUE obj)
+              ^
+rbtree.c:168:24: warning: incompatible function pointer types passing 'VALUE (VALUE *)' (aka 'unsigned long (unsigned long *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+    result = rb_ensure(rbtree_user_cmp_body, (VALUE)&args,
+                       ^~~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:24: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                       ^
+rbtree.c:169:24: warning: incompatible function pointer types passing 'VALUE (rbtree_t *)' (aka 'unsigned long (rbtree_t *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+                       rbtree_user_cmp_ensure, (VALUE)rbtree);
+                       ^~~~~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:46: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                                             ^
+rbtree.c:376:15: warning: incompatible function pointer types passing 'VALUE (rbtree_insert_arg_t *)' (aka 'unsigned long (rbtree_insert_arg_t *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+    rb_ensure(insert_node_body, (VALUE)&arg,
+              ^~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:24: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                       ^
+rbtree.c:377:15: warning: incompatible function pointer types passing 'VALUE (rbtree_insert_arg_t *)' (aka 'unsigned long (rbtree_insert_arg_t *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+              insert_node_ensure, (VALUE)&arg);
+              ^~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:46: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                                             ^
+rbtree.c:632:22: warning: incompatible function pointer types passing 'VALUE (rbtree_each_arg_t *)' (aka 'unsigned long (rbtree_each_arg_t *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+    return rb_ensure(rbtree_each_body, (VALUE)&each_arg,
+                     ^~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:24: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                       ^
+rbtree.c:644:22: warning: incompatible function pointer types passing 'VALUE (rbtree_each_arg_t *)' (aka 'unsigned long (rbtree_each_arg_t *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+    return rb_ensure(rbtree_each_body, (VALUE)&each_arg,
+                     ^~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:24: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                       ^
+rbtree.c:948:22: warning: incompatible function pointer types passing 'VALUE (rbtree_remove_if_arg_t *)' (aka 'unsigned long (rbtree_remove_if_arg_t *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+    return rb_ensure(rbtree_remove_if_body, (VALUE)&arg,
+                     ^~~~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:24: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                       ^
+rbtree.c:949:22: warning: incompatible function pointer types passing 'VALUE (rbtree_remove_if_arg_t *)' (aka 'unsigned long (rbtree_remove_if_arg_t *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+                     rbtree_remove_if_ensure, (VALUE)&arg);
+                     ^~~~~~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:46: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                                             ^
+rbtree.c:1569:26: warning: incompatible function pointer types passing 'VALUE (rbtree_bound_arg_t *)' (aka 'unsigned long (rbtree_bound_arg_t *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
+        return rb_ensure(rbtree_bound_body, (VALUE)&arg,
+                         ^~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:24: note: passing argument to parameter here
+VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+                       ^
+rbtree.c:1736:53: warning: incompatible function pointer types passing 'VALUE (VALUE, pp_pair_arg_t *)' (aka 'unsigned long (unsigned long, pp_pair_arg_t *)') to parameter of type 'rb_block_call_func_t' (aka 'unsigned long (*)(unsigned long, unsigned long, int, const unsigned long *, unsigned long)') [-Wincompatible-function-pointer-types]
+    return rb_iterate(pp_group, (VALUE)&group_args, pp_value, (VALUE)pair_arg);
+                                                    ^~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:47:60: note: passing argument to parameter here
+VALUE rb_iterate(VALUE(*)(VALUE),VALUE,rb_block_call_func_t,VALUE);
+                                                           ^
+rbtree.c:1765:46: warning: incompatible function pointer types passing 'VALUE (VALUE, pp_pair_arg_t *)' (aka 'unsigned long (unsigned long, pp_pair_arg_t *)') to parameter of type 'rb_block_call_func_t' (aka 'unsigned long (*)(unsigned long, unsigned long, int, const unsigned long *, unsigned long)') [-Wincompatible-function-pointer-types]
+    rb_iterate(pp_group, (VALUE)&group_args, pp_pair, (VALUE)&pair_arg);
+                                             ^~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:47:60: note: passing argument to parameter here
+VALUE rb_iterate(VALUE(*)(VALUE),VALUE,rb_block_call_func_t,VALUE);
+                                                           ^
+rbtree.c:1796:46: warning: incompatible function pointer types passing 'VALUE (VALUE, pp_rbtree_arg_t *)' (aka 'unsigned long (unsigned long, pp_rbtree_arg_t *)') to parameter of type 'rb_block_call_func_t' (aka 'unsigned long (*)(unsigned long, unsigned long, int, const unsigned long *, unsigned long)') [-Wincompatible-function-pointer-types]
+    rb_iterate(pp_group, (VALUE)&group_args, pp_each_pair, (VALUE)rbtree_arg);
+                                             ^~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:47:60: note: passing argument to parameter here
+VALUE rb_iterate(VALUE(*)(VALUE),VALUE,rb_block_call_func_t,VALUE);
+                                                           ^
+rbtree.c:1823:53: warning: incompatible function pointer types passing 'VALUE (VALUE, pp_rbtree_arg_t *)' (aka 'unsigned long (unsigned long, pp_rbtree_arg_t *)') to parameter of type 'rb_block_call_func_t' (aka 'unsigned long (*)(unsigned long, unsigned long, int, const unsigned long *, unsigned long)') [-Wincompatible-function-pointer-types]
+    return rb_iterate(pp_rbtree_group, (VALUE)&arg, pp_rbtree, (VALUE)&arg);
+                                                    ^~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:47:60: note: passing argument to parameter here
+VALUE rb_iterate(VALUE(*)(VALUE),VALUE,rb_block_call_func_t,VALUE);
+                                                           ^
+rbtree.c:1900:50: warning: 'rb_cData' is deprecated: by: rb_cObject.  Will be removed in 3.1. [-Wdeprecated-declarations]
+    MultiRBTree = rb_define_class("MultiRBTree", rb_cData);
+                                                 ^
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/core/rdata.h:173:18: note: expanded from macro 'rb_cData'
+#define rb_cData rb_cData()
+                 ^
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/core/rdata.h:166:1: note: 'rb_cData' has been explicitly marked deprecated here
+RBIMPL_ATTR_DEPRECATED(("by: rb_cObject.  Will be removed in 3.1."))
+^
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/attr/deprecated.h:32:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+16 warnings generated.
+linking shared-object rbtree.bundle
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/3.0.0/gems/rbtree-0.4.4
+make DESTDIR\= install
+/opt/homebrew/bin/ginstall -c -m 0755 rbtree.bundle ./.gem.20210905-34803-1ef5h1

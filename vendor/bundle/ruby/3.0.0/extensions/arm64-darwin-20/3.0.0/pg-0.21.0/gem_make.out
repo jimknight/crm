@@ -1,0 +1,138 @@
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/3.0.0/gems/pg-0.21.0/ext
+/Users/jimknight/.asdf/installs/ruby/3.0.2/bin/ruby -I /Users/jimknight/.asdf/installs/ruby/3.0.2/lib/ruby/3.0.0 -r ./siteconf20210905-34803-7otsem.rb extconf.rb
+checking for pg_config... yes
+Using config values from /Users/jimknight/.asdf/shims/pg_config
+checking for libpq-fe.h... yes
+checking for libpq/libpq-fs.h... yes
+checking for pg_config_manual.h... yes
+checking for PQconnectdb() in -lpq... yes
+checking for PQconnectionUsedPassword()... yes
+checking for PQisthreadsafe()... yes
+checking for PQprepare()... yes
+checking for PQexecParams()... yes
+checking for PQescapeString()... yes
+checking for PQescapeStringConn()... yes
+checking for PQescapeLiteral()... yes
+checking for PQescapeIdentifier()... yes
+checking for PQgetCancel()... yes
+checking for lo_create()... yes
+checking for pg_encoding_to_char()... yes
+checking for pg_char_to_encoding()... yes
+checking for PQsetClientEncoding()... yes
+checking for PQlibVersion()... yes
+checking for PQping()... yes
+checking for PQsetSingleRowMode()... yes
+checking for PQconninfo()... yes
+checking for PQsslAttribute()... yes
+checking for rb_encdb_alias()... yes
+checking for rb_enc_alias()... yes
+checking for rb_thread_call_without_gvl()... yes
+checking for rb_thread_call_with_gvl()... yes
+checking for rb_thread_fd_select()... yes
+checking for rb_w32_wrap_io_handle()... no
+checking for rb_str_modify_expand()... yes
+checking for rb_hash_dup()... yes
+checking for PGRES_COPY_BOTH in libpq-fe.h... yes
+checking for PGRES_SINGLE_TUPLE in libpq-fe.h... yes
+checking for PG_DIAG_TABLE_NAME in libpq-fe.h... yes
+checking for struct pgNotify.extra in libpq-fe.h... yes
+checking for unistd.h... yes
+checking for inttypes.h... yes
+checking for ruby/st.h... yes
+checking for C99 variable length arrays... yes
+creating extconf.h
+creating Makefile
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/3.0.0/gems/pg-0.21.0/ext
+make DESTDIR\= clean
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/3.0.0/gems/pg-0.21.0/ext
+make DESTDIR\=
+compiling gvl_wrappers.c
+compiling pg.c
+compiling pg_binary_decoder.c
+compiling pg_binary_encoder.c
+compiling pg_coder.c
+pg_coder.c:200:34: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        res = this->dec_func(this, val, RSTRING_LEN(argv[0]), tuple, field, ENCODING_GET(argv[0]));
+              ~~~~                      ^~~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/core/rstring.h:44:27: note: expanded from macro 'RSTRING_LEN'
+#define RSTRING_LEN       RSTRING_LEN
+                          ^
+1 warning generated.
+compiling pg_connection.c
+pg_connection.c:650:17: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        return INT2NUM(atol(port));
+               ~~~~~~~ ^~~~~~~~~~
+pg_connection.c:3699:68: warning: incompatible function pointer types passing 'VALUE (VALUE)' (aka 'unsigned long (unsigned long)') to parameter of type 'VALUE (*)(VALUE, VALUE)' (aka 'unsigned long (*)(unsigned long, unsigned long)') [-Wincompatible-function-pointer-types]
+        return rb_rescue(pgconn_set_client_encoding_async1, (VALUE)&args, pgconn_set_client_encoding_async2, Qnil);
+                                                                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:50:46: note: passing argument to parameter here
+VALUE rb_rescue(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE,VALUE),VALUE);
+                                             ^
+2 warnings generated.
+compiling pg_copy_coder.c
+pg_copy_coder.c:225:15: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+                                        strlen = RSTRING_LEN(subint);
+                                               ~ ^~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/core/rstring.h:44:27: note: expanded from macro 'RSTRING_LEN'
+#define RSTRING_LEN       RSTRING_LEN
+                          ^
+pg_copy_coder.c:531:23: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+                input_len = end_ptr - start_ptr;
+                          ~ ~~~~~~~~^~~~~~~~~~~
+2 warnings generated.
+compiling pg_errors.c
+compiling pg_result.c
+pg_result.c:793:17: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        return INT2NUM(n);
+               ~~~~~~~ ^
+1 warning generated.
+compiling pg_text_decoder.c
+compiling pg_text_encoder.c
+pg_text_encoder.c:170:14: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+                        len = out - start;
+                            ~ ~~~~^~~~~~~
+pg_text_encoder.c:289:15: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+                return optr - out;
+                ~~~~~~ ~~~~~^~~~~
+pg_text_encoder.c:293:12: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+                return 2 + RSTRING_LEN(*intermediate) * 2;
+                ~~~~~~ ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pg_text_encoder.c:501:13: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        nr_elems = RARRAY_LEN(value);
+                 ~ ^~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/core/rarray.h:52:36: note: expanded from macro 'RARRAY_LEN'
+#define RARRAY_LEN                 rb_array_len
+                                   ^
+4 warnings generated.
+compiling pg_type_map.c
+compiling pg_type_map_all_strings.c
+compiling pg_type_map_by_class.c
+compiling pg_type_map_by_column.c
+pg_type_map_by_column.c:161:52: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        return dec_func( p_coder, RSTRING_PTR(field_str), RSTRING_LEN(field_str), 0, fieldno, enc_idx );
+               ~~~~~~~~                                   ^~~~~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/core/rstring.h:44:27: note: expanded from macro 'RSTRING_LEN'
+#define RSTRING_LEN       RSTRING_LEN
+                          ^
+pg_type_map_by_column.c:230:17: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        conv_ary_len = RARRAY_LEN(conv_ary);
+                     ~ ^~~~~~~~~~~~~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/3.0.2/include/ruby-3.0.0/ruby/internal/core/rarray.h:52:36: note: expanded from macro 'RARRAY_LEN'
+#define RARRAY_LEN                 rb_array_len
+                                   ^
+2 warnings generated.
+compiling pg_type_map_by_mri_type.c
+compiling pg_type_map_by_oid.c
+compiling pg_type_map_in_ruby.c
+compiling util.c
+util.c:119:24: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        return (char*)out_ptr - out;
+        ~~~~~~ ~~~~~~~~~~~~~~~^~~~~
+1 warning generated.
+linking shared-object pg_ext.bundle
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/3.0.0/gems/pg-0.21.0/ext
+make DESTDIR\= install
+/opt/homebrew/bin/ginstall -c -m 0755 pg_ext.bundle ./.gem.20210905-34803-22oilf

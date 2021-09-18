@@ -1,0 +1,34 @@
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/mini_racer-0.4.0/ext/mini_racer_extension
+/Users/jimknight/.asdf/installs/ruby/2.6.8/bin/ruby -I /Users/jimknight/.asdf/installs/ruby/2.6.8/lib/ruby/2.6.0 -r ./siteconf20210905-21884-tt2zep.rb extconf.rb
+Ignoring bcrypt-3.1.13 because its extensions are not built. Try: gem pristine bcrypt --version 3.1.13
+Ignoring ffi-1.15.3 because its extensions are not built. Try: gem pristine ffi --version 1.15.3
+Ignoring nio4r-2.5.8 because its extensions are not built. Try: gem pristine nio4r --version 2.5.8
+Ignoring nokogiri-1.10.5 because its extensions are not built. Try: gem pristine nokogiri --version 1.10.5
+Ignoring pg-0.21.0 because its extensions are not built. Try: gem pristine pg --version 0.21.0
+Ignoring puma-5.4.0 because its extensions are not built. Try: gem pristine puma --version 5.4.0
+checking for -lpthread... yes
+checking for -lobjc... yes
+creating Makefile
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/mini_racer-0.4.0/ext/mini_racer_extension
+make "DESTDIR=" clean
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/mini_racer-0.4.0/ext/mini_racer_extension
+make "DESTDIR="
+compiling mini_racer_extension.cc
+clang: warning: argument unused during compilation: '-rdynamic' [-Wunused-command-line-argument]
+In file included from mini_racer_extension.cc:2:
+In file included from /Users/jimknight/.asdf/installs/ruby/2.6.8/include/ruby-2.6.0/ruby.h:33:
+In file included from /Users/jimknight/.asdf/installs/ruby/2.6.8/include/ruby-2.6.0/ruby/ruby.h:2111:
+/Users/jimknight/.asdf/installs/ruby/2.6.8/include/ruby-2.6.0/ruby/intern.h:56:19: warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+void rb_mem_clear(register VALUE*, register long);
+                  ^~~~~~~~~
+/Users/jimknight/.asdf/installs/ruby/2.6.8/include/ruby-2.6.0/ruby/intern.h:56:36: warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+void rb_mem_clear(register VALUE*, register long);
+                                   ^~~~~~~~~
+2 warnings generated.
+linking shared-object mini_racer_extension.bundle
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/mini_racer-0.4.0/ext/mini_racer_extension
+make "DESTDIR=" install
+/opt/homebrew/bin/ginstall -c -m 0755 mini_racer_extension.bundle ./.gem.20210905-21884-zujk3z

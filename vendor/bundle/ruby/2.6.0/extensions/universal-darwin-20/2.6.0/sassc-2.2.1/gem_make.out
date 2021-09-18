@@ -1,0 +1,14 @@
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/sassc-2.2.1/ext
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/bin/ruby -I /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0 -r ./siteconf20210807-93703-1c0fb3h.rb extconf.rb
+creating Makefile
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/sassc-2.2.1/ext
+make "DESTDIR=" clean
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/sassc-2.2.1/ext
+make "DESTDIR="
+compiling ./libsass/src/units.cpp
+clang: error: the clang compiler does not support '-march=native'
+make: *** [units.o] Error 1
+
+make failed, exit code 2

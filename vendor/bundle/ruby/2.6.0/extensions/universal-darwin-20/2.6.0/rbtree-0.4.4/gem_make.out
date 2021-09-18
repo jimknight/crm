@@ -1,0 +1,23 @@
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/rbtree-0.4.4
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/bin/ruby -I /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0 -r ./siteconf20210807-41882-iox3i5.rb extconf.rb
+checking for rb_exec_recursive() in ruby.h... yes
+checking for rb_exec_recursive_paired() in ruby.h... yes
+checking for rb_proc_lambda_p() in ruby.h... yes
+checking for rb_ary_resize() in ruby.h... yes
+checking for rb_obj_hide() in ruby.h... yes
+checking for rb_safe_level() in ruby.h... yes
+creating Makefile
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/rbtree-0.4.4
+make "DESTDIR=" clean
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/rbtree-0.4.4
+make "DESTDIR="
+compiling dict.c
+compiling rbtree.c
+linking shared-object rbtree.bundle
+ld: warning: directory not found for option '-L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.4.Internal.sdk/usr/local/lib'
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/rbtree-0.4.4
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 rbtree.bundle ./.gem.20210807-41882-gi195g

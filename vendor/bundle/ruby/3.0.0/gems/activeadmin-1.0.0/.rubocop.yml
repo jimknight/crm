@@ -1,0 +1,27 @@
+---
+
+AllCops:
+  DisabledByDefault: true
+
+  Exclude:
+    - spec/rails/**/*
+    - gemfiles/vendor/bundle/**/*
+
+  Include:
+    - "**/*.rake"
+    - "**/Gemfile"
+    - "gemfiles/*.gemfile"
+    - "**/Rakefile"
+
+  DisplayCopNames: true
+
+  StyleGuideCopsOnly: false
+
+Style/HashSyntax:
+  Enabled: true
+
+Style/TrailingWhitespace:
+  Enabled: true
+
+Style/SpaceAfterComma:
+  Enabled: true

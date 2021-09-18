@@ -1,0 +1,22 @@
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/rbtree-0.4.4
+/Users/jimknight/.asdf/installs/ruby/2.6.8/bin/ruby -I /Users/jimknight/.asdf/installs/ruby/2.6.8/lib/ruby/2.6.0 -r ./siteconf20210905-21884-1rmrx85.rb extconf.rb
+checking for rb_exec_recursive() in ruby.h... yes
+checking for rb_exec_recursive_paired() in ruby.h... yes
+checking for rb_proc_lambda_p() in ruby.h... yes
+checking for rb_ary_resize() in ruby.h... yes
+checking for rb_obj_hide() in ruby.h... yes
+checking for rb_safe_level() in ruby.h... yes
+creating Makefile
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/rbtree-0.4.4
+make "DESTDIR=" clean
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/rbtree-0.4.4
+make "DESTDIR="
+compiling dict.c
+compiling rbtree.c
+linking shared-object rbtree.bundle
+
+current directory: /Users/jimknight/c/crm/vendor/bundle/ruby/2.6.0/gems/rbtree-0.4.4
+make "DESTDIR=" install
+/opt/homebrew/bin/ginstall -c -m 0755 rbtree.bundle ./.gem.20210905-21884-1kar4qj
