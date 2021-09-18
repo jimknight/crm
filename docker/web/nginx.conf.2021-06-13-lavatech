@@ -16,10 +16,8 @@ server {
 
   # SSL on
   ssl                  on;
-#  ssl_certificate      $RAILS_ROOT/ssl/crm.lavatech.com/fullchain.pem;
-#  ssl_certificate_key  $RAILS_ROOT/ssl/crm.lavatech.com/privkey.pem;
-  ssl_certificate      $RAILS_ROOT/ssl/rossmixing.crt;
-  ssl_certificate_key  $RAILS_ROOT/ssl/rossmixing.key;
+  ssl_certificate      $RAILS_ROOT/ssl/crm.lavatech.com/fullchain.pem;
+  ssl_certificate_key  $RAILS_ROOT/ssl/crm.lavatech.com/privkey.pem;
 
   # define where Nginx should write its logs
   access_log $RAILS_ROOT/log/nginx.access.log;

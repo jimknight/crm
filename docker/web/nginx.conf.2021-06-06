@@ -3,21 +3,21 @@ upstream rails_app {
 }
 
 server {
-  listen 80 default_server;
-  server_name _;
-  return 301 https://$host$request_uri;
+  listen 80 default;
+  server_name crm.rossmixing.com;
+  ## redirect http to https ##
+  rewrite ^ https://$server_name$request_uri? permanent;
 }
 
 server {
   listen 443;
+  server_name crm.rossmixing.com;
 
   # define the public application root
   root   $RAILS_ROOT/public;
 
   # SSL on
   ssl                  on;
-#  ssl_certificate      $RAILS_ROOT/ssl/crm.lavatech.com/fullchain.pem;
-#  ssl_certificate_key  $RAILS_ROOT/ssl/crm.lavatech.com/privkey.pem;
   ssl_certificate      $RAILS_ROOT/ssl/rossmixing.crt;
   ssl_certificate_key  $RAILS_ROOT/ssl/rossmixing.key;
 
