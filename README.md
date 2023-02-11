@@ -1,12 +1,21 @@
 # CRM Mobile
 
-## v1.1 todo
+## Running on local
+* dc up
+* http://localhost:3000/users/sign_in
+### Console
+* dc run app rails console development
+#### Run rake task in console
+* require 'rake'
+* Rails.application.load_tasks
+* Rake::Task['fake:clients'].invoke
+* Rake::Task['fake:activities'].invoke
 
+## v1.1 todo
 * Get production data
 * Get ruby version from the other computer
 
 ### Install Procedures
-
 * rake load_data:clients                  # Load all the clients
 * rake load_data:industries               # Load all the industry data
 * rake load_data:models                   # Load all the model data
