@@ -24,7 +24,7 @@ class ProfilesController < ApplicationController
     @user = @profile.user
     if current_user.admin?
       if params[:search_activities].nil?
-        @profile_activities = @user.activities
+        @profile_activities = @user.activities.order("activity_date DESC").page params[:page]
       else
         @profile_activities = @user.activities.search_activities(params[:search_activities]) # => [person_1, person_2]
       end

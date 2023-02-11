@@ -3,7 +3,7 @@ namespace :fake do
   task activities: :environment do
     @user = User.first
     @client = Client.last
-    (1..100).each do |i|
+    (1..10000).each do |i|
       puts i
       activity = Activity.create!(:client_id => @client.id,:user_id => @user.id,:activity_date => Time.now)
     end

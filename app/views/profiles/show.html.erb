@@ -70,7 +70,13 @@
     <% else %>
       <h2>No activities yet</h2>
     <% end %>
+    <% if params[:search_activities].nil? %>
+      <div style="background:#F5F5F5;padding:0 10px;border-radius:5px;">
+        <%= paginate @profile_activities %>
+      </div>
+    <% end %>
   </div>
+
   <div role="tabpanel" class="tab-pane" id="clients">
     <% if @rsm_clients.any? %>
       <h2><%= @profile.user.user_name %>'s active clients</h2>
