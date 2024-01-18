@@ -85,12 +85,12 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Error notify
-  config.middleware.use ExceptionNotification::Rack,
-  :email => {
-    :email_prefix => "crm.rossmixing.com error: ",
-    :sender_address => %{"Wayne Scarano" <wscarano@sga.com>},
-    :exception_recipients => %w{jimknight@lavatech.com}
-  }
+  # config.middleware.use ExceptionNotification::Rack,
+  # :email => {
+  #   :email_prefix => "crm.rossmixing.com error: ",
+  #   :sender_address => %{"Wayne Scarano" <wscarano@sga.com>},
+  #   :exception_recipients => %w{jimknight@lavatech.com}
+  # }
 
   # Real error messages for now
   config.consider_all_requests_local = true
